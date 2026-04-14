@@ -1,0 +1,11 @@
+@import "../design-tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: var(--sys-surface-roles-surface);
+  color: var(--sys-surface-roles-on-surface);
+  font-family: var(--sys-typescale-body-large-fontfamily);
+}
