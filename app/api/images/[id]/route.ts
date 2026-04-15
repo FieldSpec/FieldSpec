@@ -79,6 +79,45 @@ export async function PATCH(
   }
 }
 
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const userId = await getValidatedUserId(request);
+    if (!userId) {
+      return NextResponse.json(
+        { error: { message: "Unauthorized", code: "UNAUTHORIZED" } },
+        { status: 401 }
+      );
+    }
+
+    const { id: imageId } = await params;
+
+    const image = await prisma.image.findFirst({
+      where: { id: imageId },
+      include: { project: true },
+    });
+
+    if (!image || image.project.userId !== userId) {
+      return NextResponse.json(
+        { error: { message: "Image not found", code: "NOT_FOUND" } },
+        { status: 404 }
+      );
+    }
+
+    await prisma.image.delete({ where: { id: imageId } });
+
+    return NextResponse.json({ data: { deleted: true } }, { status: 200 });
+  } catch (error) {
+    console.error("DELETE /api/images/[id] error:", error);
+    return NextResponse.json(
+      { error: { message: "Internal server error", code: "INTERNAL_ERROR" } },
+      { status: 500 }
+    );
+  }
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

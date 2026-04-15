@@ -16,15 +16,14 @@ export default function Brand({ className = "", size = "md" }: BrandProps) {
 
   return (
     <div className={`flex items-center gap-xs ${className}`}>
-      <div className="relative flex-shrink-0">
-        <Image
-          src="/logo.png"
-          alt="FieldSpec Logo"
-          width={currentSize.img}
-          height={currentSize.img}
-          className="object-contain"
-        />
-      </div>
+      <Image
+        src="/logo.png"
+        alt="FieldSpec Logo"
+        width={currentSize.img}
+        height={currentSize.img}
+        className="object-contain"
+        style={{ border: "none" }}
+      />
       <span className={`text-primary font-bold ${currentSize.text}`}>
         FieldSpec
       </span>

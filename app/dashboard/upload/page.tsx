@@ -40,6 +40,7 @@ export default function UploadPage() {
   const [editingImage, setEditingImage] = useState<ImageType | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [deletingImageId, setDeletingImageId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -220,6 +221,31 @@ export default function UploadPage() {
       setError("Failed to save notes");
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handleDeleteImage(imageId: string) {
+    if (!confirm("Are you sure you want to delete this image?")) return;
+
+    setDeletingImageId(imageId);
+    setError("");
+
+    try {
+      const res = await fetch(`/api/images/${imageId}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.error?.message || "Failed to delete image");
+        return;
+      }
+
+      setImages(images.filter(img => img.id !== imageId));
+    } catch (err) {
+      setError("Failed to delete image. Please try again.");
+    } finally {
+      setDeletingImageId(null);
     }
   }
 
@@ -523,6 +549,24 @@ export default function UploadPage() {
                       }}
                     >
                       {image.notes ? "Edit Note" : "Add Note"}
+                    </button>
+                    <button
+                      onClick={() => handleDeleteImage(image.id)}
+                      disabled={deletingImageId === image.id}
+                      style={{
+                        marginTop: tokens.spacing.xs,
+                        width: "100%",
+                        padding: tokens.spacing.xs,
+                        backgroundColor: tokens.colors.errorContainer,
+                        border: "none",
+                        borderRadius: tokens.radius.sm,
+                        color: tokens.colors.onErrorContainer,
+                        cursor: deletingImageId === image.id ? "not-allowed" : "pointer",
+                        opacity: deletingImageId === image.id ? 0.7 : 1,
+                        ...tokens.typography.labelSmall,
+                      }}
+                    >
+                      {deletingImageId === image.id ? "Deleting..." : "Delete Image"}
                     </button>
                   </div>
                 </div>
