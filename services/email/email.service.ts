@@ -7,6 +7,14 @@ const SMTP_PASS = process.env.SMTP_PASS || "";
 const EMAIL_FROM = process.env.EMAIL_FROM || "noreply@fieldspec.app";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
+console.log("[Email] SMTP Config:", {
+  host: SMTP_HOST,
+  port: SMTP_PORT,
+  hasAuth: !!SMTP_USER,
+  from: EMAIL_FROM,
+  appUrl: APP_URL,
+});
+
 const transporter = nodemailer.createTransport({
   host: SMTP_HOST,
   port: SMTP_PORT,
@@ -17,6 +25,8 @@ const transporter = nodemailer.createTransport({
   } : undefined,
 });
 
+console.log("[Email] Transporter created");
+
 export interface EmailOptions {
   to: string;
   subject: string;
@@ -24,14 +34,18 @@ export interface EmailOptions {
 }
 
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
+  console.log("[Email] Attempting to send:", { to: options.subject, from: EMAIL_FROM });
   try {
-    await transporter.sendMail({
+    const result = await transporter.sendMail({
       from: EMAIL_FROM,
       ...options,
     });
+    console.log("[Email] Sent successfully:", result.messageId);
     return true;
-  } catch (error) {
-    console.error("Email send failed:", error);
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error("[Email] Send failed:", err.message);
+    console.error("[Email] Error details:", err.stack);
     return false;
   }
 }

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { tokens } from "@/lib/design-tokens";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
@@ -40,53 +39,21 @@ export default function SignupPage() {
     }
   }
 
-  const cardStyle: React.CSSProperties = {
-    width: "100%", 
-    maxWidth: "400px",
-    padding: tokens.spacing.lg,
-    backgroundColor: tokens.colors.surface,
-    borderRadius: "8px",
-    boxShadow: tokens.elevation.level2,
-  };
-
   if (success) {
     return (
-      <div style={{
-        ...cardStyle,
-        textAlign: "center",
-      }}>
-        <div style={{ 
-          fontSize: "48px", 
-          marginBottom: tokens.spacing.md,
-          color: tokens.colors.primary,
-        }}>
+      <div className="w-full max-w-[400px] p-lg bg-surface rounded-md shadow-level-2 text-center">
+        <div className="text-[48px] mb-md text-primary">
           ✉
         </div>
-        <h1 style={{ 
-          ...tokens.typography.headlineSmall,
-          color: tokens.colors.onSurface, 
-          marginBottom: tokens.spacing.xs,
-        }}>
+        <h1 className="text-on-surface mb-xs text-headline-small">
           Check Your Email
         </h1>
-        <p style={{ 
-          ...tokens.typography.bodyMedium,
-          color: tokens.colors.onSurfaceVariant, 
-          marginBottom: tokens.spacing.lg,
-        }}>
+        <p className="text-on-surface-variant mb-lg text-body-medium">
           We&apos;ve sent a verification link to your email address.
         </p>
         <Link 
           href="/login" 
-          style={{ 
-            display: "inline-block",
-            padding: `${tokens.spacing.md} ${tokens.spacing.lg}`,
-            backgroundColor: tokens.colors.primary, 
-            color: tokens.colors.onPrimary,
-            textDecoration: "none",
-            borderRadius: "6px",
-            ...tokens.typography.labelLarge,
-          }}
+          className="inline-block px-lg py-md bg-primary text-on-primary no-underline rounded-sm text-label-large"
         >
           Back to Login
         </Link>
@@ -95,85 +62,44 @@ export default function SignupPage() {
   }
 
   return (
-    <div style={cardStyle}>
-      <h1 style={{ 
-        ...tokens.typography.headlineSmall,
-        color: tokens.colors.onSurface, 
-        marginBottom: tokens.spacing.xs, 
-        textAlign: "center" 
-      }}>
+    <div className="w-full max-w-[400px] p-lg bg-surface rounded-md shadow-level-2">
+      <h1 className="text-center mb-xs text-on-surface text-headline-small">
         Create Account
       </h1>
-      <p style={{ 
-        ...tokens.typography.bodyMedium,
-        color: tokens.colors.onSurfaceVariant, 
-        marginBottom: tokens.spacing.lg, 
-        textAlign: "center" 
-      }}>
+      <p className="text-center mb-lg text-on-surface-variant text-body-medium">
         Get started with FieldSpec
       </p>
 
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: tokens.spacing.md }}>
-          <label style={{ 
-            display: "block", 
-            marginBottom: tokens.spacing.xs, 
-            ...tokens.typography.labelMedium,
-            color: tokens.colors.onSurface,
-          }}>
-            Name
+        <div className="mb-md">
+          <label className="block mb-xs text-on-surface text-label-medium">
+            Name <span className="text-primary">*</span>
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            style={{ 
-              width: "100%", 
-              padding: `${tokens.spacing.sm} ${tokens.spacing.md}`, 
-              border: `1px solid ${tokens.colors.outline}`, 
-              borderRadius: "6px",
-              ...tokens.typography.bodyMedium,
-              backgroundColor: tokens.colors.surface,
-              color: tokens.colors.onSurface,
-            }}
+            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-primary text-body-medium"
           />
         </div>
 
-        <div style={{ marginBottom: tokens.spacing.md }}>
-          <label style={{ 
-            display: "block", 
-            marginBottom: tokens.spacing.xs, 
-            ...tokens.typography.labelMedium,
-            color: tokens.colors.onSurface,
-          }}>
-            Email
+        <div className="mb-md">
+          <label className="block mb-xs text-on-surface text-label-medium">
+            Email <span className="text-primary">*</span>
           </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ 
-              width: "100%", 
-              padding: `${tokens.spacing.sm} ${tokens.spacing.md}`, 
-              border: `1px solid ${tokens.colors.outline}`, 
-              borderRadius: "6px",
-              ...tokens.typography.bodyMedium,
-              backgroundColor: tokens.colors.surface,
-              color: tokens.colors.onSurface,
-            }}
+            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-primary text-body-medium"
           />
         </div>
 
-        <div style={{ marginBottom: tokens.spacing.lg }}>
-          <label style={{ 
-            display: "block", 
-            marginBottom: tokens.spacing.xs, 
-            ...tokens.typography.labelMedium,
-            color: tokens.colors.onSurface,
-          }}>
-            Password
+        <div className="mb-lg">
+          <label className="block mb-xs text-on-surface text-label-medium">
+            Password <span className="text-primary">*</span>
           </label>
           <input
             type="password"
@@ -181,27 +107,12 @@ export default function SignupPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
-            style={{ 
-              width: "100%", 
-              padding: `${tokens.spacing.sm} ${tokens.spacing.md}`, 
-              border: `1px solid ${tokens.colors.outline}`, 
-              borderRadius: "6px",
-              ...tokens.typography.bodyMedium,
-              backgroundColor: tokens.colors.surface,
-              color: tokens.colors.onSurface,
-            }}
+            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-primary text-body-medium"
           />
         </div>
 
         {error && (
-          <div style={{ 
-            padding: tokens.spacing.md, 
-            backgroundColor: tokens.colors.errorContainer, 
-            color: tokens.colors.onErrorContainer, 
-            borderRadius: "6px",
-            marginBottom: tokens.spacing.md,
-            ...tokens.typography.bodySmall,
-          }}>
+          <div className="p-md bg-error-container text-on-error-container rounded-sm mb-md text-body-small">
             {error}
           </div>
         )}
@@ -209,30 +120,15 @@ export default function SignupPage() {
         <button
           type="submit"
           disabled={loading}
-          style={{ 
-            width: "100%", 
-            padding: tokens.spacing.md,
-            backgroundColor: tokens.colors.primary, 
-            color: tokens.colors.onPrimary,
-            border: "none",
-            borderRadius: "6px",
-            ...tokens.typography.labelLarge,
-            cursor: loading ? "not-allowed" : "pointer",
-            opacity: loading ? 0.7 : 1,
-          }}
+          className="w-full p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
         >
           {loading ? "Creating account..." : "Create Account"}
         </button>
       </form>
 
-      <div style={{ 
-        marginTop: tokens.spacing.md, 
-        textAlign: "center", 
-        ...tokens.typography.bodySmall, 
-        color: tokens.colors.onSurfaceVariant 
-      }}>
+      <div className="mt-md text-center text-on-surface-variant text-body-small">
         Already have an account?{" "}
-        <Link href="/login" style={{ color: tokens.colors.primary }}>
+        <Link href="/login" className="text-primary hover:underline">
           Sign in
         </Link>
       </div>

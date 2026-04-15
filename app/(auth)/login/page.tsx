@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { tokens } from "@/lib/design-tokens";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -32,7 +31,6 @@ export default function LoginPage() {
         return;
       }
 
-      localStorage.setItem("token", data.data.token);
       router.push("/dashboard");
     } catch {
       setError("An error occurred. Please try again.");
@@ -40,126 +38,59 @@ export default function LoginPage() {
     }
   }
 
-  const cardStyle: React.CSSProperties = {
-    width: "100%", 
-    maxWidth: "400px",
-    padding: tokens.spacing.lg,
-    backgroundColor: tokens.colors.surface,
-    borderRadius: "8px",
-    boxShadow: tokens.elevation.level2,
-  };
-
   return (
-    <div style={cardStyle}>
-      <h1 style={{ 
-        ...tokens.typography.headlineSmall,
-        color: tokens.colors.onSurface, 
-        marginBottom: tokens.spacing.xs, 
-        textAlign: "center" 
-      }}>
+    <div className="w-full max-w-[400px] p-lg bg-surface rounded-md shadow-level-2">
+      <h1 className="text-center mb-xs text-on-surface text-headline-small">
         Welcome Back
       </h1>
-      <p style={{ 
-        ...tokens.typography.bodyMedium,
-        color: tokens.colors.onSurfaceVariant, 
-        marginBottom: tokens.spacing.lg, 
-        textAlign: "center" 
-      }}>
+      <p className="text-center mb-lg text-on-surface-variant text-body-medium">
         Sign in to your account
       </p>
-
+ 
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: tokens.spacing.md }}>
-          <label style={{ 
-            display: "block", 
-            marginBottom: tokens.spacing.xs, 
-            ...tokens.typography.labelMedium,
-            color: tokens.colors.onSurface,
-          }}>
-            Email
+        <div className="mb-md">
+          <label className="block mb-xs text-on-surface text-label-medium">
+            Email <span className="text-primary">*</span>
           </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ 
-              width: "100%", 
-              padding: `${tokens.spacing.sm} ${tokens.spacing.md}`, 
-              border: `1px solid ${tokens.colors.outline}`, 
-              borderRadius: "6px",
-              ...tokens.typography.bodyMedium,
-              backgroundColor: tokens.colors.surface,
-              color: tokens.colors.onSurface,
-            }}
+            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-primary text-body-medium"
           />
         </div>
-
-        <div style={{ marginBottom: tokens.spacing.lg }}>
-          <label style={{ 
-            display: "block", 
-            marginBottom: tokens.spacing.xs, 
-            ...tokens.typography.labelMedium,
-            color: tokens.colors.onSurface,
-          }}>
-            Password
+ 
+        <div className="mb-lg">
+          <label className="block mb-xs text-on-surface text-label-medium">
+            Password <span className="text-primary">*</span>
           </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ 
-              width: "100%", 
-              padding: `${tokens.spacing.sm} ${tokens.spacing.md}`, 
-              border: `1px solid ${tokens.colors.outline}`, 
-              borderRadius: "6px",
-              ...tokens.typography.bodyMedium,
-              backgroundColor: tokens.colors.surface,
-              color: tokens.colors.onSurface,
-            }}
+            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-primary text-body-medium"
           />
         </div>
-
+ 
         {error && (
-          <div style={{ 
-            padding: tokens.spacing.md, 
-            backgroundColor: tokens.colors.errorContainer, 
-            color: tokens.colors.onErrorContainer, 
-            borderRadius: "6px",
-            marginBottom: tokens.spacing.md,
-            ...tokens.typography.bodySmall,
-          }}>
+          <div className="p-md bg-error-container text-on-error-container rounded-sm mb-md text-body-small">
             {error}
           </div>
         )}
-
+ 
         <button
           type="submit"
           disabled={loading}
-          style={{ 
-            width: "100%", 
-            padding: tokens.spacing.md,
-            backgroundColor: tokens.colors.primary, 
-            color: tokens.colors.onPrimary,
-            border: "none",
-            borderRadius: "6px",
-            ...tokens.typography.labelLarge,
-            cursor: loading ? "not-allowed" : "pointer",
-            opacity: loading ? 0.7 : 1,
-          }}
+          className="w-full p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
         >
           {loading ? "Signing in..." : "Sign In"}
         </button>
       </form>
-
-      <div style={{ 
-        marginTop: tokens.spacing.md, 
-        textAlign: "center", 
-        ...tokens.typography.bodySmall, 
-        color: tokens.colors.onSurfaceVariant 
-      }}>
-        <Link href="/signup" style={{ color: tokens.colors.primary }}>
+ 
+      <div className="mt-md text-center text-on-surface-variant text-body-small">
+        <Link href="/signup" className="text-primary hover:underline">
           Don&apos;t have an account? Sign up
         </Link>
       </div>

@@ -226,6 +226,12 @@
   --sys-surface-roles-surface: var(--ref-neutral-neutral6);
   --sys-tertiary-container: var(--ref-tertiary-tertiary30);
   --sys-tertiary: var(--ref-tertiary-tertiary80);
+  --sys-radius-xs: 4px;
+  --sys-radius-sm: 6px;
+  --sys-radius-md: 8px;
+  --sys-radius-lg: 12px;
+  --sys-radius-xl: 16px;
+  --sys-radius-pill: 999px;
   --sys-typescale-body-large-fontfamily: IBM Plex Sans;
   --sys-typescale-body-large-fontsize: 16px;
   --sys-typescale-body-large-fontstretch: normal;
@@ -391,4 +397,58 @@
   --sys-typescale-title-small-paragraphspacing: 0;
   --sys-typescale-title-small-textcase: none;
   --sys-typescale-title-small-textdecoration: none;
+}
+
+/* Light Theme */
+:root.light {
+  --sys-add-on-surface-roles-background: var(--ref-neutral-neutral99);
+  --sys-add-on-surface-roles-on-background: var(--ref-neutral-neutral10);
+  --sys-add-on-surface-roles-scrim: var(--ref-neutral-neutral0);
+  --sys-add-on-surface-roles-shadow: var(--ref-neutral-neutral0);
+  --sys-add-on-surface-roles-surface-bright: var(--ref-neutral-neutral100);
+  --sys-add-on-surface-roles-surface-dim: var(--ref-neutral-neutral95);
+  --sys-surface-roles-surface: var(--ref-neutral-neutral99);
+  --sys-surface-roles-on-surface: var(--ref-neutral-neutral10);
+  --sys-surface-roles-surface-variant: var(--ref-neutral-variant-neutral-variant90);
+  --sys-surface-roles-on-surface-variant: var(--ref-neutral-variant-neutral-variant40);
+  --sys-surface-roles-inverse-on-surface: var(--ref-neutral-neutral90);
+  --sys-surface-roles-inverse-surface: var(--ref-neutral-neutral20);
+  --sys-surface-roles-surface-container-lowest: var(--ref-neutral-neutral100);
+  --sys-surface-roles-surface-container-low: var(--ref-neutral-neutral98);
+  --sys-surface-roles-surface-container: var(--ref-neutral-neutral95);
+  --sys-surface-roles-surface-container-high: var(--ref-neutral-neutral92);
+  --sys-surface-roles-surface-container-highest: var(--ref-neutral-neutral90);
+  --sys-surface-roles-surface-tint-color: var(--ref-primary-primary40);
+  --sys-surface-roles-surface-tint: var(--ref-primary-primary80);
+  --sys-primary: var(--ref-primary-primary40);
+  --sys-on-primary: var(--ref-primary-primary100);
+  --sys-primary-container: var(--ref-primary-primary90);
+  --sys-on-primary-container: var(--ref-primary-primary10);
+  --sys-secondary: var(--ref-secondary-secondary40);
+  --sys-on-secondary: var(--ref-secondary-secondary100);
+  --sys-secondary-container: var(--ref-secondary-secondary90);
+  --sys-on-secondary-container: var(--ref-secondary-secondary10);
+  --sys-tertiary: var(--ref-tertiary-tertiary40);
+  --sys-on-tertiary: var(--ref-tertiary-tertiary100);
+  --sys-tertiary-container: var(--ref-tertiary-tertiary90);
+  --sys-on-tertiary-container: var(--ref-tertiary-tertiary10);
+  --sys-error: var(--ref-error-error40);
+  --sys-on-error: var(--ref-error-error100);
+  --sys-error-container: var(--ref-error-error90);
+  --sys-on-error-container: var(--ref-error-error10);
+  --sys-outline-roles-outline: var(--ref-neutral-variant-neutral-variant50);
+  --sys-outline-roles-outline-variant: var(--ref-neutral-variant-neutral-variant80);
+  --sys-add-on-inverse-primary: var(--ref-primary-primary80);
+  --sys-add-on-on-primary-fixed: var(--ref-primary-primary20);
+  --sys-add-on-on-primary-fixed-variant: var(--ref-primary-primary30);
+  --sys-add-on-primary-fixed: var(--ref-primary-primary90);
+  --sys-add-on-primary-fixed-dim: var(--ref-primary-primary80);
+  --sys-add-on-on-secondary-fixed: var(--ref-secondary-secondary20);
+  --sys-add-on-on-secondary-fixed-variant: var(--ref-secondary-secondary30);
+  --sys-add-on-secondary-fixed: var(--ref-secondary-secondary90);
+  --sys-add-on-secondary-fixed-dim: var(--ref-secondary-secondary80);
+  --sys-add-on-on-tertiary-fixed: var(--ref-tertiary-tertiary20);
+  --sys-add-on-on-tertiary-fixed-variant: var(--ref-tertiary-tertiary30);
+  --sys-add-on-tertiary-fixed: var(--ref-tertiary-tertiary90);
+  --sys-add-on-tertiary-fixed-dim: var(--ref-tertiary-tertiary80);
 }

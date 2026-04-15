@@ -25,6 +25,58 @@ export const tokens = {
     outline: "var(--sys-outline-roles-outline)",
     outlineVariant: "var(--sys-outline-roles-outline-variant)",
   },
+  colorsLight: {
+    primary: "#315f9b",
+    onPrimary: "#ffffff",
+    primaryContainer: "#d8e4f3",
+    onPrimaryContainer: "#0c1827",
+    secondary: "#369596",
+    onSecondary: "#ffffff",
+    secondaryContainer: "#d9f1f2",
+    onSecondaryContainer: "#0d2526",
+    tertiary: "#8e603d",
+    onTertiary: "#ffffff",
+    tertiaryContainer: "#f0e4db",
+    onTertiaryContainer: "#24180f",
+    error: "#c93636",
+    onError: "#ffffff",
+    errorContainer: "#f4d7d7",
+    onErrorContainer: "#280b0b",
+    background: "#fcfcfc",
+    onBackground: "#191919",
+    surface: "#fcfcfc",
+    onSurface: "#191919",
+    surfaceVariant: "#e3e5e8",
+    onSurfaceVariant: "#5d636f",
+    outline: "#747c8b",
+    outlineVariant: "#c7cad1",
+  },
+  colorsDark: {
+    primary: "#b1c8e6",
+    onPrimary: "#182f4e",
+    primaryContainer: "#254774",
+    onPrimaryContainer: "#d8e4f3",
+    secondary: "#8ed6d7",
+    onSecondary: "#1b4a4b",
+    secondaryContainer: "#287071",
+    onSecondaryContainer: "#d9f1f2",
+    tertiary: "#d1ae94",
+    onTertiary: "#47301f",
+    tertiaryContainer: "#6b482e",
+    onTertiaryContainer: "#f0e4db",
+    error: "#eaaeae",
+    onError: "#511515",
+    errorContainer: "#792020",
+    onErrorContainer: "#f4d7d7",
+    background: "#0f0f0f",
+    onBackground: "#e6e6e6",
+    surface: "#0f0f0f",
+    onSurface: "#e6e6e6",
+    surfaceVariant: "#464a53",
+    onSurfaceVariant: "#9096a2",
+    outline: "#9096a2",
+    outlineVariant: "#464a53",
+  },
   spacing: {
     xs: "var(--sys-spacing-spacing-xs)",
     sm: "var(--sys-spacing-spacing-sm)",
@@ -38,6 +90,14 @@ export const tokens = {
     level2: "var(--sys-elevation-6dp-penumbra)",
     level3: "var(--sys-elevation-8dp)",
     level4: "var(--sys-elevation-12dp-penumbra)",
+  },
+  radius: {
+    xs: "var(--sys-radius-xs)",
+    sm: "var(--sys-radius-sm)",
+    md: "var(--sys-radius-md)",
+    lg: "var(--sys-radius-lg)",
+    xl: "var(--sys-radius-xl)",
+    pill: "var(--sys-radius-pill)",
   },
   typography: {
     displayLarge: {
@@ -147,5 +207,11 @@ export const tokens = {
     },
   },
 };
+
+export type ThemeMode = "light" | "dark";
+
+export function getThemeColors(mode: ThemeMode) {
+  return mode === "light" ? tokens.colorsLight : tokens.colorsDark;
+}
 
 export type Tokens = typeof tokens;

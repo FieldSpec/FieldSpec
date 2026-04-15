@@ -56,24 +56,27 @@ export async function signup(
         name,
         companyName,
         authProvider: "email",
-        isVerified: false,
+        isVerified: true,
       },
     });
 
-    const tokenData = generateToken();
-    await prisma.authToken.create({
-      data: {
-        userId: user.id,
-        tokenHash: tokenData.hash,
-        type: TOKEN_TYPE_EMAIL_VERIFICATION,
-        expiresAt: tokenData.expiresAt,
-      },
-    });
+    // TODO: Re-enable email verification when SMTP is properly configured
+    // const tokenData = generateToken();
+    // await prisma.authToken.create({
+    //   data: {
+    //     userId: user.id,
+    //     tokenHash: tokenData.hash,
+    //     type: TOKEN_TYPE_EMAIL_VERIFICATION,
+    //     expiresAt: tokenData.expiresAt,
+    //   },
+    // });
 
-    const emailSent = await sendVerificationEmail(email, tokenData.raw);
-    if (!emailSent) {
-      console.error(`Failed to send verification email to ${email}`);
-    }
+    // const emailSent = await sendVerificationEmail(email, tokenData.raw);
+    // if (!emailSent) {
+    //   console.error(`[Auth] Failed to send verification email to ${email}`);
+    // } else {
+    //   console.log(`[Auth] Verification email sent to ${email}`);
+    // }
 
     return { success: true };
   } catch (error) {
@@ -83,6 +86,7 @@ export async function signup(
 }
 
 export async function verifyEmail(token: string): Promise<VerifyEmailResult> {
+  console.log("[Auth] Verifying email with token:", token.substring(0, 20) + "...");
   try {
     const tokenHash = hashToken(token);
 
@@ -97,17 +101,24 @@ export async function verifyEmail(token: string): Promise<VerifyEmailResult> {
       },
     });
 
+    console.log("[Auth] Token lookup result:", authToken ? "found" : "not found");
+
     if (!authToken) {
+      console.log("[Auth] Token not found in database");
       return { success: false, error: "Invalid token" };
     }
 
     if (authToken.user.isVerified) {
+      console.log("[Auth] User already verified");
       return { success: false, error: "Email already verified" };
     }
 
     if (isTokenExpired(authToken.expiresAt)) {
+      console.log("[Auth] Token expired at:", authToken.expiresAt);
       return { success: false, error: "Token expired" };
     }
+
+    console.log("[Auth] Token valid, verifying user:", authToken.user.email);
 
     await prisma.$transaction([
       prisma.user.update({
@@ -144,9 +155,10 @@ export async function login(
       return { success: false, error: "Invalid credentials" };
     }
 
-    if (!user.isVerified) {
-      return { success: false, error: "Please verify your email first" };
-    }
+    // Email verification temporarily disabled
+    // if (!user.isVerified) {
+    //   return { success: false, error: "Please verify your email first" };
+    // }
 
     const isValidPassword = await verifyPassword(password, user.passwordHash);
     if (!isValidPassword) {

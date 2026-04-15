@@ -1,32 +1,45 @@
-import { tokens } from "@/lib/design-tokens";
+"use client";
 
 export default function DashboardPage() {
   return (
-    <div style={{ 
-      padding: tokens.spacing.lg,
-      backgroundColor: tokens.colors.surface,
-      minHeight: "100vh",
-    }}>
-      <h1 style={{ 
-        ...tokens.typography.headlineMedium,
-        color: tokens.colors.onSurface, 
-        marginBottom: tokens.spacing.lg,
-      }}>
-        Dashboard
-      </h1>
-      <p style={{ 
-        ...tokens.typography.bodyLarge,
-        color: tokens.colors.onSurface,
-      }}>
-        Welcome to your dashboard. This is a protected route.
-      </p>
-      <p style={{ 
-        ...tokens.typography.bodyMedium,
-        marginTop: tokens.spacing.md,
-        color: tokens.colors.onSurfaceVariant,
-      }}>
-        Dashboard features coming soon...
-      </p>
+    <div className="p-lg max-w-[1200px]">
+      <div className="mb-xl">
+        <h2 className="text-on-surface text-headline-medium">
+          Dashboard
+        </h2>
+        <p className="text-on-surface-variant mt-xs text-body-medium">
+          Overview of your projects and recent activity
+        </p>
+      </div>
+
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-lg">
+        <div className="p-lg bg-surface rounded-lg shadow-level-1">
+          <p className="text-on-surface-variant text-label-medium">
+            Total Projects
+          </p>
+          <p className="text-on-surface mt-xs text-display-small">
+            0
+          </p>
+        </div>
+
+        <div className="p-lg bg-surface rounded-lg shadow-level-1">
+          <p className="text-on-surface-variant text-label-medium">
+            Total Images
+          </p>
+          <p className="text-on-surface mt-xs text-display-small">
+            0
+          </p>
+        </div>
+
+        <div className="p-lg bg-surface rounded-lg shadow-level-1">
+          <p className="text-on-surface-variant text-label-medium">
+            Reports Generated
+          </p>
+          <p className="text-on-surface mt-xs text-display-small">
+            0
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

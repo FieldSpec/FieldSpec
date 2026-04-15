@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const { email, password } = result.data;
     const loginResult = await login(email, password);
 
-    if (!loginResult.success) {
+    if (!loginResult.success || !loginResult.token) {
       const statusCode = loginResult.error === "Please verify your email first" ? 403 : 401;
       return NextResponse.json(
         { error: { message: loginResult.error, code: "AUTH_FAILED" } },
@@ -30,10 +30,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       { data: { token: loginResult.token } },
       { status: 200 }
     );
+
+    response.cookies.set("auth_token", loginResult.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    });
+
+    return response;
   } catch (error) {
     console.error("Login route error:", error);
     return NextResponse.json(
