@@ -80,9 +80,15 @@ export default function MarketingPage() {
            .btn-outline { text-decoration: none; transition: background-color 0.3s ease; }
            .btn-text:hover { color: ${tokens.colors.primary} !important; }
            .btn-text { text-decoration: none; transition: color 0.3s ease; }
-           .social-icon { color: ${tokens.colors.onSurfaceVariant}; transition: color 0.3s ease; }
-           .social-icon:hover { color: ${tokens.colors.primary} !important; }
-           /* Hamburger menu styles */
+            .social-icon { color: ${tokens.colors.onSurfaceVariant}; transition: color 0.3s ease; }
+            .social-icon:hover { color: ${tokens.colors.primary} !important; }
+            /* Desktop navigation */
+            .desktop-nav {
+              display: flex;
+              align-items: center;
+              margin-left: auto;
+            }
+            /* Hamburger menu styles */
            .hamburger-menu {
              display: flex;
              flex-direction: column;
@@ -154,19 +160,58 @@ export default function MarketingPage() {
              gap: ${tokens.spacing.sm};
              margin-top: ${tokens.spacing.md};
            }
-           .dropdown-actions .btn-text,
-           .dropdown-actions .btn-primary {
-             width: 100%;
-             text-align: center;
-           }
-         `}</style>
-         <Brand size="md" />
-         <input type="checkbox" id="menu-toggle" style={{ display: "none" }} />
-          <label htmlFor="menu-toggle" className="hamburger-menu" style={{ marginLeft: "auto" }}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
+            .dropdown-actions .btn-text,
+            .dropdown-actions .btn-primary {
+              width: 100%;
+              text-align: center;
+            }
+            /* Media queries for responsive navigation */
+            @media (max-width: 768px) {
+              .desktop-nav {
+                display: none;
+              }
+            }
+            @media (min-width: 769px) {
+              .hamburger-menu {
+                display: none;
+              }
+              .dropdown-menu {
+                display: none;
+              }
+            }
+          `}</style>
+          <Brand size="md" />
+          {/* Desktop Navigation */}
+          <div className="desktop-nav">
+            <Link href="#features" className="nav-link" style={{ ...tokens.typography.labelLarge, color: tokens.colors.onSurfaceVariant, marginRight: tokens.spacing.lg }}>
+              Features
+            </Link>
+            <Link href="#how-it-works" className="nav-link" style={{ ...tokens.typography.labelLarge, color: tokens.colors.onSurfaceVariant, marginRight: tokens.spacing.lg }}>
+              How It Works
+            </Link>
+            <Link href="#use-cases" className="nav-link" style={{ ...tokens.typography.labelLarge, color: tokens.colors.onSurfaceVariant, marginRight: tokens.spacing.lg }}>
+              Use Cases
+            </Link>
+            <Link href="/login" className="btn-text" style={{ ...tokens.typography.labelLarge, color: tokens.colors.onSurface, marginRight: tokens.spacing.md }}>
+              Log In
+            </Link>
+            <Link href="/signup" className="btn-primary" style={{
+              padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
+              backgroundColor: tokens.colors.primary,
+              color: tokens.colors.onPrimary,
+              textDecoration: "none",
+              borderRadius: tokens.radius.md,
+              ...tokens.typography.labelLarge,
+            }}>
+              Get Started
+            </Link>
+          </div>
+          <input type="checkbox" id="menu-toggle" style={{ display: "none" }} />
+           <label htmlFor="menu-toggle" className="hamburger-menu" style={{ marginLeft: "auto" }}>
+             <span></span>
+             <span></span>
+             <span></span>
+           </label>
          <div className="dropdown-menu">
             <Link href="#features" className="dropdown-link" style={{ ...tokens.typography.labelLarge }}>
               Features
@@ -229,16 +274,16 @@ export default function MarketingPage() {
             loading="eager"
           />
         </div>
-        {/* Dark gradient overlay */}
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)",
-          zIndex: 1,
-        }} />
+         {/* Light gradient overlay */}
+         <div style={{
+           position: "absolute",
+           top: 0,
+           left: 0,
+           width: "100%",
+           height: "100%",
+           background: "linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%)",
+           zIndex: 1,
+         }} />
         
         {/* Content */}
         <div className="hero-content" style={{
@@ -312,12 +357,12 @@ export default function MarketingPage() {
               transform: translate(-50%, -50%) scale(1.1); /* Slight zoom for better coverage */
               object-fit: cover;
               object-position: center center;
-              background-color: #000000;
-              border: none;
-              margin: 0;
-              padding: 0;
-              opacity: 0.3;
-               pointer-events: none;
+               background-color: #000000;
+               border: none;
+               margin: 0;
+               padding: 0;
+               opacity: 1;
+                pointer-events: none;
              }
              /* Image background */
              .hero-image-container {
@@ -340,10 +385,10 @@ export default function MarketingPage() {
                 width: auto;
                 height: auto;
                 transform: translate(-50%, -50%) scale(1.1);
-                object-fit: cover;
-                object-position: center center;
-                opacity: 0.3;
-              }
+                 object-fit: cover;
+                 object-position: center center;
+                 opacity: 1;
+               }
            .hero-primary-btn {
              padding: clamp(1rem, 2vw, 1.25rem) clamp(2rem, 4vw, 3rem);
              background-color: var(--sys-primary);
