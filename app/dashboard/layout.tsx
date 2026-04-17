@@ -39,6 +39,10 @@ export default function DashboardLayout({
           if (data.data?.name) {
             setUserName(data.data.name);
           }
+        } else if (res.status === 401 || res.status === 404) {
+          // Stale session or user deleted from db
+          await fetch("/api/auth/logout", { method: "POST" });
+          router.push("/login");
         }
       } catch (err) {
         console.error("Failed to fetch user:", err);
