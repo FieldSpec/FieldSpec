@@ -25,6 +25,7 @@ export default function DashboardLayout({
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showMobileNav, setShowMobileNav] = useState(false);
   const [userName, setUserName] = useState("User");
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -82,8 +83,8 @@ export default function DashboardLayout({
 
   return (
     <div className="flex flex-col min-h-screen relative">
-      {/* Light Overlay - covers entire screen when dropdown or modal is open */}
-      {(showDropdown || showLogoutModal) && (
+      {/* Light Overlay - covers entire screen when modal is open */}
+      {showLogoutModal && (
         <div
           style={{
             position: "fixed",
@@ -103,17 +104,32 @@ export default function DashboardLayout({
 
       {/* Header with Avatar */}
       <header
-        className="flex items-center justify-between"
+        className="flex items-center justify-between py-[12px] dash-header-padding"
         style={{
-          padding: "12px 32px",
           backgroundColor: tokens.colors.surfaceContainerLow,
           borderBottom: `1px solid ${tokens.colors.outlineVariant}`,
           zIndex: 50,
         }}
       >
-        <Brand size="md" />
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <button
+            className="dash-hamburger items-center justify-center rounded-full transition-colors"
+            onClick={() => setShowMobileNav(true)}
+            aria-label="Open navigation menu"
+            style={{
+              background: "transparent",
+              border: "none",
+              color: tokens.colors.onSurface,
+              cursor: "pointer",
+              padding: "4px",
+            }}
+          >
+            <span className="material-icons" style={{ fontSize: "24px" }}>menu</span>
+          </button>
+          <Brand size="md" />
+        </div>
         
-        <div className="relative" ref={dropdownRef}>
+        <div className="relative inline-flex" ref={dropdownRef}>
           {/* Material 3 Avatar Button */}
           <button
             ref={avatarButtonRef}
@@ -138,6 +154,7 @@ export default function DashboardLayout({
             <div
               className="absolute right-0 top-full mt-sm rounded-2xl overflow-hidden"
               style={{
+                right: 0,
                 backgroundColor: tokens.colors.surfaceContainerHigh,
                 boxShadow: tokens.elevation.level2,
                 minWidth: "200px",
@@ -208,9 +225,9 @@ export default function DashboardLayout({
         </div>
       </header>
 
-      <div className="flex-1 flex overflow-hidden px-lg">
+      <div className="flex-1 flex overflow-hidden dash-main-padding">
         <aside
-          className="flex-shrink-0 flex flex-col"
+          className="dash-sidebar flex-shrink-0 flex-col"
           style={{
             width: "calc(280px)",
             backgroundColor: tokens.colors.surfaceContainerLow,
@@ -257,6 +274,99 @@ export default function DashboardLayout({
           {children}
         </main>
       </div>
+
+      {/* Mobile Navigation Drawer */}
+      {showMobileNav && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 100, // Higher than header
+          }}
+        >
+          {/* Backdrop */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+            }}
+            onClick={() => setShowMobileNav(false)}
+          />
+
+          {/* Drawer Content */}
+          <aside
+            className="flex flex-col"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              bottom: 0,
+              width: "calc(280px)",
+              backgroundColor: tokens.colors.surfaceContainerLow,
+              boxShadow: tokens.elevation.level2,
+            }}
+          >
+            <div
+              className="flex items-center justify-between"
+              style={{
+                padding: "12px 18px",
+                borderBottom: `1px solid ${tokens.colors.outlineVariant}`,
+              }}
+            >
+              <Brand size="md" />
+              <button
+                onClick={() => setShowMobileNav(false)}
+                className="flex items-center justify-center rounded-full transition-colors"
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: tokens.colors.onSurfaceVariant,
+                  cursor: "pointer",
+                  padding: "4px",
+                }}
+              >
+                <span className="material-icons" style={{ fontSize: "24px" }}>close</span>
+              </button>
+            </div>
+            
+            <nav className="flex-1 flex flex-col p-sm gap-xs mt-md overflow-y-auto">
+              {navItems.map((item) => {
+                const isActive = item.href === pathname;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setShowMobileNav(false)}
+                    className={`flex items-center rounded-md no-underline transition-all duration-200 ${
+                      isActive
+                        ? "bg-secondary-container text-on-secondary-container"
+                        : "text-on-surface-variant hover:bg-secondary-container/50"
+                    }`}
+                    style={{
+                      ...tokens.typography.labelLarge,
+                      padding: "12px",
+                      gap: "calc(0.25rem * 3)",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <span className="material-icons" style={{ fontSize: "20px", width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      {item.icon}
+                    </span>
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+          </aside>
+        </div>
+      )}
 
       {/* Logout Confirmation Modal - Centered */}
       {showLogoutModal && (
