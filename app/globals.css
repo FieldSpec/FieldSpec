@@ -108,6 +108,12 @@
     font-weight: 400;
     line-height: var(--sys-typescale-body-medium-lineheight);
   }
+  .text-body-small {
+    font-family: var(--sys-typescale-body-small-fontfamily);
+    font-size: var(--sys-typescale-body-small-fontsize);
+    font-weight: 400;
+    line-height: var(--sys-typescale-body-small-lineheight);
+  }
   .text-label-large {
     font-family: var(--sys-typescale-label-large-fontfamily);
     font-size: var(--sys-typescale-label-large-fontsize);
