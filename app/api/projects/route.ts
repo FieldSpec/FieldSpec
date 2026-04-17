@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getValidatedUserId } from "@/lib/auth/get-user";
+import { withRateLimit } from "@/lib/api-wrapper";
+import { checkRateLimit, rateLimitResponse } from "@/lib/rate-limit";
 
 const createProjectSchema = z.object({
   name: z.string().min(1, "Project name is required"),
@@ -9,6 +11,11 @@ const createProjectSchema = z.object({
 });
 
 export async function GET(request: NextRequest) {
+  const rateLimit = await checkRateLimit(request);
+  if (!rateLimit.success) {
+    return rateLimitResponse(rateLimit.limit, rateLimit.remaining, rateLimit.reset);
+  }
+
   try {
     const userId = await getValidatedUserId(request);
     
@@ -42,6 +49,11 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const rateLimit = await checkRateLimit(request);
+  if (!rateLimit.success) {
+    return rateLimitResponse(rateLimit.limit, rateLimit.remaining, rateLimit.reset);
+  }
+
   try {
     const userId = await getValidatedUserId(request);
     

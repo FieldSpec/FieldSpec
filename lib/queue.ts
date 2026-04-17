@@ -1,9 +1,9 @@
-import { Queue, Worker } from "bullmq";
+import { Queue as BullMQQueue, Worker as BullMQWorker } from "bullmq";
 import { redis } from "./redis";
 
 export const AI_JOB_QUEUE = "ai-generation";
 
-export const aiQueue = new Queue(AI_JOB_QUEUE, {
+export const aiQueue = new BullMQQueue(AI_JOB_QUEUE, {
   connection: redis,
   defaultJobOptions: {
     attempts: 3,

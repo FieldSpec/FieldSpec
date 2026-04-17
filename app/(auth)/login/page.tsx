@@ -40,12 +40,9 @@ export default function LoginPage() {
 
   return (
     <div className="w-full max-w-[400px] p-lg bg-surface rounded-md">
-      <h1 className="text-center mb-xs text-on-surface text-headline-medium tracking-normal">
+      <h1 className="text-center mb-lg text-on-surface text-headline-medium tracking-normal">
         Welcome Back
       </h1>
-      <p className="text-center mb-lg text-on-surface-variant text-body-medium">
-        Sign in to your account
-      </p>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-md">
@@ -57,7 +54,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-primary text-body-medium"
+            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-1 focus:outline-primary text-body-medium transition-all duration-200"
           />
         </div>
 
@@ -70,9 +67,21 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-primary text-body-medium"
+            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-1 focus:outline-primary text-body-medium transition-all duration-200"
           />
         </div>
+
+        <style jsx>{`
+          input {
+            transition: box-shadow 0.2s ease;
+          }
+          input:focus {
+            box-shadow: 0 0 0 2px rgba(103, 58, 183, 0.08);
+          }
+          input:disabled {
+            box-shadow: none;
+          }
+        `}</style>
 
         {error && (
           <div className="p-md bg-error-container text-on-error-container rounded-sm mb-md text-body-small">
@@ -83,7 +92,8 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
+          className="w-full bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
+          style={{ padding: "16px" }}
         >
           {loading ? "Signing in..." : "Sign In"}
         </button>

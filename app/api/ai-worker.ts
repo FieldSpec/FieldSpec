@@ -1,4 +1,4 @@
-import { Worker, Job } from "bullmq";
+import { Worker as BullMQWorker, Job as BullMQJob } from "bullmq";
 import { redis } from "@/lib/redis";
 import { prisma } from "@/lib/prisma";
 import { generateCaptionWithRetry, calculateConfidenceScore } from "@/lib/ai";
@@ -118,7 +118,7 @@ async function assembleStructuredReport(projectId: string, projectName: string, 
   };
 }
 
-async function processAIJob(job: Job<AIJobData, void, string>) {
+async function processAIJob(job: BullMQJob<AIJobData, unknown>) {
   const { projectId, jobId } = job.data;
   console.log(`[AI Worker] Processing job ${jobId} for project ${projectId}`);
 
@@ -248,17 +248,17 @@ async function processAIJob(job: Job<AIJobData, void, string>) {
 }
 
 export async function startAIWorker() {
-  const worker = new Worker(AI_JOB_QUEUE, processAIJob, {
+  const worker = new BullMQWorker(AI_JOB_QUEUE, processAIJob, {
     connection: redis,
     concurrency: 2,
   });
 
   worker.on("completed", (job) => {
-    console.log(`[AI Worker] Job ${job.id} completed`);
+    console.log(`[AI Worker] Job ${job?.id} completed`);
   });
 
   worker.on("failed", (job, err) => {
-    console.error(`[AI Worker] Job ${job?.id} failed:`, err.message);
+    console.error(`[AI Worker] Job ${job?.id} failed:`, (err as Error).message);
   });
 
   console.log("[AI Worker] Started processing AI jobs");
