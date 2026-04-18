@@ -296,10 +296,25 @@ export default function ReportPage() {
         body: JSON.stringify({ projectId: selectedProjectId }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         setError(data.error?.message || "Failed to generate report");
         setGenerating(false);
+        return;
+      }
+
+      if (data.data.jobId && data.data.status === "queued") {
+        setJobStatus({
+          status: "queued",
+          progress: 0,
+          progressMessage: data.data.message || "Report queued for processing",
+          errorMessage: null,
+        });
+        const jobId = data.data.jobId;
+        setCurrentJobId(jobId);
+        setExistingJobId(jobId);
+        startPolling(jobId);
         return;
       }
 
@@ -322,33 +337,33 @@ export default function ReportPage() {
         for (const line of lines) {
           if (line.startsWith("data: ")) {
             try {
-              const data = JSON.parse(line.slice(6));
+              const jsonData = JSON.parse(line.slice(6));
 
-              if (data.error) {
-                setError(data.error);
+              if (jsonData.error) {
+                setError(jsonData.error);
                 setGenerating(false);
                 return;
               }
 
-              if (data.done) {
-                if (data.report) {
+              if (jsonData.done) {
+                if (jsonData.report) {
                   setReport({
                     id: selectedProjectId,
-                    title: data.report.title,
-                    content: data.report,
+                    title: jsonData.report.title,
+                    content: jsonData.report,
                     status: "completed",
-                    createdAt: data.report.generatedAt,
-                    updatedAt: data.report.generatedAt,
+                    createdAt: jsonData.report.generatedAt,
+                    updatedAt: jsonData.report.generatedAt,
                   });
-                  setEditedReport(data.report);
+                  setEditedReport(jsonData.report);
                 }
                 setGenerating(false);
                 setJobStatus({ status: "completed", progress: 100, progressMessage: "Report generated", errorMessage: null });
-              } else if (data.progress !== undefined) {
+              } else if (jsonData.progress !== undefined) {
                 setJobStatus({
                   status: "processing",
-                  progress: data.progress,
-                  progressMessage: data.message || "Processing...",
+                  progress: jsonData.progress,
+                  progressMessage: jsonData.message || "Processing...",
                   errorMessage: null,
                 });
               }

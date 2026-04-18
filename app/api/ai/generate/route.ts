@@ -3,12 +3,14 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getValidatedUserId } from "@/lib/auth/get-user";
 import { generateCaptionWithRetry, calculateConfidenceScore } from "@/lib/ai";
+import { aiQueue, AI_JOB_QUEUE } from "@/lib/queue";
 
 const generateSchema = z.object({
   projectId: z.string().uuid("Invalid project ID"),
 });
 
 const CATEGORIES = ["crop_health", "erosion", "damage", "irrigation", "general"];
+const LARGE_PROJECT_THRESHOLD = 20;
 
 function generateSectionSummary(category: string, images: any[]): string {
   if (images.length === 0) return "";
@@ -223,6 +225,42 @@ export async function POST(request: NextRequest) {
 
     const untaggedImages = project.images.filter(img => !img.category || img.category === "general");
     const imagesWithNotes = project.images.filter(img => img.notes);
+
+    const isLargeProject = project.images.length > LARGE_PROJECT_THRESHOLD;
+
+    if (isLargeProject) {
+      const aiJob = await prisma.aIJob.create({
+        data: {
+          projectId,
+          type: "full_report",
+          status: "pending",
+          progress: 0,
+        },
+      });
+
+      await aiQueue.add(
+        AI_JOB_QUEUE,
+        {
+          projectId: project.id,
+          userId,
+          jobId: aiJob.id,
+        },
+        {
+          jobId: aiJob.id,
+        }
+      );
+
+      return NextResponse.json(
+        {
+          data: {
+            jobId: aiJob.id,
+            status: "queued",
+            message: `Large project (${project.images.length} images) queued for background processing`,
+          },
+        },
+        { status: 202 }
+      );
+    }
 
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
