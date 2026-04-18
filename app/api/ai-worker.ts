@@ -1,8 +1,9 @@
 import "dotenv/config";
 import { Worker, Job } from "bullmq";
-import { redis, connectRedis } from "@/lib/redis";
+import { redisQueue, connectRedis } from "@/lib/redis";
 import { prisma } from "@/lib/prisma";
 import { generateCaptionWithRetry, calculateConfidenceScore } from "@/lib/ai";
+import { cache } from "@/lib/cache";
 
 const AI_JOB_QUEUE = "ai-generation";
 
@@ -150,6 +151,20 @@ async function processAIJob(job: Job<AIJobData, void, string>) {
     for (const image of project.images) {
       console.log(`[AI Worker] Processing image ${processedCount + 1}/${totalImages}`);
 
+      const existingAI = await prisma.aIOutput.findUnique({
+        where: { imageId: image.id },
+      });
+
+      if (existingAI) {
+        console.log(`[AI Worker] Using cached AI result for image ${image.id}`);
+        processedCount++;
+        const baseProgress = 10;
+        const progressRange = 80;
+        const currentProgress = baseProgress + Math.floor((processedCount / totalImages) * progressRange);
+        await job.updateProgress(currentProgress);
+        continue;
+      }
+
       const category = image.category || null;
       const userNote = image.notes || null;
       const hasContext = !!project.name;
@@ -251,7 +266,7 @@ async function processAIJob(job: Job<AIJobData, void, string>) {
 export async function startAIWorker() {
   await connectRedis();
   const worker = new Worker(AI_JOB_QUEUE, processAIJob, {
-    connection: redis,
+    connection: redisQueue,
     concurrency: 2,
   });
 

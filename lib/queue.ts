@@ -1,10 +1,10 @@
 import { Queue, Worker } from "bullmq";
-import { redis } from "./redis";
+import { redisQueue } from "./redis";
 
 export const AI_JOB_QUEUE = "ai-generation";
 
 export const aiQueue = new Queue(AI_JOB_QUEUE, {
-  connection: redis,
+  connection: redisQueue,
   defaultJobOptions: {
     attempts: 3,
     backoff: {
