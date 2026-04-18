@@ -1,18 +1,15 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import pg from "pg";
+import { PrismaBetterSQLite3 } from "@prisma/adapter-better-sqlite3";
+import Database from "better-sqlite3";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
 function createPrismaClient(): PrismaClient {
-  const connectionString = process.env["DATABASE_URL"];
-  if (!connectionString) {
-    throw new Error("[FieldSpec] DATABASE_URL environment variable is required. Set it in your .env file.");
-  }
-  const pool = new pg.Pool({ connectionString });
-  const adapter = new PrismaPg(pool);
+  const connectionString = process.env["DATABASE_URL"] || "./dev.db";
+  const client = new Database(connectionString);
+  const adapter = new PrismaBetterSQLite3(client);
   return new PrismaClient({ adapter });
 }
 
