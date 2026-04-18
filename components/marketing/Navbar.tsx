@@ -32,8 +32,8 @@ export default function Navbar({ onPrefetch }: NavbarProps) {
         .btn-text { text-decoration: none; transition: color 0.3s ease; }
         .social-icon { color: rgba(255, 255, 255, 0.8); transition: color 0.3s ease; }
         .social-icon:hover { color: #FFFFFF !important; }
-        .desktop-nav { display: flex; align-items: center; gap: ${tokens.spacing.xl}; }
-        .nav-center { display: flex; alignItems: center; gap: ${tokens.spacing.xl}; flex: 1; justify-content: center; }
+        .desktop-nav { display: flex; align-items: center; justify-content: center; width: 100%; }
+        .nav-center { display: flex; align-items: center; gap: ${tokens.spacing.xl}; flex: 1; justify-content: center; }
         .nav-actions { display: flex; align-items: center; gap: ${tokens.spacing.md}; }
         .hamburger-menu { display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 24px; background: transparent; border: none; cursor: pointer; padding: 0; z-index: 101; }
         .hamburger-menu span { width: 100%; height: 3px; background: #FFFFFF; border-radius: 2px; transition: all 0.3s ease; }
