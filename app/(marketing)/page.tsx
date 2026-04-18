@@ -1,25 +1,14 @@
-import Link from "next/link";
-import { tokens } from "@/lib/design-tokens";
-import Brand from "@/components/Brand";
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "AI Drone Survey Report Builder | FieldSpec",
-  description:
-    "Transform drone imagery into actionable insights. FieldSpec uses AI to analyze aerial surveys and generate professional reports for agriculture, construction, and infrastructure.",
-  keywords: [
-    "drone survey",
-    "AI analysis",
-    "aerial inspection",
-    "crop health",
-    "infrastructure inspection",
-    "professional reports",
-    "drone mapping",
-    "field analysis",
-  ],
-};
+import { useRouter } from "next/navigation";
+import { useEffect, useCallback } from "react";
+import Navbar from "@/components/marketing/Navbar";
+import Hero from "@/components/marketing/Hero";
+import { Features, HowItWorks, ProblemSolution } from "@/components/marketing/Sections";
+import { tokens } from "@/lib/design-tokens";
 
 export default function MarketingPage() {
+<<<<<<< HEAD
   const features = [
     {
       title: "AI-Generated Insights",
@@ -54,15 +43,23 @@ export default function MarketingPage() {
     { title: "Infrastructure Inspections", description: "Inspect roofs, bridges, and utility infrastructure safely and efficiently.", imageUrl: "/images/infrastructure-inspections.jpg" },
     { title: "Drone Operators", description: "Add professional reporting to your drone services. Deliver more value to clients.", imageUrl: "/images/drone-operators.jpg" },
   ];
+=======
+  const router = useRouter();
 
-  const steps = [
-    { num: "1", title: "Upload Drone Images", description: "Drag and drop or batch upload images. GPS data is extracted automatically.", icon: "upload" },
-    { num: "2", title: "Tag & Organize", description: "Categorize images by type, location, or condition. Keep everything structured.", icon: "label" },
-    { num: "3", title: "Generate AI Insights", description: "Let AI analyze each image and produce findings and recommendations.", icon: "auto_awesome" },
-    { num: "4", title: "Export Professional Report", description: "Build and export a structured PDF report. Ready for stakeholders.", icon: "description" },
-  ];
+  // Proactive background prefetching for core auth routes
+  useEffect(() => {
+    router.prefetch("/signup");
+    router.prefetch("/login");
+  }, [router]);
+>>>>>>> main
+
+  // Handler for manual prefetching on hover to minimize latency
+  const handlePrefetch = useCallback((path: string) => {
+    router.prefetch(path);
+  }, [router]);
 
   return (
+<<<<<<< HEAD
     <main style={{ flex: 1 }}>
       {/* Navigation */}
       <nav style={{
@@ -1361,7 +1358,29 @@ export default function MarketingPage() {
             <Link href="#" className="footer-bottom-link">Get Template - Privacy Policy</Link>
           </div>
         </div>
+=======
+    <div style={{ backgroundColor: tokens.colors.background }}>
+      <Navbar onPrefetch={handlePrefetch} />
+      <Hero onPrefetch={handlePrefetch} />
+      
+      <ProblemSolution />
+      
+      <Features />
+      
+      <HowItWorks />
+
+      {/* Footer */}
+      <footer style={{
+        padding: tokens.spacing.xxl,
+        backgroundColor: "#0f172a",
+        borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+        textAlign: "center",
+      }}>
+        <p style={{ ...tokens.typography.bodyMedium, color: "rgba(255, 255, 255, 0.6)" }}>
+          &copy; {new Date().getFullYear()} FieldSpec. All rights reserved.
+        </p>
+>>>>>>> main
       </footer>
-    </main>
+    </div>
   );
 }
