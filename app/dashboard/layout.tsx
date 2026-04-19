@@ -4,6 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Brand from "@/components/Brand";
+import {
+  DashboardUserProvider,
+  useDashboardUser,
+} from "@/components/dashboard/DashboardUserProvider";
 import { tokens } from "@/lib/design-tokens";
 import "./layout.css";
 
@@ -21,36 +25,28 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  return (
+    <DashboardUserProvider>
+      <DashboardLayoutShell>{children}</DashboardLayoutShell>
+    </DashboardUserProvider>
+  );
+}
+
+function DashboardLayoutShell({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const router = useRouter();
+  const { user } = useDashboardUser();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showMobileNav, setShowMobileNav] = useState(false);
-  const [userName, setUserName] = useState("User");
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const avatarButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch("/api/auth/me");
-        if (res.ok) {
-          const data = await res.json();
-          if (data.data?.name) {
-            setUserName(data.data.name);
-          }
-        } else if (res.status === 401 || res.status === 404) {
-          // Stale session or user deleted from db
-          await fetch("/api/auth/logout", { method: "POST" });
-          router.push("/login");
-        }
-      } catch (err) {
-        console.error("Failed to fetch user:", err);
-      }
-    }
-    fetchUser();
-  }, []);
+  const userName = user?.name || "User";
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

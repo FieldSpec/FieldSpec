@@ -44,25 +44,37 @@ export default function UploadPage() {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [deletingImageId, setDeletingImageId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const initialProjectLoadedRef = useRef(false);
 
   useEffect(() => {
-    fetchProjects();
+    void loadInitialData();
   }, []);
 
   useEffect(() => {
-    if (selectedProjectId) {
-      fetchImages();
+    if (!selectedProjectId) return;
+
+    if (initialProjectLoadedRef.current) {
+      initialProjectLoadedRef.current = false;
+      return;
     }
+
+    void fetchImages(selectedProjectId);
   }, [selectedProjectId]);
 
-  async function fetchProjects() {
+  async function loadInitialData() {
     try {
-      const res = await fetch("/api/projects");
-      const data = await res.json();
-      if (res.ok && data.data) {
-        setProjects(data.data);
-        if (data.data.length > 0) {
-          setSelectedProjectId(data.data[0].id);
+      const projectsRes = await fetch("/api/projects");
+      const projectsData = await projectsRes.json();
+
+      if (projectsRes.ok && projectsData.data) {
+        const nextProjects = projectsData.data;
+        setProjects(nextProjects);
+
+        if (nextProjects.length > 0) {
+          const firstProjectId = nextProjects[0].id;
+          initialProjectLoadedRef.current = true;
+          setSelectedProjectId(firstProjectId);
+          await fetchImages(firstProjectId);
         }
       }
     } catch (err) {
@@ -72,10 +84,9 @@ export default function UploadPage() {
     }
   }
 
-  async function fetchImages() {
-    if (!selectedProjectId) return;
+  async function fetchImages(projectId: string) {
     try {
-      const res = await fetch(`/api/images?projectId=${selectedProjectId}`);
+      const res = await fetch(`/api/images?projectId=${projectId}`);
       const data = await res.json();
       if (res.ok && data.data) {
         setImages(data.data);
@@ -94,80 +105,23 @@ export default function UploadPage() {
 
     try {
       const file = files[0];
-      const fileType = file.type;
-
-      console.log("[Upload] Requesting signed URL for:", file.name, fileType);
-
-      const signedRes = await fetch("/api/upload/signed-url", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ filename: file.name, fileType }),
-      });
-
-      const signedData = await signedRes.json();
-      console.log("[Upload] Signed URL response:", signedData);
-
-      if (!signedRes.ok || !signedData.data) {
-        setError(signedData.error?.message || "Failed to get upload config");
-        setUploading(false);
-        return;
-      }
-
-      const { cloudName, uploadPreset, folder } = signedData.data;
-
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", uploadPreset);
-      if (folder) {
-        formData.append("folder", folder);
-      }
+      formData.append("projectId", selectedProjectId);
 
-      console.log(
-        "[Upload] Uploading to Cloudinary:",
-        cloudName,
-        "with preset:",
-        uploadPreset,
-      );
-
-      const cloudinaryRes = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        {
-          method: "POST",
-          body: formData,
-        },
-      );
-
-      const cloudinaryData = await cloudinaryRes.json();
-      console.log("[Upload] Cloudinary response:", cloudinaryData);
-
-      if (!cloudinaryRes.ok || cloudinaryData.error) {
-        setError(cloudinaryData.error?.message || "Upload failed");
-        setUploading(false);
-        return;
-      }
-
-      const imageUrl = cloudinaryData.secure_url;
-      const thumbnailUrl = cloudinaryData.eager?.[0]?.secure_url || imageUrl;
-
-      const saveRes = await fetch("/api/images", {
+      const uploadRes = await fetch("/api/upload/image", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          projectId: selectedProjectId,
-          imageUrl,
-          thumbnailUrl,
-        }),
+        body: formData,
       });
 
-      const saveData = await saveRes.json();
+      const saveData = await uploadRes.json();
 
-      if (!saveRes.ok || !saveData.data) {
-        setError(saveData.error?.message || "Failed to save image");
-        setUploading(false);
+      if (!uploadRes.ok || !saveData.data) {
+        setError(saveData.error?.message || "Upload failed");
         return;
       }
 
-      setImages([saveData.data, ...images]);
+      setImages((currentImages) => [saveData.data, ...currentImages]);
     } catch (err) {
       setError("Upload failed. Please try again.");
     } finally {
@@ -192,7 +146,9 @@ export default function UploadPage() {
       }
 
       const data = await res.json();
-      setImages(images.map((img) => (img.id === imageId ? data.data : img)));
+      setImages((currentImages) =>
+        currentImages.map((img) => (img.id === imageId ? data.data : img))
+      );
     } catch (err) {
       setError("Failed to update category");
     }
@@ -218,8 +174,10 @@ export default function UploadPage() {
       }
 
       const data = await res.json();
-      setImages(
-        images.map((img) => (img.id === editingImage.id ? data.data : img)),
+      setImages((currentImages) =>
+        currentImages.map((img) =>
+          img.id === editingImage.id ? data.data : img,
+        ),
       );
       setSaveSuccess(true);
       setTimeout(() => {
@@ -250,7 +208,9 @@ export default function UploadPage() {
         return;
       }
 
-      setImages(images.filter((img) => img.id !== imageId));
+      setImages((currentImages) =>
+        currentImages.filter((img) => img.id !== imageId),
+      );
     } catch (err) {
       setError("Failed to delete image. Please try again.");
     } finally {
@@ -536,7 +496,7 @@ export default function UploadPage() {
                 marginBottom: tokens.spacing.xs,
               }}
             >
-              {uploading ? "Uploading..." : "Drop your image here, or browse"}
+              {uploading ? "Optimizing & uploading..." : "Drop your image here, or browse"}
             </p>
 
             {/* Support Text */}
@@ -548,7 +508,7 @@ export default function UploadPage() {
                 margin: 0,
               }}
             >
-              Supports: PNG, JPG, JPEG, WEBP
+              Supports: PNG, JPG, JPEG, WEBP. Large images are optimized automatically.
             </p>
           </label>
 
