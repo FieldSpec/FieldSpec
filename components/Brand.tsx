@@ -18,7 +18,7 @@ export default function Brand({ className = "", size = "md", variant = "blue" }:
 
   const current = sizes[size] || sizes.md;
   const logoSrc = variant === "white" ? "/logo-white-icon.png" : "/logo.png";
-  const textColor = variant === "white" ? tokens.colors.onPrimary : tokens.colors.onPrimary;
+  const textColor = variant === "white" ? tokens.colors.onPrimary : tokens.colors.primary;
 
   return (
     <div className={`flex items-center gap-sm ${className}`}>
