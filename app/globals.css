@@ -97,6 +97,13 @@
     line-height: var(--sys-typescale-title-large-lineheight);
     letter-spacing: var(--sys-typescale-title-large-letterspacing);
   }
+  .text-title-medium {
+    font-family: var(--sys-typescale-title-medium-fontfamily);
+    font-size: var(--sys-typescale-title-medium-fontsize);
+    font-weight: 500;
+    line-height: var(--sys-typescale-title-medium-lineheight);
+    letter-spacing: var(--sys-typescale-title-medium-letterspacing);
+  }
   .text-body-large {
     font-family: var(--sys-typescale-body-large-fontfamily);
     font-size: var(--sys-typescale-body-large-fontsize);
