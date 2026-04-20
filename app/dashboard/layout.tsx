@@ -82,7 +82,7 @@ function DashboardLayoutShell({
   }
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden relative">
+    <div className="flex flex-col h-screen overflow-hidden relative" style={{ backgroundColor: "var(--color-section-bg)" }}>
       {/* Light Overlay - covers entire screen when modal is open */}
       {showLogoutModal && (
         <div
@@ -106,7 +106,7 @@ function DashboardLayoutShell({
       <header
         className="flex flex-shrink-0 items-center justify-between py-[12px] dash-header-padding"
         style={{
-          backgroundColor: tokens.colors.surfaceContainerLow,
+          backgroundColor: "var(--color-section-bg)",
           borderBottom: `1px solid ${tokens.colors.outlineVariant}`,
           zIndex: 50,
         }}

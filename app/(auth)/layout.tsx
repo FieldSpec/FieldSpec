@@ -10,7 +10,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-surface-variant p-md">
+    <div className="min-h-screen flex flex-col items-center justify-center p-md" style={{ backgroundColor: "var(--color-section-bg)" }}>
       <div className="mb-lg">
         <Link href="/" className="no-underline text-primary">
           <Brand size="lg" />
