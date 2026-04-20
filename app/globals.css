@@ -1,15 +1,15 @@
 @import "../design-tokens.css";
 
 :root {
-  --color-section-bg: var(--ref-primary-primary20); /* #182f4e for dark mode */
-  --color-section-text: var(--ref-primary-primary100); /* White text for dark mode */
-  --color-card-bg: var(--ref-primary-primary25); /* Darker card for dark mode */
+  --color-section-bg: var(--sys-surface-roles-surface); /* Dark mode background from design tokens */
+  --color-section-text: var(--sys-surface-roles-on-surface); /* Dark mode text from design tokens */
+  --color-card-bg: var(--sys-surface-roles-surface-container-low); /* Dark mode card from design tokens */
 }
 
 :root.light {
-  --color-section-bg: var(--sys-surface-roles-surface); /* Light background for light mode */
-  --color-section-text: var(--sys-surface-roles-on-surface); /* Dark text for light mode */
-  --color-card-bg: var(--sys-surface-roles-surface); /* Card background for light mode */
+  --color-section-bg: var(--sys-surface-roles-surface); /* Light mode background from design tokens */
+  --color-section-text: var(--sys-surface-roles-on-surface); /* Light mode text from design tokens */
+  --color-card-bg: var(--sys-surface-roles-surface-container-low); /* Light mode card from design tokens */
 }
 
 @tailwind base;
