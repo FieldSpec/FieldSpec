@@ -1,5 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import "../design-tokens.css";
+
+:root {
+  --color-section-bg: var(--sys-surface-roles-surface);
+  --color-section-text: var(--sys-surface-roles-on-surface);
+  --color-card-bg: var(--sys-surface-roles-surface-container);
+}
+
+:root.light {
+  --color-section-bg: var(--sys-surface-roles-surface);
+  --color-section-text: var(--sys-surface-roles-on-surface);
+  --color-card-bg: var(--sys-surface-roles-surface-container);
+}
 
 @tailwind base;
 @tailwind components;
@@ -15,6 +26,9 @@
   --color-on-primary: var(--sys-on-primary);
   --color-primary-container: var(--sys-primary-container);
   --color-on-primary-container: var(--sys-on-primary-container);
+
+  /* Card Colors - Custom for dark/light modes */
+  --color-card: var(--color-card-bg);
   
   --color-secondary: var(--sys-secondary);
   --color-on-secondary: var(--sys-on-secondary);
@@ -81,14 +95,14 @@
     font-size: var(--sys-typescale-headline-medium-fontsize);
     font-weight: 600;
     line-height: var(--sys-typescale-headline-medium-lineheight);
-    letter-spacing: var(--sys-typescale-headline-medium-letterspacing);
+    letter-spacing: -0.15px;
   }
   .text-headline-small {
     font-family: var(--sys-typescale-headline-small-fontfamily);
     font-size: var(--sys-typescale-headline-small-fontsize);
     font-weight: 500;
     line-height: var(--sys-typescale-headline-small-lineheight);
-    letter-spacing: var(--sys-typescale-headline-small-letterspacing);
+    letter-spacing: -0.25px;
   }
   .text-title-large {
     font-family: var(--sys-typescale-title-large-fontfamily);
@@ -128,9 +142,20 @@
     font-weight: 500;
     line-height: var(--sys-typescale-label-medium-lineheight);
   }
+
+  /* Card background for dark/light modes */
+  .bg-card {
+    background-color: var(--sys-surface-roles-surface-container);
+  }
 }
 
 @layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
   body {
     background-color: var(--sys-surface-roles-surface);
     color: var(--sys-surface-roles-on-surface);
@@ -144,9 +169,9 @@
   h1 {
     font-family: var(--sys-typescale-display-large-fontfamily);
     font-size: var(--sys-typescale-display-large-fontsize);
-    font-weight: 500; /* Overriding the buggy '500px' in tokens */
+    font-weight: 500;
     line-height: var(--sys-typescale-display-large-lineheight);
-    letter-spacing: var(--sys-typescale-display-large-letterspacing);
+    letter-spacing: -1px;
   }
 
   h2 {
@@ -154,7 +179,7 @@
     font-size: var(--sys-typescale-headline-large-fontsize);
     font-weight: 600;
     line-height: var(--sys-typescale-headline-large-lineheight);
-    letter-spacing: var(--sys-typescale-headline-large-letterspacing);
+    letter-spacing: -0.5px;
   }
 
   h3 {
@@ -162,10 +187,7 @@
     font-size: var(--sys-typescale-headline-small-fontsize);
     font-weight: 500;
     line-height: var(--sys-typescale-headline-small-lineheight);
-    letter-spacing: var(--sys-typescale-headline-small-letterspacing);
+    letter-spacing: -0.25px;
   }
 
-  p {
-    margin-bottom: var(--sys-spacing-spacing-md);
-  }
 }

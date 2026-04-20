@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { getJWTMaxAge } from "@/lib/auth/jwt";
 import { login } from "@/services/auth/auth.service";
 
 const loginSchema = z.object({
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     const response = NextResponse.json(
-      { data: { token: loginResult.token } },
+      { data: { token: loginResult.token, userId: loginResult.userId } },
       { status: 200 }
     );
 
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: getJWTMaxAge(),
       path: "/",
     });
 

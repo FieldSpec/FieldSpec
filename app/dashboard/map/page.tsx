@@ -1,57 +1,27 @@
 "use client";
 
-import { tokens } from "@/lib/design-tokens";
+import dynamic from "next/dynamic";
+
+const MapPageClient = dynamic(
+  () => import("@/components/dashboard/MapPageClient"),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ padding: "24px", maxWidth: "1200px" }}>
+        <div
+          style={{
+            padding: "48px",
+            textAlign: "center",
+            color: "var(--sys-surface-roles-on-surface-variant)",
+          }}
+        >
+          Loading map...
+        </div>
+      </div>
+    ),
+  }
+);
 
 export default function MapPage() {
-  return (
-    <div
-      style={{
-        padding: tokens.spacing.lg,
-        maxWidth: "1200px",
-      }}
-    >
-      <div
-        style={{
-          marginBottom: tokens.spacing.xl,
-        }}
-      >
-        <h2
-          style={{
-            ...tokens.typography.headlineMedium,
-            color: tokens.colors.onSurface,
-          }}
-        >
-          Map
-        </h2>
-        <p
-          style={{
-            ...tokens.typography.bodyMedium,
-            color: tokens.colors.onSurfaceVariant,
-            marginTop: tokens.spacing.xs,
-          }}
-        >
-          View field locations on map
-        </p>
-      </div>
-
-      <div
-        style={{
-          padding: tokens.spacing.xl,
-          backgroundColor: tokens.colors.surface,
-          borderRadius: "12px",
-          boxShadow: tokens.elevation.level1,
-          textAlign: "center",
-        }}
-      >
-        <p
-          style={{
-            ...tokens.typography.bodyLarge,
-            color: tokens.colors.onSurfaceVariant,
-          }}
-        >
-          Map view coming soon.
-        </p>
-      </div>
-    </div>
-  );
+  return <MapPageClient />;
 }

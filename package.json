@@ -1,5 +1,5 @@
 {
-  "name": "flyspec",
+  "name": "fieldspec",
   "version": "1.0.0",
   "description": "FieldSpec - Market Intelligence Platform",
   "scripts": {
@@ -12,11 +12,12 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "worker:ai": "npx tsx app/api/ai-worker.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mcoatt-collab/FlySpec.git"
+    "url": "git+https://github.com/mcoatt-collab/FieldSpec.git"
   },
   "keywords": [
     "fieldspec",
@@ -26,11 +27,10 @@
   ],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "bugs": {
-    "url": "https://github.com/mcoatt-collab/FlySpec/issues"
+    "url": "https://github.com/mcoatt-collab/FieldSpec/issues"
   },
-  "homepage": "https://github.com/mcoatt-collab/FlySpec#readme",
+  "homepage": "https://github.com/mcoatt-collab/FieldSpec#readme",
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.7.0",
     "@prisma/adapter-pg": "^7.7.0",
@@ -43,6 +43,7 @@
     "bullmq": "^5.73.5",
     "cloudinary": "^2.7.0",
     "dotenv": "^17.4.2",
+    "html2pdf.js": "^0.14.0",
     "ioredis": "^5.10.1",
     "jsonwebtoken": "^9.0.2",
     "mapbox-gl": "^3.12.0",
@@ -68,6 +69,7 @@
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.9",
     "tailwindcss": "^4.2.2",
+    "tsx": "^4.21.0",
     "vitest": "^4.1.4"
   }
 }

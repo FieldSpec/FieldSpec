@@ -1,39 +1,46 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { getUserIdFromRequest } from "@/lib/auth/get-user";
+import { getValidatedUserId } from "@/lib/auth/get-user";
+import { cache, withCache } from "@/lib/cache";
 
 const createProjectSchema = z.object({
   name: z.string().min(1, "Project name is required"),
+  clientId: z.string().uuid("Invalid client ID").optional().nullable(),
 });
 
 export async function GET(request: NextRequest) {
   try {
-    const userId = getUserIdFromRequest(request);
+    const userId = await getValidatedUserId(request);
+    
     if (!userId) {
       return NextResponse.json(
-        { error: { message: "Unauthorized", code: "UNAUTHORIZED" } },
+        { error: { message: "Unauthorized - no user found", code: "UNAUTHORIZED" } },
         { status: 401 }
       );
     }
 
-    const projects = await prisma.project.findMany({
-      where: { userId },
-      select: {
-        id: true,
-        name: true,
-        status: true,
-        photoCount: true,
-        createdAt: true,
-      },
-      orderBy: { createdAt: "desc" },
-    });
+    const cacheKey = cache.buildKey("projects", userId);
+
+    const projects = await withCache(cacheKey, async () => {
+      return prisma.project.findMany({
+        where: { userId },
+        select: {
+          id: true,
+          name: true,
+          status: true,
+          photoCount: true,
+          createdAt: true,
+        },
+        orderBy: { createdAt: "desc" },
+      });
+    }, 30);
 
     return NextResponse.json({ data: projects }, { status: 200 });
   } catch (error) {
     console.error("GET projects error:", error);
     return NextResponse.json(
-      { error: { message: "Internal server error", code: "INTERNAL_ERROR" } },
+      { error: { message: error instanceof Error ? error.message : "Internal server error", code: "INTERNAL_ERROR" } },
       { status: 500 }
     );
   }
@@ -41,10 +48,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const userId = getUserIdFromRequest(request);
+    const userId = await getValidatedUserId(request);
+    
     if (!userId) {
       return NextResponse.json(
-        { error: { message: "Unauthorized", code: "UNAUTHORIZED" } },
+        { error: { message: "Unauthorized - no user found", code: "UNAUTHORIZED" } },
         { status: 401 }
       );
     }
@@ -59,12 +67,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name } = result.data;
+    const { name, clientId } = result.data;
+
+    let finalClientId: string | undefined = clientId || undefined;
+
+    if (finalClientId) {
+      const client = await prisma.client.findFirst({
+        where: { id: finalClientId, userId },
+      });
+      if (!client) {
+        return NextResponse.json(
+          { error: { message: "Client not found or access denied", code: "NOT_FOUND" } },
+          { status: 404 }
+        );
+      }
+    }
 
     const project = await prisma.project.create({
       data: {
         userId,
         name,
+        clientId: finalClientId,
       },
       select: {
         id: true,
@@ -74,11 +97,13 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    await cache.delete(cache.buildKey("projects", userId));
+
     return NextResponse.json({ data: project }, { status: 201 });
   } catch (error) {
     console.error("POST projects error:", error);
     return NextResponse.json(
-      { error: { message: "Internal server error", code: "INTERNAL_ERROR" } },
+      { error: { message: error instanceof Error ? error.message : "Internal server error", code: "INTERNAL_ERROR" } },
       { status: 500 }
     );
   }
