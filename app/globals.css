@@ -3,11 +3,13 @@
 :root {
   --color-section-bg: var(--ref-primary-primary20); /* #182f4e for dark mode */
   --color-section-text: var(--ref-primary-primary100); /* White text for dark mode */
+  --color-card-bg: var(--ref-primary-primary25); /* Darker card for dark mode */
 }
 
 :root.light {
   --color-section-bg: var(--sys-surface-roles-surface); /* Light background for light mode */
   --color-section-text: var(--sys-surface-roles-on-surface); /* Dark text for light mode */
+  --color-card-bg: var(--sys-surface-roles-surface); /* Card background for light mode */
 }
 
 @tailwind base;
@@ -24,6 +26,9 @@
   --color-on-primary: var(--sys-on-primary);
   --color-primary-container: var(--sys-primary-container);
   --color-on-primary-container: var(--sys-on-primary-container);
+
+  /* Card Colors - Custom for dark/light modes */
+  --color-card: var(--color-card-bg);
   
   --color-secondary: var(--sys-secondary);
   --color-on-secondary: var(--sys-on-secondary);
@@ -129,6 +134,11 @@
     font-size: var(--sys-typescale-label-medium-fontsize);
     font-weight: 500;
     line-height: var(--sys-typescale-label-medium-lineheight);
+  }
+
+  /* Card background for dark/light modes */
+  .bg-card {
+    background-color: var(--color-card-bg);
   }
 }
 
