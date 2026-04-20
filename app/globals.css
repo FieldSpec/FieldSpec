@@ -2,7 +2,7 @@
 
 :root {
   --color-section-bg: var(--ref-primary-primary20); /* #182f4e for dark mode */
-  --color-section-text: #FFFFFF; /* White text for dark mode */
+  --color-section-text: var(--ref-primary-primary100); /* White text for dark mode */
 }
 
 :root.light {
