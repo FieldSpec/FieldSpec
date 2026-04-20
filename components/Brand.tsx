@@ -13,14 +13,14 @@ export default function Brand({
   variant = "blue",
 }: BrandProps) {
 const sizes = {
-    sm: { img: 32, text: "text-title-medium" },
-    md: { img: 40, text: "text-title-large" },
-    lg: { img: 64, text: "text-headline-medium" },
+    sm: { img: 32, text: tokens.typography.titleMedium },
+    md: { img: 40, text: tokens.typography.titleLarge },
+    lg: { img: 64, text: tokens.typography.headlineMedium },
   };
 
   const currentSize = sizes[size];
   const logoSrc = variant === "white" ? "/logo-white-icon.png" : "/logo.png";
-  const textColor = variant === "white" ? "text-white" : "text-primary";
+  const textColor = variant === "white" ? "#FFFFFF" : tokens.colors.primary;
 
   return (
     <div className={`flex items-center gap-xs ${className}`}>
@@ -32,7 +32,7 @@ const sizes = {
         className="object-contain"
         style={{ border: "none" }}
       />
-      <span className={`${textColor} font-bold ${currentSize.text}`}>
+      <span style={{ ...currentSize.text, color: textColor, fontWeight: 600 }}>
         FieldSpec
       </span>
     </div>
