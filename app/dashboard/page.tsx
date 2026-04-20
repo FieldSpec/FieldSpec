@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { tokens } from "@/lib/design-tokens";
 
 export default function DashboardPage() {
   const [stats, setStats] = useState({ projects: 0, images: 0, reports: 0 });
