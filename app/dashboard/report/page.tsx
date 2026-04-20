@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import {
+  useDashboardUser,
+  type DashboardUser,
+} from "@/components/dashboard/DashboardUserProvider";
 import { tokens } from "@/lib/design-tokens";
 
-interface UserProfile {
-  name: string;
-  companyName: string | null;
-  email: string;
-}
+type UserProfile = DashboardUser;
 
 interface Project {
   id: string;
@@ -80,17 +80,19 @@ const CATEGORY_LABELS: Record<string, string> = {
 const JOB_POLL_INTERVAL = 3000;
 
 export default function ReportPage() {
+  const { user: userProfile } = useDashboardUser();
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState("");
   const [projectStats, setProjectStats] = useState<ProjectStats | null>(null);
   const [report, setReport] = useState<StoredReport | null>(null);
   const [editedReport, setEditedReport] = useState<StructuredReport | null>(null);
   const [editedSections, setEditedSections] = useState<Map<string, EditedSection>>(new Map());
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [reportLoading, setReportLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
+  const [existingJobId, setExistingJobId] = useState<string | null>(null);
+  const [cancelling, setCancelling] = useState(false);
   const [jobStatus, setJobStatus] = useState<{
     status: string;
     progress: number;
@@ -105,17 +107,21 @@ export default function ReportPage() {
   const [exportedFileUrl, setExportedFileUrl] = useState<string | null>(null);
   const pollRef = useRef<NodeJS.Timeout | null>(null);
   const reportRef = useRef<HTMLDivElement>(null);
+  const initialProjectLoadedRef = useRef(false);
 
   useEffect(() => {
-    fetchProjects();
-    fetchUserProfile();
+    void loadInitialData();
   }, []);
 
   useEffect(() => {
-    if (selectedProjectId) {
-      fetchProjectStats();
-      fetchReport();
+    if (!selectedProjectId) return;
+
+    if (initialProjectLoadedRef.current) {
+      initialProjectLoadedRef.current = false;
+      return;
     }
+
+    void loadProjectData(selectedProjectId);
   }, [selectedProjectId]);
 
   useEffect(() => {
@@ -124,14 +130,18 @@ export default function ReportPage() {
     };
   }, []);
 
-  async function fetchProjects() {
+  async function loadInitialData() {
     try {
       const res = await fetch("/api/projects");
       const data = await res.json();
       if (res.ok && data.data) {
-        setProjects(data.data);
-        if (data.data.length > 0 && !selectedProjectId) {
-          setSelectedProjectId(data.data[0].id);
+        const nextProjects = data.data;
+        setProjects(nextProjects);
+        if (nextProjects.length > 0 && !selectedProjectId) {
+          const firstProjectId = nextProjects[0].id;
+          initialProjectLoadedRef.current = true;
+          setSelectedProjectId(firstProjectId);
+          await loadProjectData(firstProjectId);
         }
       }
     } catch (err) {
@@ -141,13 +151,28 @@ export default function ReportPage() {
     }
   }
 
-  async function fetchProjectStats() {
-    if (!selectedProjectId) return;
+  async function loadProjectData(projectId: string) {
+    setReportLoading(true);
+    setSaveState("idle");
+    setSaveError("");
+    setExportState("idle");
+    setExportError("");
+
     try {
-      const res = await fetch(`/api/images?projectId=${selectedProjectId}`);
-      const data = await res.json();
-      if (res.ok && data.data) {
-        const images = data.data;
+      const [imagesRes, reportRes, jobRes] = await Promise.all([
+        fetch(`/api/images?projectId=${projectId}`),
+        fetch(`/api/reports/${projectId}`),
+        fetch(`/api/ai/job/${projectId}`),
+      ]);
+
+      const [imagesData, reportData, jobData] = await Promise.all([
+        imagesRes.json(),
+        reportRes.json(),
+        jobRes.json(),
+      ]);
+
+      if (imagesRes.ok && imagesData.data) {
+        const images = imagesData.data;
         const untagged = images.filter(
           (img: { category: string | null }) => !img.category || img.category === "general"
         ).length;
@@ -157,49 +182,50 @@ export default function ReportPage() {
           untagged,
           withNotes,
         });
+      } else {
+        setProjectStats(null);
       }
-    } catch (err) {
-      console.error("Failed to fetch images:", err);
-    }
-  }
 
-  async function fetchUserProfile() {
-    try {
-      const res = await fetch("/api/users/me");
-      const data = await res.json();
-      if (res.ok && data.data) {
-        setUserProfile(data.data);
-      }
-    } catch (err) {
-      console.error("Failed to fetch user profile:", err);
-    }
-  }
-
-  async function fetchReport() {
-    if (!selectedProjectId) return;
-    setReportLoading(true);
-    setSaveState("idle");
-    setSaveError("");
-    setExportState("idle");
-    setExportError("");
-    try {
-      const res = await fetch(`/api/reports/${selectedProjectId}`);
-      if (res.ok) {
-        const data = await res.json();
-        setReport(data.data);
-        setEditedReport(data.data.content);
-        setExportedFileUrl(data.data.exportedFileUrl || null);
-        initializeEditedSections(data.data.content);
+      if (reportRes.ok) {
+        setReport(reportData.data);
+        setEditedReport(reportData.data.content);
+        setExportedFileUrl(reportData.data.exportedFileUrl || null);
+        initializeEditedSections(reportData.data.content);
       } else {
         setReport(null);
         setEditedReport(null);
         setExportedFileUrl(null);
       }
+
+      if (jobRes.ok && jobData.data) {
+        setExistingJobId(jobData.data.id);
+        setCurrentJobId(jobData.data.id);
+        setJobStatus({
+          status: jobData.data.status,
+          progress: jobData.data.progress,
+          progressMessage: "",
+          errorMessage: null,
+        });
+        if (
+          jobData.data.status === "pending" ||
+          jobData.data.status === "processing"
+        ) {
+          startPolling(jobData.data.id);
+        }
+      } else {
+        setExistingJobId(null);
+        setCurrentJobId(null);
+        setJobStatus(null);
+      }
     } catch (err) {
-      console.error("Failed to fetch report:", err);
+      console.error("Failed to load report data:", err);
+      setProjectStats(null);
       setReport(null);
       setEditedReport(null);
       setExportedFileUrl(null);
+      setExistingJobId(null);
+      setCurrentJobId(null);
+      setJobStatus(null);
     } finally {
       setReportLoading(false);
     }
@@ -225,6 +251,33 @@ export default function ReportPage() {
     setEditedSections(sections);
   }
 
+  async function handleCancelJob() {
+    if (!selectedProjectId || !existingJobId) return;
+    setCancelling(true);
+    setError("");
+    try {
+      const res = await fetch("/api/ai/cancel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projectId: selectedProjectId }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error?.message || "Failed to cancel job");
+      } else {
+        if (pollRef.current) clearInterval(pollRef.current);
+        setExistingJobId(null);
+        setCurrentJobId(null);
+        setJobStatus(null);
+        setGenerating(false);
+      }
+    } catch (err) {
+      setError("Failed to cancel job");
+    } finally {
+      setCancelling(false);
+    }
+  }
+
   async function handleGenerateReport() {
     if (!selectedProjectId) return;
 
@@ -233,25 +286,91 @@ export default function ReportPage() {
     setJobStatus(null);
 
     try {
-      const res = await fetch("/api/ai/generate", {
+      const response = await fetch("/api/ai/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ projectId: selectedProjectId }),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (!res.ok) {
-        setError(data.error?.message || "Failed to start generation");
+      if (!response.ok) {
+        setError(data.error?.message || "Failed to generate report");
         setGenerating(false);
         return;
       }
 
-      const jobId = data.data.jobId;
-      setCurrentJobId(jobId);
-      startPolling(jobId);
+      if (data.data.jobId && data.data.status === "queued") {
+        setJobStatus({
+          status: "queued",
+          progress: 0,
+          progressMessage: data.data.message || "Report queued for processing",
+          errorMessage: null,
+        });
+        const jobId = data.data.jobId;
+        setCurrentJobId(jobId);
+        setExistingJobId(jobId);
+        startPolling(jobId);
+        return;
+      }
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (!reader) {
+        setError("Failed to read response");
+        setGenerating(false);
+        return;
+      }
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split("\n");
+
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            try {
+              const jsonData = JSON.parse(line.slice(6));
+
+              if (jsonData.error) {
+                setError(jsonData.error);
+                setGenerating(false);
+                return;
+              }
+
+              if (jsonData.done) {
+                if (jsonData.report) {
+                  setReport({
+                    id: selectedProjectId,
+                    title: jsonData.report.title,
+                    content: jsonData.report,
+                    status: "completed",
+                    createdAt: jsonData.report.generatedAt,
+                    updatedAt: jsonData.report.generatedAt,
+                  });
+                  setEditedReport(jsonData.report);
+                }
+                setGenerating(false);
+                setJobStatus({ status: "completed", progress: 100, progressMessage: "Report generated", errorMessage: null });
+              } else if (jsonData.progress !== undefined) {
+                setJobStatus({
+                  status: "processing",
+                  progress: jsonData.progress,
+                  progressMessage: jsonData.message || "Processing...",
+                  errorMessage: null,
+                });
+              }
+            } catch (e) {
+              console.error("Failed to parse SSE message:", e);
+            }
+          }
+        }
+      }
     } catch (err) {
-      setError("Failed to start report generation");
+      setError("Failed to generate report");
       setGenerating(false);
     }
   }
@@ -274,7 +393,7 @@ export default function ReportPage() {
             if (pollRef.current) clearInterval(pollRef.current);
             setGenerating(false);
             if (data.data.status === "completed") {
-              fetchReport();
+              void loadProjectData(selectedProjectId);
             }
           }
         }
@@ -315,101 +434,69 @@ export default function ReportPage() {
     }
   }
 
-  async function handleExport() {
-    if (!selectedProjectId || !editedReport) return;
+async function handleExport() {
+  if (!selectedProjectId || !editedReport) return;
 
-    setExportState("loading");
-    setExportError("");
+  setExportState("loading");
+  setExportError("");
 
-    try {
-      const res = await fetch("/api/report/export", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ projectId: selectedProjectId }),
-      });
+  try {
+    const res = await fetch("/api/report/export", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ projectId: selectedProjectId }),
+    });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error?.message || "Failed to fetch report HTML");
-      }
+    console.log("Export API response status:", res.status);
 
-      const html = await res.text();
-
-      setExportState("generating");
-
-      const container = document.createElement("div");
-      container.innerHTML = html;
-      container.style.position = "fixed";
-      container.style.left = "-9999px";
-      container.style.top = "0";
-      container.style.width = "210mm";
-      container.style.background = "#fff";
-      document.body.appendChild(container);
-
-      const html2pdf = (await import("html2pdf.js")).default;
-
-      const pdfBlob = await html2pdf()
-        .set({
-          margin: 10,
-          filename: `${editedReport.title.replace(/[^a-z0-9]/gi, "_")}.pdf`,
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true },
-          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        })
-        .from(container)
-        .outputPdf("blob");
-
-      document.body.removeChild(container);
-
-      const formData = new FormData();
-      formData.append("file", pdfBlob, "report.pdf");
-      formData.append("upload_preset", "fieldspec_reports");
-
-      const cloudinaryRes = await fetch(
-        `https://api.cloudinary.com/v1_1/${"dlvxzc4sw"}/raw/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      let fileUrl: string;
-
-      if (cloudinaryRes.ok) {
-        const cloudinaryData = await cloudinaryRes.json();
-        fileUrl = cloudinaryData.secure_url;
-
-        const saveRes = await fetch("/api/report/export", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            projectId: selectedProjectId,
-            exportedFileUrl: fileUrl,
-          }),
-        });
-
-        if (saveRes.ok) {
-          const saveData = await saveRes.json();
-          setReport(prev => prev ? { ...prev, exportedFileUrl: fileUrl, status: "exported" } : prev);
-        }
-      } else {
-        const url = URL.createObjectURL(pdfBlob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${editedReport.title.replace(/[^a-z0-9]/gi, "_")}.pdf`;
-        a.click();
-        URL.revokeObjectURL(url);
-        fileUrl = "";
-      }
-
-      setExportedFileUrl(fileUrl || "");
-      setExportState("success");
-    } catch (err) {
-      console.error("Export error:", err);
-      setExportError(err instanceof Error ? err.message : "Export failed");
-      setExportState("error");
+    if (!res.ok) {
+      const text = await res.text();
+      console.log("Export API error response:", text);
+      const data = JSON.parse(text);
+      throw new Error(data.error?.message || "Failed to fetch report HTML");
     }
+
+    const html = await res.text();
+    console.log("Got HTML, length:", html.length);
+
+    setExportState("generating");
+
+    const container = document.createElement("div");
+    container.innerHTML = html;
+    document.body.appendChild(container);
+
+    const html2pdf = (await import("html2pdf.js")).default;
+
+    const pdfBlob = await html2pdf()
+      .set({
+        margin: 10,
+        filename: `${editedReport.title.replace(/[^a-z0-9]/gi, "_")}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      })
+      .from(container)
+      .outputPdf("blob");
+
+    document.body.removeChild(container);
+
+    const url = URL.createObjectURL(pdfBlob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${editedReport.title.replace(/[^a-z0-9]/gi, "_")}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    setExportedFileUrl("");
+    setExportState("success");
+  } catch (err) {
+    console.error("Export error:", err);
+    setExportError(err instanceof Error ? err.message : "Export failed");
+    setExportState("error");
   }
+}
 
   const hasUnsavedChanges = useCallback(() => {
     if (!editedSections.size) return false;
@@ -797,6 +884,27 @@ export default function ReportPage() {
               <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onSurfaceVariant }}>
                 {jobStatus.progressMessage}
               </p>
+
+              {(jobStatus.status === "pending" || jobStatus.status === "processing") && existingJobId && (
+                <div style={{ marginTop: tokens.spacing.md }}>
+                  <button
+                    onClick={handleCancelJob}
+                    disabled={cancelling}
+                    style={{
+                      padding: `${tokens.spacing.sm} ${tokens.spacing.lg}`,
+                      backgroundColor: tokens.colors.errorContainer,
+                      color: tokens.colors.onErrorContainer,
+                      border: "none",
+                      borderRadius: tokens.radius.md,
+                      cursor: cancelling ? "not-allowed" : "pointer",
+                      opacity: cancelling ? 0.7 : 1,
+                      ...tokens.typography.labelLarge,
+                    }}
+                  >
+                    {cancelling ? "Cancelling..." : "Cancel"}
+                  </button>
+                </div>
+              )}
 
               {jobStatus.status === "failed" && (
                 <div style={{ marginTop: tokens.spacing.md }}>

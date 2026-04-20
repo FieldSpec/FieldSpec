@@ -1,4 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useCallback } from "react";
+import Navbar from "@/components/marketing/Navbar";
+import { Features, HowItWorks } from "@/components/marketing/Sections";
+import Brand from "@/components/Brand";
 import { tokens } from "@/lib/design-tokens";
 import ThemeToggle from "@/components/ThemeToggle";
 import type { Metadata } from "next";
@@ -1148,7 +1155,6 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer style={{
         fontFamily: "var(--sys-typescale-body-medium-fontfamily)",
       }}>
@@ -1401,7 +1407,7 @@ export default function MarketingPage() {
           </div>
         </div>
 
-        <div className="footer-bottom">
+<div className="footer-bottom">
           <div>© Copyright 2025 - Made by FieldSpec</div>
           <div>
             <Link href="#" className="footer-bottom-link" style={{ color: "inherit" }}>Get Template - Privacy Policy</Link>

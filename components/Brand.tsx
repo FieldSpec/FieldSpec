@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { tokens } from "@/lib/design-tokens";
 
 interface BrandProps {
   className?: string;
@@ -11,7 +12,7 @@ export default function Brand({
   size = "md",
   variant = "blue",
 }: BrandProps) {
-  const sizes = {
+const sizes = {
     sm: { img: 32, text: "text-title-medium" },
     md: { img: 40, text: "text-title-large" },
     lg: { img: 64, text: "text-headline-medium" },
