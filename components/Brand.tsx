@@ -19,7 +19,7 @@ const sizes = {
   };
 
   const currentSize = sizes[size];
-  const logoSrc = variant === "white" ? "/logo-white.png" : "/logo.png";
+  const logoSrc = variant === "white" ? "/logo-white-icon.png" : "/logo.png";
   const textColor = variant === "white" ? "text-white" : "text-primary";
 
   return (
