@@ -25,7 +25,7 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="max-w-[1200px]">
+    <div className="max-w-full">
       <div className="mb-xl">
         <h2 className="text-on-surface text-headline-small mb-xs ">
           Dashboard
@@ -35,30 +35,30 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-lg">
-        <div className="p-md mb-md bg-surface rounded-md border border-outline-variant">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="p-4 bg-surface rounded-md border border-outline-variant">
           <p className="text-on-surface-variant text-title-small">
             Total Projects
           </p>
-          <p className="text-on-surface mt-md text-title-large">
+          <p className="text-on-surface mt-4 text-title-large">
             {stats.projects}
           </p>
         </div>
 
-        <div className="p-md mb-md bg-surface rounded-md          border border-outline-variant">
+        <div className="p-4 bg-surface rounded-md border border-outline-variant">
           <p className="text-on-surface-variant text-title-small">
             Total Images
           </p>
-          <p className="text-on-surface mt-md text-title-large">
+          <p className="text-on-surface mt-4 text-title-large">
             {stats.images}
           </p>
         </div>
 
-        <div className="p-md mb-md bg-surface rounded-md          border border-outline-variant">
+        <div className="p-4 bg-surface rounded-md border border-outline-variant">
           <p className="text-on-surface-variant text-title-small">
             Reports Generated
           </p>
-          <p className="text-on-surface mt-md text-title-large">
+          <p className="text-on-surface mt-4 text-title-large">
             {stats.reports}
           </p>
         </div>

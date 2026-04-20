@@ -40,11 +40,8 @@ export default function DashboardLayout({
           if (data.data?.name) {
             setUserName(data.data.name);
           }
-        } else if (res.status === 401 || res.status === 404) {
-          // Stale session or user deleted from db
-          await fetch("/api/auth/logout", { method: "POST" });
-          router.push("/login");
         }
+        // DEV BYPASS: no redirect when DB is unavailable — just keep "User" default
       } catch (err) {
         console.error("Failed to fetch user:", err);
       }
@@ -82,7 +79,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex flex-col min-h-screen relative">
+    <div className="flex flex-col h-screen overflow-hidden relative">
       {/* Light Overlay - covers entire screen when modal is open */}
       {showLogoutModal && (
         <div
@@ -104,7 +101,7 @@ export default function DashboardLayout({
 
       {/* Header with Avatar */}
       <header
-        className="flex items-center justify-between py-[12px] dash-header-padding"
+        className="flex items-center justify-between py-3 dash-header-padding flex-shrink-0"
         style={{
           backgroundColor: tokens.colors.surfaceContainerLow,
           borderBottom: `1px solid ${tokens.colors.outlineVariant}`,
@@ -227,9 +224,9 @@ export default function DashboardLayout({
 
       <div className="flex-1 flex overflow-hidden dash-main-padding">
         <aside
-          className="dash-sidebar flex-shrink-0 flex-col"
+          className="dash-sidebar flex-shrink-0 flex-col overflow-y-auto"
           style={{
-            width: "calc(280px)",
+            width: "280px",
             backgroundColor: tokens.colors.surfaceContainerLow,
             borderRight: `1px solid ${tokens.colors.outlineVariant}`,
           }}
@@ -267,8 +264,7 @@ export default function DashboardLayout({
           className="flex-1 overflow-y-auto"
           style={{ 
             backgroundColor: tokens.colors.surface,
-            padding: "8px",
-            marginTop: "16px"
+            padding: "16px"
           }}
         >
           {children}

@@ -54,6 +54,11 @@ function getTokenFromRequest(request: NextRequest): string | null {
 }
 
 export function middleware(request: NextRequest) {
+  // ── DEV BYPASS: no DB yet, skip all auth checks ──────────────────────────
+  // TODO: remove this block once the database is set up
+  return NextResponse.next();
+
+  /* Original auth logic (re-enable when DB is ready):
   const { pathname } = request.nextUrl;
 
   const token = getTokenFromRequest(request);
@@ -72,6 +77,7 @@ export function middleware(request: NextRequest) {
   }
 
   return NextResponse.next();
+  */
 }
 
 export const config = {

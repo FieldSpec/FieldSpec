@@ -1,6 +1,9 @@
 import { prisma } from "../lib/prisma";
 
-prisma.report.findFirst({ orderBy: { createdAt: "desc" } }).then((r) => {
+async function main() {
+  const r = await prisma.report.findFirst({ orderBy: { createdAt: "desc" } });
   console.log(JSON.stringify(r, null, 2));
-  prisma.$disconnect();
-});
+}
+
+main()
+  .finally(() => prisma.$disconnect());

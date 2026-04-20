@@ -1,11 +1,15 @@
-import { PrismaClient } from "../lib/generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
 import { hashPassword } from "../lib/auth/password";
 import { generateToken, hashToken } from "../lib/auth/token";
 import { signJWT } from "../lib/auth/jwt";
 import { sendVerificationEmail, sendPasswordResetEmail } from "../services/email/email.service";
-import { TokenType } from "../lib/generated/prisma/client";
+
+enum TokenType {
+  email_verification = "email_verification",
+  password_reset = "password_reset",
+}
 
 const connectionString = process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/fieldspec";
 const pool = new pg.Pool({ connectionString });
