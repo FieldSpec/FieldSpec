@@ -237,7 +237,7 @@ function DashboardLayoutShell({
         >
           <nav className="flex-1 flex flex-col p-sm gap-xs mt-md">
             {navItems.map((item) => {
-              const isActive = item.href === pathname;
+              const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <Link
                   key={item.href}
@@ -343,7 +343,7 @@ function DashboardLayoutShell({
 
           <nav className="flex-1 flex flex-col p-sm gap-xs mt-md overflow-y-auto">
             {navItems.map((item) => {
-              const isActive = item.href === pathname;
+              const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <Link
                   key={item.href}
