@@ -428,7 +428,6 @@ export default function MarketingPage() {
           }
           .hero-btn-primary:hover {
             background-color: var(--sys-primary-container);
-            color: var(--sys-on-primary-container);
             transform: translateY(-2px);
             box-shadow: var(--sys-elevation-8dp) !important;
           }
