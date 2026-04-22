@@ -33,4 +33,20 @@ the or along with the dividers should be at the middle of the continue with goog
 
 add the forgot password link to the opposite side of the password label text
 
-add a pressed state to the sign in button
+add a pressed state to the sign in button using the primary color 20 from the design system
+
+add a hovered state to the sign in button and forgot password button. using the primary color 50 from the design system
+
+# error states
+- an error message should be displayed beneath the email input field saying enter your email address and the password input field should display an error message beneath it saying "enter your password" when the user clicks the sign in button and both the email field and the password field are empty. this error should use the error color from the design-tokens.css file and the input border should also use the error color from the design-tokens.css file
+
+- when the user clicks on the sign in button and the password field is empty, an error message should be displayed beneath the password field that says "enter your password" this error should use the error color from the design-tokens.css file and the input border should also use the error color from the design-tokens.css file.
+
+- when the user enter an email address, that does not end with "@gmail.com", or "@yahoo.com", or "@outlook.com", or "@hotmail.com", or "@icloud.com or a @company name.com format the email input field should display an error message beneath it saying "invalid email address" this error should use the error color from the design-tokens.css file and the input border should also use the error color from the design-tokens.css file.
+
+when the user clicks on the email field does not input his detail leaves and click the password input field and error messages should be displayed beneath the email input field saying "enter your email address" this error should use the error color from the design-tokens.css file and the input border should also use the error color from the design-tokens.css file.
+
+- if the user clicks on the password field and does not input his password and leaves the field to click on another input field an error message should be displayed beneath the password field that says "enter your password" this error should use the error color from the design-tokens.css file and the input border should also use the error color from the design-tokens.css file.
+
+
+when the user clicks on the sign in button and both the email field and the password field are filled in and matches the database record, the button should change to a loading state
