@@ -47,7 +47,7 @@ function DashboardLayoutShell({
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const avatarButtonRef = useRef<HTMLButtonElement>(null);
-<<<<<<< HEAD
+
 
   const userName = user?.name || "User";
 

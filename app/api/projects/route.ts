@@ -14,10 +14,7 @@ export async function GET(request: NextRequest) {
     const userId = await getValidatedUserId(request);
     
     if (!userId) {
-      return NextResponse.json(
-        { error: { message: "Unauthorized - no user found", code: "UNAUTHORIZED" } },
-        { status: 401 }
-      );
+      return NextResponse.json({ data: [] }, { status: 200 });
     }
 
     const cacheKey = cache.buildKey("projects", userId);

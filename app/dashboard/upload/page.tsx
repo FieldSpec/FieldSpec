@@ -43,6 +43,8 @@ export default function UploadPage() {
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [deletingImageId, setDeletingImageId] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [lastUploadedImage, setLastUploadedImage] = useState<ImageType | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const initialProjectLoadedRef = useRef(false);
 
@@ -122,6 +124,9 @@ export default function UploadPage() {
       }
 
       setImages((currentImages) => [saveData.data, ...currentImages]);
+      setLastUploadedImage(saveData.data);
+      setUploadSuccess(true);
+      setTimeout(() => setUploadSuccess(false), 3000);
     } catch (err) {
       setError("Upload failed. Please try again.");
     } finally {
@@ -525,6 +530,58 @@ export default function UploadPage() {
               }}
             >
               {error}
+            </div>
+          )}
+
+          {uploadSuccess && (
+            <div
+              className="animate-content"
+              style={{
+                padding: tokens.spacing.lg,
+                marginBottom: tokens.spacing.md,
+                backgroundColor: tokens.colors.primaryContainer,
+                borderRadius: tokens.radius.md,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: tokens.spacing.md,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: tokens.spacing.sm }}>
+                <span
+                  style={{
+                    color: tokens.colors.onPrimaryContainer,
+                    fontSize: "20px",
+                  }}
+                >
+                  ✓
+                </span>
+                <span
+                  style={{
+                    ...tokens.typography.bodyMedium,
+                    color: tokens.colors.onPrimaryContainer,
+                  }}
+                >
+                  Image uploaded successfully!
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  window.location.href = `/dashboard/report?projectId=${selectedProjectId}`;
+                }}
+                style={{
+                  padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
+                  backgroundColor: tokens.colors.primary,
+                  color: tokens.colors.onPrimary,
+                  border: "none",
+                  borderRadius: tokens.radius.md,
+                  cursor: "pointer",
+                  ...tokens.typography.labelMedium,
+                }}
+              >
+                Generate Report →
+              </button>
             </div>
           )}
 

@@ -35,28 +35,25 @@ export default function ThemeToggle() {
         .theme-toggle-btn {
           display: flex;
           align-items: center;
-          gap: 6px;
-          padding: 7px 14px;
-          border-radius: 20px;
-          border: 1.5px solid #E2E8F0;
-          background: #F8FAFC;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: 1px solid var(--sys-outline-roles-outline-variant, #E2E8F0);
+          background: transparent;
           cursor: pointer;
-          font-size: 13px;
-          font-weight: 500;
-          color: #475569;
-          font-family: inherit;
+          color: var(--sys-surface-roles-on-surface-variant, #475569);
           transition: all 0.2s ease;
-          white-space: nowrap;
-          margin-left: 8px;
+          margin-left: 12px;
         }
         .theme-toggle-btn:hover {
-          border-color: #31579b;
-          background: #EEF4FB;
-          color: #31579b;
+          background: var(--sys-surface-roles-surface-container, #F1F5F9);
+          color: var(--sys-primary, #31579b);
+          border-color: var(--sys-primary, #31579b);
           transform: translateY(-1px);
         }
         .theme-toggle-icon {
-          font-size: 15px;
+          font-size: 20px;
           line-height: 1;
         }
       `}</style>
@@ -69,7 +66,6 @@ export default function ThemeToggle() {
         <span className="material-symbols-outlined theme-toggle-icon">
           {isLight ? "dark_mode" : "light_mode"}
         </span>
-        {isLight ? "Dark" : "Light"}
       </button>
     </>
   );

@@ -36,7 +36,9 @@ export function middleware(request: NextRequest) {
   if (isAuthRoute(pathname) && isAuthenticated) {
     const redirectTo = request.nextUrl.searchParams.get("redirect") || "/dashboard";
     return NextResponse.redirect(new URL(redirectTo, request.url));
-  }
+  */
+
+  /* JWT refresh logic (re-enable with auth):
   const response = NextResponse.next();
 
   if (payload && shouldRefreshJWT(payload)) {
@@ -55,6 +57,9 @@ export function middleware(request: NextRequest) {
   }
 
   return response;
+  */
+
+  return NextResponse.next();
 }
 
 

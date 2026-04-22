@@ -180,8 +180,10 @@ export default function ProjectsPage() {
     { id: "stat-active-projects", label: "Active Projects", value: loading ? "—" : projects.length, sub: "In progress", trend: "+9%", trendUp: true, accent: "primary", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg> },
     { id: "stat-completed-jobs", label: "Total Photos", value: loading ? "—" : totalPhotos, sub: "All time", trend: "+12%", trendUp: true, accent: "secondary", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> },
     { id: "stat-avg-processing", label: "Avg. Processing", value: "2.4d", sub: "Per batch", trend: "−0.3d", trendUp: true, accent: "tertiary", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> },
-    { id: "stat-pending-analysis", label: "Pending Analysis", value: loading ? "—" : Math.max(0, Math.floor(totalPhotos * 0.05)), sub: "Queued", trend: null, trendUp: false, accent: "error", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg> },
-  ]  return (
+    { id: "stat-pending-analysis", label: "Pending Analysis", value: "0", sub: "Queued", trend: null, trendUp: true, accent: "error", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> },
+  ];
+
+  return (
     <div className="up-page">
       <style>{CSS}</style>
 
@@ -206,7 +208,7 @@ export default function ProjectsPage() {
         )}
       </div>
 
-      <input ref={fileInputRef} type="file" id="project-file-upload" accept=".pdf,.png,.jpeg,.jpg,.json,.csv,image/*"
+      <input ref={fileInputRef} type="file" id="project-file-upload" accept=".png,.jpeg,.jpg,.tiff,.tif,.pdf,.json,.csv,image/*"
         onChange={handleFileSelect} disabled={uploading} style={{ display: "none" }} />
 
       <div
@@ -248,7 +250,7 @@ export default function ProjectsPage() {
             >
               Browse Files
             </button>
-            <p className="up-zone-formats">PDF · PNG · JPEG · JPG · JSON · CSV</p>
+            <p className="up-zone-formats">JPEG &middot; PNG &middot; TIFF &middot; JSON &middot; CSV &middot; Project exports</p>
           </div>
         )}
       </div>
@@ -358,56 +360,6 @@ export default function ProjectsPage() {
         ))}
       </div>
 
-      {loading ? (
-        <div className="up-table-empty">
-          <p className="up-table-empty-title">Loading...</p>
-        </div>
-      ) : projects.length === 0 ? (
-        <div
-          className="up-table-empty"
-          style={{
-            padding: tokens.spacing.xl,
-            backgroundColor: tokens.colors.surface,
-            borderRadius: tokens.radius.lg,
-            boxShadow: tokens.elevation.level1,
-            textAlign: "center",
-            border: `1px solid ${tokens.colors.outlineVariant}`,
-          }}
-        >
-          <p
-            style={{
-              ...tokens.typography.bodyLarge,
-              color: tokens.colors.onSurfaceVariant,
-            }}
-          >
-            No projects yet. Create your first project to get started.
-          </p>
-        </div>
-      ) : (
-        <div className="up-projects-grid">
-          {projects.map((project) => (
-            <div key={project.id} className="up-project-card">
-              <div className="up-project-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
-                </svg>
-              </div>
-              <div className="up-project-body">
-                <h3 className="up-project-name">{project.name}</h3>
-                <p className="up-project-meta">
-                  {project.photoCount} photos &middot; Created {formatDate(project.createdAt)}
-                </p>
-              </div>
-              <button className="up-project-action" aria-label="View project">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="9 18 15 12 9 6"/>
-                </svg>
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
-
       <div className="up-table-card">
         <div className="up-table-hd">
           <h2 className="up-table-title">Projects Summary</h2>
@@ -426,7 +378,19 @@ export default function ProjectsPage() {
               </tr>
             </thead>
             <tbody>
-              {projects.slice(0, 10).map((project) => (
+              {loading ? (
+                <tr>
+                  <td colSpan={6} className="up-td" style={{ textAlign: "center", padding: "32px", color: "var(--sys-surface-roles-on-surface-variant)" }}>
+                    Loading projects...
+                  </td>
+                </tr>
+              ) : projects.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="up-td" style={{ textAlign: "center", padding: "32px", color: "var(--sys-surface-roles-on-surface-variant)" }}>
+                    No projects found.
+                  </td>
+                </tr>
+              ) : projects.slice(0, 10).map((project) => (
                 <tr key={project.id} className="up-tr">
                   <td className="up-td">
                     <div className="up-file-info">
@@ -499,14 +463,14 @@ const CSS = `
 
 .up-zone { border:2px dashed var(--sys-outline-roles-outline-variant); border-radius:var(--sys-radius-xl); background:var(--sys-surface-roles-surface-container-low); padding:36px 32px; text-align:center; cursor:pointer; transition:border-color .25s,background .25s,transform .2s,box-shadow .25s; margin-bottom:28px; outline:none; position:relative; }
 .up-zone::before { content:''; position:absolute; inset:0; border-radius:var(--sys-radius-xl); background:radial-gradient(ellipse at center,color-mix(in srgb,var(--sys-primary) 8%,transparent),transparent 70%); opacity:0; transition:opacity .3s ease; pointer-events:none; }
-.up-zone:hover, .up-zone:focus { border-color:var(--sys-primary); box-shadow:0 0 20px color-mix(in srgb,var(--sys-primary) 20%,transparent); background:color-mix(in srgb,var(--sys-primary) 3%,var(--sys-surface-roles-surface-container-low)); }
+.up-zone:hover, .up-zone:focus { border-color:var(--sys-primary); box-shadow:0 0 12px color-mix(in srgb,var(--sys-primary) 12%,transparent); background:color-mix(in srgb,var(--sys-primary) 3%,var(--sys-surface-roles-surface-container-low)); }
 .up-zone:hover::before { opacity:1; }
-.up-zone--drag { border-color:var(--sys-primary)!important; transform:scale(1.006); background:color-mix(in srgb,var(--sys-primary) 6%,var(--sys-surface-roles-surface-container-low))!important; box-shadow:0 0 24px color-mix(in srgb,var(--sys-primary) 30%,transparent)!important; }
+.up-zone--drag { border-color:var(--sys-primary)!important; transform:scale(1.006); background:color-mix(in srgb,var(--sys-primary) 6%,var(--sys-surface-roles-surface-container-low))!important; box-shadow:0 0 16px color-mix(in srgb,var(--sys-primary) 20%,transparent)!important; }
 .up-zone--drag::before { opacity:1!important; }
 .up-zone--busy { cursor:not-allowed; }
 .up-zone-inner { display:flex; flex-direction:column; align-items:center; gap:10px; position:relative; z-index:1; }
 .up-zone-icon { width:56px; height:56px; border-radius:50%; background:color-mix(in srgb,var(--sys-primary) 11%,transparent); display:flex; align-items:center; justify-content:center; color:var(--sys-primary); transition:background .2s,transform .25s,box-shadow .25s; }
-.up-zone:hover .up-zone-icon { background:color-mix(in srgb,var(--sys-primary) 17%,transparent); transform:translateY(-2px); box-shadow:0 0 16px color-mix(in srgb,var(--sys-primary) 40%,transparent); }
+.up-zone:hover .up-zone-icon { background:color-mix(in srgb,var(--sys-primary) 17%,transparent); transform:translateY(-2px); box-shadow:0 0 8px color-mix(in srgb,var(--sys-primary) 25%,transparent); }
 .up-zone-primary { font-size:14.5px; font-weight:500; color:var(--sys-surface-roles-on-surface); margin:0; }
 .up-zone-or      { font-size:12px; color:var(--sys-surface-roles-on-surface-variant); margin:0; }
 .up-zone-formats { font-size:11px; color:var(--sys-surface-roles-on-surface-variant); margin:0; opacity:.75; }
@@ -517,7 +481,7 @@ const CSS = `
 .up-stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
 .up-stat-card { background:color-mix(in srgb,var(--sys-primary-container) 35%,var(--sys-surface-roles-surface-container-low)); border:1px solid var(--sys-outline-roles-outline-variant); border-radius:var(--sys-radius-lg); padding:20px; display:flex; flex-direction:column; gap:5px; transition:box-shadow .3s ease,transform .25s ease,border-color .3s ease,background .3s ease; position:relative; overflow:hidden; }
 .up-stat-card::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at top left,color-mix(in srgb,var(--sys-primary) 8%,transparent),transparent 60%); opacity:0; transition:opacity .25s ease; pointer-events:none; }
-.up-stat-card:hover { box-shadow:0 0 24px color-mix(in srgb,var(--sys-primary) 35%,transparent),0 8px 32px color-mix(in srgb,var(--sys-primary) 20%,transparent),var(--sys-elevation-6dp-penumbra); transform:translateY(-4px); border-color:var(--sys-primary); background:color-mix(in srgb,var(--sys-primary-container) 50%,var(--sys-surface-roles-surface-container-low)); }
+.up-stat-card:hover { box-shadow:0 4px 16px color-mix(in srgb,var(--sys-primary) 15%,transparent),var(--sys-elevation-2dp-penumbra); transform:translateY(-2px); border-color:var(--sys-primary); background:color-mix(in srgb,var(--sys-primary-container) 40%,var(--sys-surface-roles-surface-container-low)); }
 .up-stat-card:hover::before { opacity:1; }
 .up-stat-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; position:relative; z-index:1; }
 .up-stat-icon { width:36px; height:36px; border-radius:var(--sys-radius-md); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:box-shadow .25s ease,transform .2s ease; }
@@ -525,10 +489,10 @@ const CSS = `
 .up-stat-icon--secondary { background:var(--sys-secondary-container); color:var(--sys-on-secondary-container); }
 .up-stat-icon--tertiary  { background:var(--sys-tertiary-container);  color:var(--sys-on-tertiary-container); }
 .up-stat-icon--error     { background:var(--sys-error-container);     color:var(--sys-on-error-container); }
-.up-stat-card:hover .up-stat-icon--primary   { box-shadow:0 2px 10px color-mix(in srgb,var(--sys-primary) 30%,transparent); transform:scale(1.05); }
-.up-stat-card:hover .up-stat-icon--secondary { box-shadow:0 2px 10px color-mix(in srgb,var(--sys-secondary) 30%,transparent); transform:scale(1.05); }
-.up-stat-card:hover .up-stat-icon--tertiary  { box-shadow:0 2px 10px color-mix(in srgb,var(--sys-tertiary) 30%,transparent); transform:scale(1.05); }
-.up-stat-card:hover .up-stat-icon--error     { box-shadow:0 2px 10px color-mix(in srgb,var(--sys-error) 30%,transparent); transform:scale(1.05); }
+.up-stat-card:hover .up-stat-icon--primary   { box-shadow:0 2px 6px color-mix(in srgb,var(--sys-primary) 20%,transparent); transform:scale(1.02); }
+.up-stat-card:hover .up-stat-icon--secondary { box-shadow:0 2px 6px color-mix(in srgb,var(--sys-secondary) 20%,transparent); transform:scale(1.02); }
+.up-stat-card:hover .up-stat-icon--tertiary  { box-shadow:0 2px 6px color-mix(in srgb,var(--sys-tertiary) 20%,transparent); transform:scale(1.02); }
+.up-stat-card:hover .up-stat-icon--error     { box-shadow:0 2px 6px color-mix(in srgb,var(--sys-error) 20%,transparent); transform:scale(1.02); }
 .up-stat-trend { font-size:11px; font-weight:600; padding:3px 8px; border-radius:999px; }
 .up-stat-trend--up { background:color-mix(in srgb,#45ba4b 14%,transparent); color:#37953c; }
 .up-stat-trend--dn { background:color-mix(in srgb,var(--sys-error) 12%,transparent); color:var(--sys-error); }
@@ -547,9 +511,9 @@ const CSS = `
 .up-dtype-card--secondary::before { background:var(--sys-secondary); }
 .up-dtype-card--tertiary::before  { background:var(--sys-tertiary); }
 .up-dtype-card--error::before     { background:var(--sys-error); }
-.up-dtype-card:hover { box-shadow:0 0 24px color-mix(in srgb,var(--sys-primary) 30%,transparent),0 8px 32px color-mix(in srgb,var(--sys-primary) 18%,transparent),var(--sys-elevation-6dp-penumbra); transform:translateY(-4px); border-color:var(--sys-primary); }
+.up-dtype-card:hover { box-shadow:0 4px 16px color-mix(in srgb,var(--sys-primary) 15%,transparent),var(--sys-elevation-2dp-penumbra); transform:translateY(-2px); border-color:var(--sys-primary); }
 .up-dtype-card:hover::before { opacity:1; }
-.up-dtype-card:hover .up-dtype-icon { transform:scale(1.08); box-shadow:0 0 16px color-mix(in srgb,var(--sys-primary) 40%,transparent); }
+.up-dtype-card:hover .up-dtype-icon { transform:scale(1.04); box-shadow:0 2px 8px color-mix(in srgb,var(--sys-primary) 20%,transparent); }
 .up-dtype-icon { width:42px; height:42px; border-radius:var(--sys-radius-md); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:box-shadow .25s ease,transform .2s ease; }
 .up-dtype-icon--primary   { background:var(--sys-primary-container);   color:var(--sys-on-primary-container); }
 .up-dtype-icon--secondary { background:var(--sys-secondary-container); color:var(--sys-on-secondary-container); }
@@ -563,10 +527,10 @@ const CSS = `
 .up-projects-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:16px; }
 .up-project-card { display:flex; align-items:center; gap:14px; padding:18px; background:var(--sys-surface-roles-surface-container-low); border:1px solid var(--sys-outline-roles-outline-variant); border-radius:var(--sys-radius-lg); transition:box-shadow .3s ease,transform .25s ease,border-color .3s ease; position:relative; overflow:hidden; }
 .up-project-card::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,color-mix(in srgb,var(--sys-primary) 6%,transparent),transparent 70%); opacity:0; transition:opacity .3s ease; pointer-events:none; }
-.up-project-card:hover { box-shadow:0 0 20px color-mix(in srgb,var(--sys-primary) 28%,transparent),0 6px 24px color-mix(in srgb,var(--sys-primary) 16%,transparent); transform:translateY(-4px); border-color:var(--sys-primary); }
+.up-project-card:hover { box-shadow:0 4px 12px color-mix(in srgb,var(--sys-primary) 15%,transparent); transform:translateY(-2px); border-color:var(--sys-primary); }
 .up-project-card:hover::before { opacity:1; }
 .up-project-icon { width:42px; height:42px; border-radius:var(--sys-radius-md); background:var(--sys-primary-container); color:var(--sys-on-primary-container); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:box-shadow .25s ease,transform .25s ease; }
-.up-project-card:hover .up-project-icon { box-shadow:0 0 12px color-mix(in srgb,var(--sys-primary) 50%,transparent); transform:scale(1.08); }
+.up-project-card:hover .up-project-icon { box-shadow:0 2px 8px color-mix(in srgb,var(--sys-primary) 25%,transparent); transform:scale(1.04); }
 .up-project-body { flex:1; min-width:0; }
 .up-project-name { font-size:14px; font-weight:600; color:var(--sys-surface-roles-on-surface); margin:0 0 2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .up-project-meta { font-size:12px; color:var(--sys-surface-roles-on-surface-variant); margin:0; }
@@ -592,12 +556,12 @@ const CSS = `
 .up-badge--active { background:color-mix(in srgb,#45ba4b 13%,transparent); color:#29702d; }
 .up-file-info { display:flex; align-items:center; gap:10px; }
 .up-thumb { width:34px; height:34px; border-radius:var(--sys-radius-sm); overflow:hidden; background:var(--sys-surface-roles-surface-container); flex-shrink:0; display:flex; align-items:center; justify-content:center; color:var(--sys-surface-roles-on-surface-variant); transition:box-shadow .2s,transform .2s; }
-.up-tr:hover .up-thumb { box-shadow:0 0 10px color-mix(in srgb,var(--sys-primary) 30%,transparent); transform:scale(1.05); }
+.up-tr:hover .up-thumb { box-shadow:0 2px 6px color-mix(in srgb,var(--sys-primary) 20%,transparent); transform:scale(1.02); }
 .up-file-name { font-size:13px; font-weight:500; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:block; }
 .up-row-acts { display:flex; align-items:center; gap:4px; opacity:0; transition:opacity .2s; }
 .up-tr:hover .up-row-acts { opacity:1; }
 .up-act-btn { width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; border-radius:var(--sys-radius-sm); background:transparent; color:var(--sys-surface-roles-on-surface-variant); cursor:pointer; transition:background .2s,color .2s,box-shadow .2s,transform .2s; }
-.up-act-btn:hover { background:var(--sys-surface-roles-surface-container-high); color:var(--sys-primary); box-shadow:0 0 10px color-mix(in srgb,var(--sys-primary) 30%,transparent); transform:scale(1.1); }
+.up-act-btn:hover { background:var(--sys-surface-roles-surface-container-high); color:var(--sys-primary); box-shadow:0 2px 6px color-mix(in srgb,var(--sys-primary) 20%,transparent); transform:scale(1.05); }
 
 .up-table-empty { display:flex; flex-direction:column; align-items:center; gap:8px; padding:48px 24px; text-align:center; }
 .up-table-empty-title { font-size:14px; font-weight:500; color:var(--sys-surface-roles-on-surface); margin:0; }
