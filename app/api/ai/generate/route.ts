@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
     const limit = await aiLimiter(userId);
     if (!limit.allowed) {
       return NextResponse.json(
-        { error: { message: "AI generation rate limit exceeded. You can generate up to 5 reports per hour.", code: "RATE_LIMITED" } },
+        { error: { message: "AI generation rate limit exceeded. You can generate up to 20 reports per hour.", code: "RATE_LIMITED" } },
         { status: 429 }
       );
     }
