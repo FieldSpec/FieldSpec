@@ -300,15 +300,20 @@ export function useReportState() {
         body: JSON.stringify({ projectId: selectedProjectId }),
       });
 
-      const data = await response.json();
+      let data = {};
+      try {
+        data = await response.json();
+      } catch {
+        // Response is not JSON
+      }
 
       if (!response.ok) {
-        setError(data.error?.message || "Failed to generate report");
+        setError(data.error?.message || `Failed to generate report (${response.status})`);
         setGenerating(false);
         return;
       }
 
-      if (data.data.jobId && data.data.status === "queued") {
+      if (data.data?.jobId && data.data.status === "queued") {
         setJobStatus({
           status: "queued",
           progress: 0,
@@ -378,7 +383,8 @@ export function useReportState() {
         }
       }
     } catch (err) {
-      setError("Failed to generate report");
+      console.error("Report generation error:", err);
+      setError(err instanceof Error ? err.message : "Failed to generate report");
       setGenerating(false);
     }
   }
