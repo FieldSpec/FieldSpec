@@ -300,31 +300,36 @@ export function useReportState() {
         body: JSON.stringify({ projectId: selectedProjectId }),
       });
 
-      let data = {};
-      try {
-        data = await response.json();
-      } catch {
-        // Response is not JSON
-      }
-
       if (!response.ok) {
-        setError(data.error?.message || `Failed to generate report (${response.status})`);
+        let errorMessage = "Failed to generate report";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error?.message || errorMessage;
+        } catch {
+          // Response is not JSON
+        }
+        setError(`${errorMessage} (${response.status})`);
         setGenerating(false);
         return;
       }
 
-      if (data.data?.jobId && data.data.status === "queued") {
-        setJobStatus({
-          status: "queued",
-          progress: 0,
-          progressMessage: data.data.message || "Report queued for processing",
-          errorMessage: null,
-        });
-        const jobId = data.data.jobId;
-        setCurrentJobId(jobId);
-        setExistingJobId(jobId);
-        startPolling(jobId);
-        return;
+      const contentType = response.headers.get("content-type");
+      if (contentType?.includes("application/json")) {
+        const data = await response.json();
+        
+        if (data.data?.jobId && data.data.status === "queued") {
+          setJobStatus({
+            status: "queued",
+            progress: 0,
+            progressMessage: data.data.message || "Report queued for processing",
+            errorMessage: null,
+          });
+          const jobId = data.data.jobId;
+          setCurrentJobId(jobId);
+          setExistingJobId(jobId);
+          startPolling(jobId);
+          return;
+        }
       }
 
       const reader = response.body?.getReader();
