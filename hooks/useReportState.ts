@@ -473,6 +473,28 @@ export function useReportState() {
           iframeDoc.write(html);
           iframeDoc.close();
 
+          const bodyEl = iframeDoc.body;
+          bodyEl.style.backgroundColor = "#ffffff";
+          bodyEl.style.color = "#1f2937";
+          bodyEl.style.fontFamily = "Arial, sans-serif";
+          bodyEl.style.margin = "0";
+          bodyEl.style.padding = "0";
+
+          const forceLightMode = iframeDoc.createElement("style");
+          forceLightMode.textContent = `
+            :root, :root.light, html, body, * {
+              background-color: #ffffff !important;
+              color: #1f2937 !important;
+            }
+            .section { background-color: #ffffff !important; border: 1px solid #e5e7eb !important; }
+            .summary-box { background-color: #ffffff !important; }
+            .recommendations-box pre { background-color: #f8fafc !important; }
+            .image-entry { background-color: #f8fafc !important; }
+            .meta-grid { background-color: #f8fafc !important; }
+            img { background-color: transparent !important; }
+          `;
+          iframeDoc.head.appendChild(forceLightMode);
+
           await new Promise(resolve => setTimeout(resolve, 1000));
 
           const html2pdf = (await import("html2pdf.js")).default;
@@ -480,12 +502,12 @@ export function useReportState() {
             filename: `${editedReport?.title || "report"}.pdf`,
             margin: 10,
             image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, letterRendering: true, width: 800 },
+            html2canvas: { scale: 2, useCORS: true, letterRendering: true, width: 800, backgroundColor: "#ffffff" },
             jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
             pagebreak: { mode: ["avoid-all", "css", "legacy"] },
           };
           
-          await html2pdf().set(pdfOptions).from(iframeDoc.body).save();
+          await html2pdf().set(pdfOptions).from(bodyEl).save();
           document.body.removeChild(iframe);
           setExportState("success");
         } catch (err) {
