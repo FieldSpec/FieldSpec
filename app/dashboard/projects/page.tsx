@@ -108,6 +108,7 @@ export default function ProjectsPage() {
     <div
       style={{
         maxWidth: "1000px",
+        padding: `0 ${tokens.spacing.md}`,
       }}
     >
       <style>{`
