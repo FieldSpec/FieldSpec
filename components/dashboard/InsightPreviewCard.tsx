@@ -18,15 +18,15 @@ export function InsightPreviewCard({ insight }: InsightPreviewCardProps) {
   }
 
   const getConfidenceColor = (score: number) => {
-    if (score >= 80) return "#37953c";
-    if (score >= 60) return "#c47f08";
-    return tokens.colors.error;
+    if (score >= 80) return "var(--sys-tertiary)";
+    if (score >= 60) return "var(--sys-secondary)";
+    return "var(--sys-error)";
   };
 
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", gap: tokens.spacing.sm, marginBottom: tokens.spacing.md }}>
-        <span className="material-icons" style={{ fontSize: tokens.typography.titleMedium.fontSize, color: "#37953c" }}>
+        <span className="material-icons" style={{ fontSize: tokens.typography.titleMedium.fontSize, color: "var(--sys-tertiary)" }}>
           auto_awesome
         </span>
         <span
@@ -165,7 +165,7 @@ export function InsightPreviewCard({ insight }: InsightPreviewCardProps) {
                 position: "absolute",
                 top: tokens.spacing.sm,
                 left: tokens.spacing.sm,
-                backgroundColor: "rgba(255, 255, 255, 0.75)",
+                backgroundColor: "var(--sys-surface-roles-surface-container, rgba(255, 255, 255, 0.9))",
                 borderRadius: tokens.radius.md,
                 paddingLeft: tokens.spacing.sm,
                 paddingRight: tokens.spacing.sm,
@@ -173,7 +173,7 @@ export function InsightPreviewCard({ insight }: InsightPreviewCardProps) {
                 paddingBottom: tokens.spacing.xs,
               }}
             >
-              <span style={{ color: tokens.colors.onSurface, fontSize: tokens.typography.labelMedium.fontSize, fontWeight: "500" }}>
+              <span style={{ color: "var(--sys-surface-roles-on-surface)", fontSize: tokens.typography.labelMedium.fontSize, fontWeight: "500" }}>
                 {insight.projectName}
               </span>
             </div>
@@ -185,7 +185,7 @@ export function InsightPreviewCard({ insight }: InsightPreviewCardProps) {
                 bottom: tokens.spacing.sm,
                 left: tokens.spacing.sm,
                 right: tokens.spacing.sm,
-                backgroundColor: "rgba(255, 255, 255, 0.75)",
+                backgroundColor: "var(--sys-surface-roles-surface-container, rgba(255, 255, 255, 0.9))",
                 borderRadius: tokens.radius.md,
                 paddingLeft: tokens.spacing.sm,
                 paddingRight: tokens.spacing.sm,
