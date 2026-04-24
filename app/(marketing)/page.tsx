@@ -7,9 +7,9 @@ import { Features, HowItWorks } from "@/components/marketing/Sections";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
-  title: "AI Drone Survey Report Builder | FieldSpec",
+  title: "FieldSpec — AI Report Builder for Drone Inspections",
   description:
-    "Transform drone imagery into actionable insights. FieldSpec uses AI to analyze aerial surveys and generate professional reports for agriculture, construction, and infrastructure.",
+    "Upload drone images, get AI-generated analysis, and export professional PDF reports. Built for agriculture, survey, and infrastructure teams.",
   keywords: [
     "drone survey",
     "AI analysis",
@@ -25,44 +25,44 @@ export const metadata: Metadata = {
 export default function MarketingPage() {
   const features = [
     {
-      title: "AI-Generated Insights",
-      description: "Get automated findings and recommendations for every image. No more manual analysis.",
+      title: "Skip the Manual Analysis",
+      description: "AI examines every image and produces findings automatically. No more staring at photos wondering what to write.",
       imageUrl: "/images/ai-generated-insights.jpg",
     },
     {
-      title: "Image-Based Analysis",
-      description: "Upload drone images with GPS data. AI extracts patterns and identifies issues automatically.",
+      title: "GPS-Tagged Analysis",
+      description: "Upload images with GPS coordinates. AI extracts patterns tied to exact locations so you know where issues are, not just what they are.",
       imageUrl: "/images/image-based-analysis.jpg",
     },
     {
-      title: "Structured Reports",
-      description: "Build professional reports with consistent formatting. Export-ready in minutes.",
+      title: "Consistent Reports Every Time",
+      description: "Generate formatted, professional PDF reports with one click. Your clients get the same quality, project after project.",
       imageUrl: "/images/structured-reports.jpg",
     },
     {
-      title: "Map Visualisation",
-      description: "See all your images on an interactive map. Pinpoint issues to exact locations.",
+      title: "Pinpoint Issues on a Map",
+      description: "Every image appears on an interactive map. See exactly where problems are without flipping through folders.",
       imageUrl: "/images/map-visualisation.jpg",
     },
     {
-      title: "Fast Export",
-      description: "Generate PDF reports with one click. Share with stakeholders instantly.",
+      title: "Export & Share in One Click",
+      description: "Generate a PDF and share with stakeholders instantly. No formatting, no file conversion, no delays.",
       imageUrl: "/images/hand-holding-stopwatch.jpg",
     },
   ];
 
   const useCases = [
-    { title: "Agricultural Inspections", description: "Assess crop health, identify pest damage, monitor irrigation issues across large areas.", imageUrl: "/images/agricultural-inspections.jpg" },
-    { title: "Land Surveys", description: "Document land conditions, track changes over time, create comprehensive survey reports.", imageUrl: "/images/land-surveys.jpg" },
-    { title: "Infrastructure Inspections", description: "Inspect roofs, bridges, and utility infrastructure safely and efficiently.", imageUrl: "/images/infrastructure-inspections.jpg" },
-    { title: "Drone Operators", description: "Add professional reporting to your drone services. Deliver more value to clients.", imageUrl: "/images/drone-operators.jpg" },
+    { title: "Agricultural Inspections", description: "Assess crop health, map pest damage, and monitor irrigation across hundreds of acres. Deliver clear reports growers can act on.", imageUrl: "/images/agricultural-inspections.jpg" },
+    { title: "Land Surveys", description: "Document site conditions, track changes between surveys, and produce professional reports clients trust for decision-making.", imageUrl: "/images/land-surveys.jpg" },
+    { title: "Infrastructure Inspections", description: "Inspect roofs, bridges, and utility assets from the air. Generate professional reports without putting boots on the ground.", imageUrl: "/images/infrastructure-inspections.jpg" },
+    { title: "Drone Service Providers", description: "Stand out from competitors by delivering polished inspection reports with every flight. Turn aerial data into a premium service.", imageUrl: "/images/drone-operators.jpg" },
   ];
 
   const steps = [
-    { num: "1", title: "Upload Drone Images", description: "Drag and drop or batch upload images. GPS data is extracted automatically.", icon: "upload" },
-    { num: "2", title: "Tag & Organize", description: "Categorize images by type, location, or condition. Keep everything structured.", icon: "label" },
-    { num: "3", title: "Generate AI Insights", description: "Let AI analyze each image and produce findings and recommendations.", icon: "auto_awesome" },
-    { num: "4", title: "Export Professional Report", description: "Build and export a structured PDF report. Ready for stakeholders.", icon: "description" },
+    { num: "1", title: "Upload Your Images", description: "Drag and drop your drone images. GPS data is extracted automatically.", icon: "upload" },
+    { num: "2", title: "Tag & Organize", description: "Categorize images by project, location, or condition in seconds.", icon: "label" },
+    { num: "3", title: "Analyze with AI", description: "AI detects patterns, flags issues, and generates findings for every image.", icon: "auto_awesome" },
+    { num: "4", title: "Export Your Report", description: "Generate a polished PDF report and share with stakeholders immediately.", icon: "description" },
   ];
 
   return (
@@ -334,8 +334,8 @@ export default function MarketingPage() {
             lineHeight: 1.1,
             letterSpacing: "-0.02em",
           }}>
-            Drone Images to Reports in<br />
-            <span style={{ color: "#FFFFFF" }}>Minutes</span>
+            Turn Drone Images into<br />
+            <span style={{ color: "#FFFFFF" }}>Client-Ready Reports</span>
           </h1>
           <p className="hero-subcopy" style={{
             fontFamily: tokens.typography.bodyLarge.fontFamily,
@@ -346,7 +346,7 @@ export default function MarketingPage() {
             marginBottom: tokens.spacing.xl,
             lineHeight: 1.5,
           }}>
-            Upload your drone images. Let AI analyze them. Export structured reports ready for stakeholders. No manual work required.
+            Upload aerial images, get AI-generated analysis and findings, and export a structured PDF report. No manual writing, no missed details, no delays.
           </p>
           <div className="hero-buttons" style={{
             display: "flex",
@@ -355,10 +355,10 @@ export default function MarketingPage() {
             flexWrap: "wrap",
           }}>
             <Link href="/signup" className="hero-btn-primary">
-              Get Started
+              Start Your First Report
             </Link>
-            <Link href="/login" className="hero-btn-secondary">
-              Request Demo
+            <Link href="#how-it-works" className="hero-btn-secondary">
+              See How It Works
             </Link>
           </div>
         </div>
@@ -536,7 +536,7 @@ export default function MarketingPage() {
             textAlign: "center",
             marginBottom: tokens.spacing.xl,
           }}>
-            From Manual Hassle to Automated Insight
+            From Hours of Manual Work to Automated Reports
           </h2>
           <p style={{
             ...tokens.typography.bodyLarge,
@@ -546,7 +546,7 @@ export default function MarketingPage() {
             margin: "0 auto",
             marginBottom: tokens.spacing.xxl,
           }}>
-            Traditional drone data processing is time‑consuming and error‑prone. FieldSpec transforms raw images into actionable intelligence.
+            Turning drone data into professional reports takes too long, introduces inconsistencies, and wastes valuable time. FieldSpec does it automatically.
           </p>
 
           <div className="problem-solution-grid" style={{
@@ -595,7 +595,7 @@ export default function MarketingPage() {
                         <span style={{ color: tokens.colors.primary, fontSize: tokens.typography.bodyMedium.fontSize, fontWeight: "bold" }}>✕</span>
                       </div>
                     </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Manual report writing is slow, inconsistent, and prone to human error</span>
+                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Writing reports manually takes hours, and every report looks different from the last</span>
                   </li>
                   <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                     <div style={{ flexShrink: 0, marginTop: "4px" }}>
@@ -603,7 +603,7 @@ export default function MarketingPage() {
                         <span style={{ color: tokens.colors.primary, fontSize: tokens.typography.bodyMedium.fontSize, fontWeight: "bold" }}>✕</span>
                       </div>
                     </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Drone data remains unstructured, making analysis and comparison difficult</span>
+                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Drone images sit unstructured, making it nearly impossible to track findings across projects</span>
                   </li>
                   <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                     <div style={{ flexShrink: 0, marginTop: "4px" }}>
@@ -611,7 +611,7 @@ export default function MarketingPage() {
                         <span style={{ color: tokens.colors.primary, fontSize: tokens.typography.bodyMedium.fontSize, fontWeight: "bold" }}>✕</span>
                       </div>
                     </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Insights vary between team members, reducing decision‑making confidence</span>
+                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Team members interpret the same data differently, eroding trust with clients</span>
                   </li>
                 </ul>
               </div>
@@ -622,7 +622,7 @@ export default function MarketingPage() {
                       <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: i === 1 ? "var(--ref-key-accent-key-color)" : "var(--ref-neutral-neutral87)" }} />
                     ))}
                   </div>
-                  <span style={{ fontFamily: "var(--sys-typescale-body-large-fontfamily)", fontSize: "var(--sys-typescale-body-medium-fontsize)", color: tokens.colors.onSurfaceVariant }}>3 major pain points</span>
+                  <span style={{ fontFamily: "var(--sys-typescale-body-large-fontfamily)", fontSize: "var(--sys-typescale-body-medium-fontsize)", color: tokens.colors.onSurfaceVariant }}>3 costly bottlenecks</span>
                 </div>
               </div>
             </div>
@@ -667,7 +667,7 @@ export default function MarketingPage() {
                          <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
                        </div>
                     </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>AI‑powered analysis delivers consistent, accurate insights in minutes</span>
+                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>AI analyzes every image and generates consistent findings in minutes, not hours</span>
                   </li>
                   <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                     <div style={{ flexShrink: 0, marginTop: "4px" }}>
@@ -675,7 +675,7 @@ export default function MarketingPage() {
                          <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
                        </div>
                     </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Automatic structuring of drone data into searchable, comparable formats</span>
+                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>All images and data are automatically organized, searchable, and comparable across projects</span>
                   </li>
                   <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                     <div style={{ flexShrink: 0, marginTop: "4px" }}>
@@ -683,7 +683,7 @@ export default function MarketingPage() {
                          <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
                        </div>
                     </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Professional reports generated automatically, ready for stakeholders</span>
+                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Professional PDF reports are generated automatically — consistent, accurate, and client-ready</span>
                   </li>
                 </ul>
               </div>
@@ -694,7 +694,7 @@ export default function MarketingPage() {
                        <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: i === 1 ? tokens.colors.secondary : tokens.colors.outlineVariant }} />
                     ))}
                   </div>
-                   <span style={{ fontFamily: "var(--sys-typescale-body-large-fontfamily)", fontSize: "var(--sys-typescale-body-medium-fontsize)", color: tokens.colors.onSurfaceVariant }}>3 key benefits</span>
+                   <span style={{ fontFamily: "var(--sys-typescale-body-large-fontfamily)", fontSize: "var(--sys-typescale-body-medium-fontsize)", color: tokens.colors.onSurfaceVariant }}>3 ways FieldSpec delivers</span>
                 </div>
               </div>
             </div>
@@ -736,7 +736,7 @@ export default function MarketingPage() {
             textAlign: "center",
             marginBottom: tokens.spacing.xxl,
           }}>
-            Four simple steps from images to reports
+            Get from drone flight to delivered report in 4 steps
           </p>
           <div style={{
             display: "grid",
@@ -839,7 +839,7 @@ export default function MarketingPage() {
             textAlign: "center",
             marginBottom: tokens.spacing.xs,
           }}>
-            Features Built for Inspection Reports
+            Everything You Need to Deliver Professional Reports
           </h2>
           <p style={{
             ...tokens.typography.bodyLarge,
@@ -847,7 +847,7 @@ export default function MarketingPage() {
             textAlign: "center",
             marginBottom: tokens.spacing.xxl,
           }}>
-            Everything you need, nothing you don&apos;t
+            Speed, accuracy, and consistency — built for field inspectors
           </p>
           <div style={{
             display: "grid",
@@ -976,7 +976,7 @@ export default function MarketingPage() {
               display: "block",
               marginBottom: "12px",
               letterSpacing: "0.01em"
-            }}>Field Inspections</span>
+            }}>Who It&apos;s For</span>
             <h2 style={{
               ...tokens.typography.headlineLarge,
               color: tokens.colors.onSurface,
@@ -984,7 +984,7 @@ export default function MarketingPage() {
               margin: "0 auto",
               maxWidth: "800px",
             }}>
-              Built for Field Inspections
+              Built for Field Professionals
             </h2>
           </div>
 
@@ -1126,7 +1126,7 @@ export default function MarketingPage() {
               lineHeight: 1.1,
               textAlign: "center",
             }}>
-              Start Building Reports Today
+              Go From Images to Report in Minutes
             </h2>
             <p style={{
               fontFamily: "var(--sys-typescale-body-large-fontfamily)",
@@ -1138,14 +1138,14 @@ export default function MarketingPage() {
               margin: "0 auto 40px",
               textAlign: "center",
             }}>
-              Upload your first images and see how FieldSpec transforms your inspection workflow.
+              Upload your first set of images and see what FieldSpec can do. No credit card required.
             </p>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", flexWrap: "wrap", marginTop: "40px" }}>
               <Link href="/signup" className="cta-primary-btn">
-                Get started
+                Start Free
               </Link>
-              <Link href="/demo" className="cta-secondary-link">
-                Learn more <span aria-hidden="true">&rarr;</span>
+              <Link href="#how-it-works" className="cta-secondary-link">
+                Watch the Demo <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
           </div>
@@ -1175,7 +1175,7 @@ export default function MarketingPage() {
           <div>
             <Brand size="md" />
              <p style={{ ...tokens.typography.bodySmall, color: "var(--footer-color)", opacity: 0.8, marginTop: tokens.spacing.md }}>
-              AI-powered field analysis for agriculture, construction, and infrastructure.
+              From drone images to professional reports. In minutes.
             </p>
           </div>
 
