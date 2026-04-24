@@ -2,8 +2,7 @@
 
 import React from "react";
 import { tokens } from "@/lib/design-tokens";
-import InboxOutlinedIcon from "@mui/icons-material/InboxOutlined";
-import SearchOffOutlinedIcon from "@mui/icons-material/SearchOffOutlined";
+
 
 interface EmptyStateProps {
   type: "no_images" | "no_results";
@@ -12,7 +11,7 @@ interface EmptyStateProps {
 
 export function EmptyState({ type, onAction }: EmptyStateProps) {
   const isNoImages = type === "no_images";
-  const Icon = isNoImages ? InboxOutlinedIcon : SearchOffOutlinedIcon;
+  const iconName = isNoImages ? "inbox" : "search_off";
 
   return (
     <div
@@ -38,7 +37,7 @@ export function EmptyState({ type, onAction }: EmptyStateProps) {
           color: tokens.colors.onSurfaceVariant,
         }}
       >
-        <Icon />
+        <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>{iconName}</span>
       </div>
 
       <div

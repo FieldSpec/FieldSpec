@@ -2,12 +2,7 @@
 
 import React from "react";
 import { tokens } from "@/lib/design-tokens";
-import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
-import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
-import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
+
 
 interface BulkActionBarProps {
   totalCount: number;
@@ -120,11 +115,13 @@ export function BulkActionBar({
           }}
         >
           {allSelected ? (
-            <CheckBoxOutlinedIcon style={{ color: tokens.colors.primary }} />
+            <span className="material-icons" style={{ color: tokens.colors.primary, fontSize: tokens.typography.labelLarge.lineHeight }}>check_box</span>
           ) : (
-            <CheckBoxOutlineBlankOutlinedIcon
-              style={{ color: tokens.colors.onSurfaceVariant }}
-            />
+            <span className="material-icons"
+              style={{ color: tokens.colors.onSurfaceVariant, fontSize: tokens.typography.labelLarge.lineHeight }}
+            >
+              check_box_outline_blank
+            </span>
           )}
           <span>Select All</span>
         </button>
@@ -173,7 +170,7 @@ export function BulkActionBar({
             opacity: hasSelection ? "1" : "0.48",
           }}
         >
-          <LocalOfferOutlinedIcon />
+          <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>local_offer</span>
           <select
             value=""
             onChange={(e) => e.target.value && onBulkCategorize(e.target.value)}
@@ -203,12 +200,12 @@ export function BulkActionBar({
         </label>
 
         <ActionButton disabled={!hasSelection} onClick={onBulkDelete}>
-          <DeleteOutlineOutlinedIcon />
+          <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>delete_outline</span>
           Delete
         </ActionButton>
 
         <ActionButton disabled={!hasSelection} onClick={onBulkReprocess}>
-          <AutorenewOutlinedIcon />
+          <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>autorenew</span>
           Reprocess
         </ActionButton>
 
@@ -229,7 +226,7 @@ export function BulkActionBar({
             cursor: hasSelection ? "pointer" : "not-allowed",
           }}
         >
-          <CloseOutlinedIcon />
+          <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>close</span>
         </button>
       </div>
     </div>

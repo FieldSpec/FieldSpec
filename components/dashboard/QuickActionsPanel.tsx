@@ -84,7 +84,7 @@ export function QuickActionsPanel() {
             <span
               className="material-icons"
               style={{
-                fontSize: "28px",
+                fontSize: tokens.typography.labelLarge.lineHeight,
                 color: isHovered ? hoverColor : (isPrimary ? tokens.colors.onPrimaryContainer : tokens.colors.onSurfaceVariant),
               }}
             >
@@ -93,8 +93,10 @@ export function QuickActionsPanel() {
             <span
               style={{
                 color: isHovered ? hoverColor : (isPrimary ? tokens.colors.onPrimaryContainer : tokens.colors.onSurfaceVariant),
-                fontSize: tokens.typography.labelMedium.fontSize,
-                fontWeight: tokens.typography.labelMedium.fontWeight,
+                fontSize: tokens.typography.labelLarge.fontSize,
+                fontWeight: tokens.typography.labelLarge.fontWeight,
+                lineHeight: tokens.typography.labelLarge.lineHeight,
+                letterSpacing: tokens.typography.labelLarge.letterSpacing,
               }}
             >
               {action.label}

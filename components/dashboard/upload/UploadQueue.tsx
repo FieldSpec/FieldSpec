@@ -2,9 +2,7 @@
 
 import React from "react";
 import { tokens } from "@/lib/design-tokens";
-import BrokenImageOutlinedIcon from "@mui/icons-material/BrokenImageOutlined";
-import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+
 
 export interface UploadItem {
   id: string;
@@ -139,9 +137,11 @@ export function UploadQueue({
               backgroundColor: tokens.colors.surface,
             }}
           >
-            <BrokenImageOutlinedIcon
-              style={{ color: tokens.colors.onSurfaceVariant }}
-            />
+            <span className="material-icons"
+              style={{ color: tokens.colors.onSurfaceVariant, fontSize: tokens.typography.labelLarge.lineHeight }}
+            >
+              broken_image
+            </span>
 
             <div
               style={{
@@ -233,9 +233,9 @@ export function UploadQueue({
               }}
             >
               {item.status === "completed" ? (
-                <CheckCircleOutlineOutlinedIcon />
+                <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>check_circle</span>
               ) : (
-                <CloseOutlinedIcon />
+                <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>close</span>
               )}
             </button>
           </div>

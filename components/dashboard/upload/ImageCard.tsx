@@ -2,13 +2,7 @@
 
 import React from "react";
 import { tokens } from "@/lib/design-tokens";
-import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
-import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+
 import { StatusBadge, StatusType } from "./StatusBadge";
 
 interface UploadImage {
@@ -90,13 +84,15 @@ export function ImageCard({
         border: `1px solid ${isSelected ? tokens.colors.primary : tokens.colors.outlineVariant}`,
         backgroundColor: tokens.colors.surface,
         boxShadow: isSelected ? tokens.elevation.level1 : "none",
+        padding: tokens.spacing.sm,
       }}
     >
       <div
         style={{
           position: "relative",
-          aspectRatio: "4 / 3",
-          borderBottom: `1px solid ${tokens.colors.outlineVariant}`,
+          aspectRatio: "1 / 1",
+          borderRadius: tokens.radius.md,
+          overflow: "hidden",
           backgroundColor: tokens.colors.surfaceContainer,
         }}
       >
@@ -118,9 +114,9 @@ export function ImageCard({
           }}
         >
           {isSelected ? (
-            <CheckBoxOutlinedIcon />
+            <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>check_box</span>
           ) : (
-            <CheckBoxOutlineBlankOutlinedIcon />
+            <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>check_box_outline_blank</span>
           )}
         </button>
 
@@ -148,30 +144,31 @@ export function ImageCard({
         <div
           style={{
             position: "absolute",
-            left: "50%",
+            left: 0,
+            right: 0,
             bottom: tokens.spacing.sm,
             display: "flex",
-            gap: tokens.spacing.xs,
-            transform: "translateX(-50%)",
+            justifyContent: "space-between",
+            paddingInline: tokens.spacing.sm,
           }}
         >
           <ActionIconButton
             title="View full image"
             onClick={() => window.open(image.url, "_blank")}
           >
-            <VisibilityOutlinedIcon />
+            <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>visibility</span>
           </ActionIconButton>
           <ActionIconButton
             title="Delete image"
             onClick={() => onDelete(image.id)}
           >
-            <DeleteOutlineOutlinedIcon />
+            <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>delete_outline</span>
           </ActionIconButton>
           <ActionIconButton
             title="Reprocess image"
             onClick={() => onReprocess(image.id)}
           >
-            <AutorenewOutlinedIcon />
+            <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>autorenew</span>
           </ActionIconButton>
         </div>
       </div>
@@ -219,14 +216,17 @@ export function ImageCard({
               </option>
             ))}
           </select>
-          <KeyboardArrowDownOutlinedIcon
+          <span className="material-icons"
             style={{
               position: "absolute",
               right: tokens.spacing.sm,
               pointerEvents: "none",
               color: tokens.colors.onSurfaceVariant,
+              fontSize: tokens.typography.labelLarge.lineHeight,
             }}
-          />
+          >
+            keyboard_arrow_down
+          </span>
         </label>
 
         <button
@@ -257,7 +257,7 @@ export function ImageCard({
           >
             {image.notes || "Add Note"}
           </span>
-          <ChatBubbleOutlineOutlinedIcon fontSize="small" />
+          <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>chat_bubble_outline</span>
         </button>
       </div>
     </div>

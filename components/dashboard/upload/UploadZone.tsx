@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { tokens } from "@/lib/design-tokens";
-import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+
 
 interface UploadZoneProps {
   onUpload: (files: FileList) => void;
@@ -73,12 +73,14 @@ export function UploadZone({ onUpload, isUploading }: UploadZoneProps) {
           textAlign: "center",
         }}
       >
-        <CloudUploadOutlinedIcon
+        <span className="material-icons"
           style={{
             color: tokens.colors.onSurface,
             fontSize: `calc(${tokens.spacing.xxl} - ${tokens.spacing.sm})`,
           }}
-        />
+        >
+          cloud_upload
+        </span>
 
         <div
           style={{

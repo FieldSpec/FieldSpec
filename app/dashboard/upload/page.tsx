@@ -2,9 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { tokens } from "@/lib/design-tokens";
-import CloseIcon from "@mui/icons-material/Close";
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
-import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
+
 import { useProjectsStore } from "@/store/useProjectsStore";
 import { UploadZone } from "@/components/dashboard/upload/UploadZone";
 import {
@@ -369,8 +367,6 @@ export default function UploadPage() {
           flexDirection: "column",
           gap: tokens.spacing.lg,
           padding: tokens.spacing.md,
-          borderRadius: tokens.radius.xl,
-          border: `1px solid ${tokens.colors.outline}`,
           backgroundColor: tokens.colors.surface,
         }}
       >
@@ -444,12 +440,12 @@ export default function UploadPage() {
                 letterSpacing: tokens.typography.labelLarge.letterSpacing,
               }}
             >
-              <UploadFileOutlinedIcon />
+              <span className="material-icons" style={{ fontSize: tokens.typography.labelLarge.lineHeight }}>upload_file</span>
               Upload Guide
             </button>
           </div>
 
-          <div style={{ borderTop: `1px dashed ${tokens.colors.outlineVariant}` }} />
+
 
           {projects.length === 0 ? (
             <EmptyState
@@ -522,18 +518,21 @@ export default function UploadPage() {
                     ))}
                   </select>
 
-                  <KeyboardArrowDownOutlinedIcon
+                  <span className="material-icons"
                     style={{
                       position: "absolute",
                       right: tokens.spacing.sm,
                       pointerEvents: "none",
                       color: tokens.colors.onSurfaceVariant,
+                      fontSize: tokens.typography.labelLarge.lineHeight,
                     }}
-                  />
+                  >
+                    keyboard_arrow_down
+                  </span>
                 </label>
               </div>
 
-              <div style={{ borderTop: `1px dashed ${tokens.colors.outlineVariant}` }} />
+
 
               <FilterBar
                 category={categoryFilter}
@@ -546,7 +545,7 @@ export default function UploadPage() {
                 setQuery={setSearchQuery}
               />
 
-              <div style={{ borderTop: `1px dashed ${tokens.colors.outlineVariant}` }} />
+
 
               <div
                 style={{
@@ -586,8 +585,6 @@ export default function UploadPage() {
                     gridTemplateColumns: `repeat(auto-fill, minmax(calc(${tokens.spacing.xxl} * 3), 1fr))`,
                     gap: tokens.spacing.md,
                     padding: tokens.spacing.sm,
-                    borderRadius: tokens.radius.lg,
-                    border: `1px dashed ${tokens.colors.outlineVariant}`,
                     backgroundColor: tokens.colors.surface,
                   }}
                 >
@@ -709,9 +706,11 @@ export default function UploadPage() {
                   e.currentTarget.style.backgroundColor = "transparent";
                 }}
               >
-                <CloseIcon
-                  style={{ fontSize: tokens.typography.labelLarge.fontSize }}
-                />
+                <span className="material-icons"
+                  style={{ fontSize: tokens.typography.labelLarge.lineHeight }}
+                >
+                  close
+                </span>
               </button>
             </div>
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { tokens } from "@/lib/design-tokens";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+
 
 const CATEGORIES = [
   { value: "all", label: "All" },
@@ -207,7 +207,7 @@ export function FilterBar({
               backgroundColor: tokens.colors.surface,
             }}
           >
-            <SearchOutlinedIcon style={{ color: tokens.colors.onSurfaceVariant }} />
+            <span className="material-icons" style={{ color: tokens.colors.onSurfaceVariant, fontSize: tokens.typography.labelLarge.lineHeight }}>search</span>
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
