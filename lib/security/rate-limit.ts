@@ -54,6 +54,6 @@ export const authLimiter = (ip: string) =>
 export const signupLimiter = (ip: string) =>
   checkRateLimit(ip, { windowMs: 60_000, maxRequests: 3, keyPrefix: "rl:signup" });
 
-/** 5 AI jobs per hour per user */
+/** 20 AI jobs per hour per user */
 export const aiLimiter = (userId: string) =>
-  checkRateLimit(userId, { windowMs: 3_600_000, maxRequests: 5, keyPrefix: "rl:ai" });
+  checkRateLimit(userId, { windowMs: 3_600_000, maxRequests: 20, keyPrefix: "rl:ai" });

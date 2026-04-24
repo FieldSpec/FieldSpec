@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useDashboardUser, type DashboardUser } from "@/components/dashboard/DashboardUserProvider";
 import { useProjectsStore } from "@/store/useProjectsStore";
+import { useRouter } from "next/navigation";
 
 export interface Project {
   id: string;
@@ -300,26 +301,36 @@ export function useReportState() {
         body: JSON.stringify({ projectId: selectedProjectId }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        setError(data.error?.message || "Failed to generate report");
+        let errorMessage = "Failed to generate report";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error?.message || errorMessage;
+        } catch {
+          // Response is not JSON
+        }
+        setError(`${errorMessage} (${response.status})`);
         setGenerating(false);
         return;
       }
 
-      if (data.data.jobId && data.data.status === "queued") {
-        setJobStatus({
-          status: "queued",
-          progress: 0,
-          progressMessage: data.data.message || "Report queued for processing",
-          errorMessage: null,
-        });
-        const jobId = data.data.jobId;
-        setCurrentJobId(jobId);
-        setExistingJobId(jobId);
-        startPolling(jobId);
-        return;
+      const contentType = response.headers.get("content-type");
+      if (contentType?.includes("application/json")) {
+        const data = await response.json();
+        
+        if (data.data?.jobId && data.data.status === "queued") {
+          setJobStatus({
+            status: "queued",
+            progress: 0,
+            progressMessage: data.data.message || "Report queued for processing",
+            errorMessage: null,
+          });
+          const jobId = data.data.jobId;
+          setCurrentJobId(jobId);
+          setExistingJobId(jobId);
+          startPolling(jobId);
+          return;
+        }
       }
 
       const reader = response.body?.getReader();
@@ -378,7 +389,8 @@ export function useReportState() {
         }
       }
     } catch (err) {
-      setError("Failed to generate report");
+      console.error("Report generation error:", err);
+      setError(err instanceof Error ? err.message : "Failed to generate report");
       setGenerating(false);
     }
   }
@@ -428,18 +440,73 @@ export function useReportState() {
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error?.message || "Export failed");
+        let errorMsg = "Export failed";
+        try {
+          const data = await res.json();
+          errorMsg = data.error?.message || errorMsg;
+        } catch {
+          errorMsg = `Export failed (${res.status})`;
+        }
+        throw new Error(errorMsg);
       }
 
       const data = await res.json();
-      if (data.data?.jobId) {
+      if (data.data?.html) {
         setExportState("generating");
-        pollExportStatus(data.data.jobId);
-      } else if (data.data?.url) {
-        setExportedFileUrl(data.data.url);
-        setExportState("success");
-        window.open(data.data.url, "_blank");
+        try {
+          const html = data.data.html;
+
+          // Write the server-generated HTML into a hidden iframe so it renders
+          // in isolation from the app's dark-mode styles.
+          const iframe = document.createElement("iframe");
+          iframe.style.position = "fixed";
+          iframe.style.right = "0";
+          iframe.style.bottom = "0";
+          iframe.style.width = "794px";   // A4 width at 96 dpi — needed for correct layout
+          iframe.style.height = "1123px"; // A4 height at 96 dpi
+          iframe.style.border = "none";
+          iframe.style.visibility = "hidden";
+          document.body.appendChild(iframe);
+
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (!iframeDoc) throw new Error("Failed to access iframe document");
+
+          iframeDoc.open();
+          iframeDoc.write(html);
+          iframeDoc.close();
+
+          // Wait for images to load before capturing
+          await new Promise(resolve => setTimeout(resolve, 1500));
+
+          const bodyEl = iframeDoc.body;
+
+          const html2pdf = (await import("html2pdf.js")).default;
+          const pdfOptions = {
+            filename: `${editedReport?.title || "report"}.pdf`,
+            margin: [8, 8, 8, 8] as [number, number, number, number], // top, left, bottom, right in mm
+            image: { type: "jpeg" as const, quality: 0.95 },
+            html2canvas: {
+              scale: 1.5,
+              useCORS: true,
+              letterRendering: true,
+              windowWidth: 794,     // match iframe width — prevents layout reflow
+              backgroundColor: "#ffffff",
+            },
+            jsPDF: { unit: "mm" as const, format: "a4" as const, orientation: "portrait" as const },
+            pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+          };
+
+          await html2pdf().set(pdfOptions).from(bodyEl).save();
+          document.body.removeChild(iframe);
+          setExportState("success");
+        } catch (err) {
+          console.error("PDF generation error:", err);
+          const orphan = document.body.querySelector("iframe[style*='visibility: hidden']") as HTMLIFrameElement | null;
+          if (orphan) document.body.removeChild(orphan);
+          throw err;
+        }
+      } else {
+        throw new Error("Invalid response from server");
       }
     } catch (err) {
       setExportError(err instanceof Error ? err.message : "Export failed");
