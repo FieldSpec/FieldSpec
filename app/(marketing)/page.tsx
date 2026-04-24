@@ -300,6 +300,7 @@ export default function MarketingPage() {
             sandbox="allow-same-origin allow-scripts allow-popups allow-presentation"
           />
         </div>
+        <div className="hero-video-overlay" />
         {/* Image Background for Mobile */}
         <div className="hero-image-container">
           <img
@@ -332,20 +333,18 @@ export default function MarketingPage() {
             marginBottom: tokens.spacing.lg,
             lineHeight: 1.1,
             letterSpacing: "-0.02em",
-            textShadow: "0 4px 12px rgba(0,0,0,0.5)",
           }}>
-            Turn Drone Images into<br />
-            <span style={{ color: "#FFFFFF" }}>Professional Reports in Minutes</span>
+            Drone Images to Reports in<br />
+            <span style={{ color: "#FFFFFF" }}>Minutes</span>
           </h1>
           <p className="hero-subcopy" style={{
             fontFamily: tokens.typography.bodyLarge.fontFamily,
             fontSize: "clamp(1.125rem, 2vw, 1.5rem)",
             fontWeight: 400,
-            color: "#FFFFFF",
+            color: "#d8e4f3",
             maxWidth: "700px",
             marginBottom: tokens.spacing.xl,
             lineHeight: 1.5,
-            textShadow: "0 2px 8px rgba(0,0,0,0.6)",
           }}>
             Upload your drone images. Let AI analyze them. Export structured reports ready for stakeholders. No manual work required.
           </p>
@@ -382,6 +381,12 @@ export default function MarketingPage() {
             z-index: 0;
             background-color: #000;
           }
+          .hero-video-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.25);
+            z-index: 1;
+          }
           .hero-video {
             position: absolute;
             top: 50%; left: 50%;
@@ -413,8 +418,8 @@ export default function MarketingPage() {
           /* Token-Based Primary Button */
           .hero-btn-primary {
             padding: var(--sys-spacing-spacing-md) var(--sys-spacing-spacing-xl);
-            background-color: var(--sys-primary);
-            color: var(--sys-on-primary);
+            background-color: #315f9b;
+            color: #ffffff;
             text-decoration: none;
             border-radius: var(--sys-radius-md);
             font-family: var(--sys-typescale-label-large-fontfamily);
@@ -427,8 +432,8 @@ export default function MarketingPage() {
             justify-content: center;
           }
           .hero-btn-primary:hover {
-            background-color: var(--sys-primary-container);
-            color: var(--sys-on-primary-container);
+            background-color: #d8e4f3;
+            color: #0c1827;
             transform: translateY(-2px);
             box-shadow: var(--sys-elevation-8dp) !important;
           }
@@ -437,23 +442,24 @@ export default function MarketingPage() {
           .hero-btn-secondary {
             padding: var(--sys-spacing-spacing-md) var(--sys-spacing-spacing-xl);
             background-color: transparent;
-            color: var(--sys-secondary);
+            color: #d8e4f3;
             text-decoration: none;
             border-radius: var(--sys-radius-md);
             font-family: var(--sys-typescale-label-large-fontfamily);
             font-size: var(--sys-typescale-label-large-fontsize);
             font-weight: 500;
-            border: 2px solid var(--sys-secondary);
-            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            border: 2px solid #d8e4f3;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
           }
           .hero-btn-secondary:hover {
-            background-color: var(--sys-secondary);
-            color: var(--sys-on-secondary);
+            background-color: #d8e4f3;
+            color: #0c1827;
+            border-color: #d8e4f3;
+            transform: translateY(-2px);
+            box-shadow: var(--sys-elevation-8dp) !important;
           }
 
           /* Responsive Adjustments */
@@ -701,7 +707,6 @@ export default function MarketingPage() {
       <section id="how-it-works" style={{
         padding: `160px ${tokens.spacing.lg} ${tokens.spacing.xxl}`, 
         backgroundColor: "var(--color-section-bg)",
-        borderTop: `1px solid ${tokens.colors.outlineVariant}`,
       }}>
         <style dangerouslySetInnerHTML={{
           __html: `

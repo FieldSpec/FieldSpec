@@ -483,8 +483,8 @@ export function useReportState() {
           const html2pdf = (await import("html2pdf.js")).default;
           const pdfOptions = {
             filename: `${editedReport?.title || "report"}.pdf`,
-            margin: [8, 8, 8, 8], // top, left, bottom, right in mm
-            image: { type: "jpeg", quality: 0.95 },
+            margin: [8, 8, 8, 8] as [number, number, number, number], // top, left, bottom, right in mm
+            image: { type: "jpeg" as const, quality: 0.95 },
             html2canvas: {
               scale: 1.5,
               useCORS: true,
@@ -492,7 +492,7 @@ export function useReportState() {
               windowWidth: 794,     // match iframe width — prevents layout reflow
               backgroundColor: "#ffffff",
             },
-            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            jsPDF: { unit: "mm" as const, format: "a4" as const, orientation: "portrait" as const },
             pagebreak: { mode: ["avoid-all", "css", "legacy"] },
           };
 
