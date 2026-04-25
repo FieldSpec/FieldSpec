@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { tokens } from "@/lib/design-tokens";
+import { LoadingScreen } from "@/lib/components/loading";
 
 interface Client {
   id: string;
@@ -111,20 +112,7 @@ export default function ClientsPage() {
   }
 
   if (loading) {
-    return (
-      <div style={{ maxWidth: "1200px" }}>
-        <div
-          style={{
-            padding: tokens.spacing.xl,
-            textAlign: "center",
-            color: tokens.colors.onSurfaceVariant,
-            ...tokens.typography.bodyLarge,
-          }}
-        >
-          Loading...
-        </div>
-      </div>
-    );
+    return <LoadingScreen message="Loading clients..." />;
   }
 
   return (
@@ -186,7 +174,7 @@ export default function ClientsPage() {
           box-shadow: ${tokens.elevation.level2} !important;
         }
       `}</style>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: tokens.spacing.xl, flexWrap: "wrap", gap: tokens.spacing.md }}>
+      <div style={{ marginBottom: tokens.spacing.xl }}>
         <div className="animate-content">
           <h2 style={{ ...tokens.typography.headlineMedium, color: tokens.colors.onSurface }}>
             Clients
@@ -195,30 +183,6 @@ export default function ClientsPage() {
             Manage your clients and their projects
           </p>
         </div>
-        <button
-          onClick={() => setShowCreateForm(true)}
-          style={{
-            padding: `${tokens.spacing.sm} ${tokens.spacing.lg}`,
-            backgroundColor: tokens.colors.primary,
-            color: tokens.colors.onPrimary,
-            border: "none",
-            borderRadius: tokens.radius.md,
-            cursor: "pointer",
-            ...tokens.typography.labelLarge,
-            transition: "all 0.2s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor =
-              tokens.colors.primaryContainer;
-            e.currentTarget.style.color = tokens.colors.onPrimaryContainer;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = tokens.colors.primary;
-            e.currentTarget.style.color = tokens.colors.onPrimary;
-          }}
-        >
-          Create Client
-        </button>
       </div>
 
       {error && (
@@ -411,21 +375,77 @@ export default function ClientsPage() {
             padding: tokens.spacing.xl,
             backgroundColor: tokens.colors.surface,
             borderRadius: tokens.radius.lg,
+            boxShadow: tokens.elevation.level1,
+            border: `1px solid ${tokens.colors.outlineVariant}`,
             textAlign: "center",
           }}
         >
-          <p
+          <div
             style={{
-              ...tokens.typography.bodyLarge,
-              color: tokens.colors.onSurfaceVariant,
-              marginBottom: tokens.spacing.md,
+              padding: `${tokens.spacing.xxl} ${tokens.spacing.xl}`,
+              backgroundColor: "var(--ref-neutral-neutral-98)",
+              borderRadius: tokens.radius.lg,
+              textAlign: "center",
+              border: `2px dashed var(--ref-neutral-variant-neutral-variant80)`,
+              marginBottom: tokens.spacing.lg,
             }}
           >
-            No clients yet
-          </p>
-          <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onSurfaceVariant }}>
-            Create your first client to start organizing your projects.
-          </p>
+            <svg
+              style={{
+                width: "48px",
+                height: "48px",
+                marginBottom: tokens.spacing.md,
+                fill: "var(--ref-neutral-variant-neutral-variant40)",
+              }}
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+            </svg>
+            <p
+              style={{
+                ...tokens.typography.titleMedium,
+                color: "var(--ref-neutral-variant-neutral-variant30)",
+                margin: 0,
+                marginBottom: tokens.spacing.xs,
+              }}
+            >
+              No clients yet
+            </p>
+            <p
+              style={{
+                ...tokens.typography.bodySmall,
+                color: "var(--ref-neutral-variant-neutral-variant40)",
+                opacity: 0.8,
+                margin: 0,
+              }}
+            >
+              Create your first client to start organizing projects
+            </p>
+          </div>
+          <button
+            onClick={() => setShowCreateForm(true)}
+            style={{
+              padding: `${tokens.spacing.md} ${tokens.spacing.xl}`,
+              backgroundColor: tokens.colors.primary,
+              color: tokens.colors.onPrimary,
+              border: "none",
+              borderRadius: tokens.radius.md,
+              cursor: "pointer",
+              ...tokens.typography.labelLarge,
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = tokens.colors.primaryContainer;
+              e.currentTarget.style.color = tokens.colors.onPrimaryContainer;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = tokens.colors.primary;
+              e.currentTarget.style.color = tokens.colors.onPrimary;
+            }}
+          >
+            Create Client
+          </button>
         </div>
       ) : (
         <div

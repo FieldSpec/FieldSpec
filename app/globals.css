@@ -1,5 +1,33 @@
 @import "../design-tokens.css";
 
+/* Force transparent background on all input states - Chrome specific */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--sys-on-surface) !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  background-color: transparent !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+input {
+  background-color: transparent !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+input:-internal-autofill-selected {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+}
+
+/* Fix for Chrome label animation causing color change */
+input::-webkit-input-placeholder {
+  color: transparent !important;
+}
+
 :root {
   --color-section-bg: var(--sys-surface-roles-surface);
   --color-section-text: var(--sys-surface-roles-on-surface);
@@ -135,6 +163,12 @@
     font-weight: 400;
     line-height: var(--sys-typescale-body-medium-lineheight);
   }
+  .text-body-small {
+    font-family: var(--sys-typescale-body-small-fontfamily);
+    font-size: var(--sys-typescale-body-small-fontsize);
+    font-weight: 400;
+    line-height: var(--sys-typescale-body-small-lineheight);
+  }
   .text-label-large {
     font-family: var(--sys-typescale-label-large-fontfamily);
     font-size: var(--sys-typescale-label-large-fontsize);
@@ -146,6 +180,15 @@
     font-size: var(--sys-typescale-label-medium-fontsize);
     font-weight: 500;
     line-height: var(--sys-typescale-label-medium-lineheight);
+  }
+  .text-label-small {
+    font-family: var(--sys-typescale-label-small-fontfamily);
+    font-size: var(--sys-typescale-label-small-fontsize);
+    font-weight: 500;
+    line-height: var(--sys-typescale-label-small-lineheight);
+  }
+  .text-error {
+    color: var(--sys-on-error);
   }
 
   /* Card background for dark/light modes */
@@ -173,6 +216,31 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+
+  button {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:active {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 
   body {

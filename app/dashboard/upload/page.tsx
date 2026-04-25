@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { tokens } from "@/lib/design-tokens";
 import { useProjectsStore } from "@/store/useProjectsStore";
+import { LoadingScreen } from "@/lib/components/loading";
 
 interface ImageType {
   id: string;
@@ -28,6 +30,7 @@ const CATEGORY_OPTIONS = CATEGORIES.filter(
 );
 
 export default function UploadPage() {
+  const router = useRouter();
   const { projects, loading: projectsLoading, fetchProjects } = useProjectsStore();
   const [selectedProjectId, setSelectedProjectId] = useState("");
   const [images, setImages] = useState<ImageType[]>([]);
@@ -225,24 +228,7 @@ export default function UploadPage() {
   };
 
   if (loading || projectsLoading) {
-    return (
-      <div
-        style={{
-          maxWidth: "1200px",
-        }}
-      >
-        <div
-          style={{
-            padding: tokens.spacing.xl,
-            textAlign: "center",
-            ...tokens.typography.bodyLarge,
-            color: tokens.colors.onSurfaceVariant,
-          }}
-        >
-          Loading...
-        </div>
-      </div>
-    );
+    return <LoadingScreen message="Loading images..." />;
   }
 
   return (
@@ -359,17 +345,76 @@ export default function UploadPage() {
             backgroundColor: tokens.colors.surface,
             borderRadius: tokens.radius.lg,
             boxShadow: tokens.elevation.level1,
+            border: `1px solid ${tokens.colors.outlineVariant}`,
             textAlign: "center",
           }}
         >
-          <p
+          <div
             style={{
-              ...tokens.typography.bodyLarge,
-              color: tokens.colors.onSurfaceVariant,
+              padding: `${tokens.spacing.xxl} ${tokens.spacing.xl}`,
+              backgroundColor: "var(--ref-neutral-neutral-98)",
+              borderRadius: tokens.radius.lg,
+              textAlign: "center",
+              border: `2px dashed var(--ref-neutral-variant-neutral-variant80)`,
+              marginBottom: tokens.spacing.lg,
             }}
           >
-            No projects. Create a project first to upload images.
-          </p>
+            <svg
+              style={{
+                width: "48px",
+                height: "48px",
+                marginBottom: tokens.spacing.md,
+                fill: "var(--ref-neutral-variant-neutral-variant40)",
+              }}
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z" />
+            </svg>
+            <p
+              style={{
+                ...tokens.typography.titleMedium,
+                color: "var(--ref-neutral-variant-neutral-variant30)",
+                margin: 0,
+                marginBottom: tokens.spacing.xs,
+              }}
+            >
+              No projects available
+            </p>
+            <p
+              style={{
+                ...tokens.typography.bodySmall,
+                color: "var(--ref-neutral-variant-neutral-variant40)",
+                opacity: 0.8,
+                margin: 0,
+              }}
+            >
+              Create a project to start uploading images
+            </p>
+          </div>
+          <button
+            onClick={() => router.push("/dashboard/projects")}
+            style={{
+              padding: `${tokens.spacing.md} ${tokens.spacing.xl}`,
+              backgroundColor: tokens.colors.primary,
+              color: tokens.colors.onPrimary,
+              border: "none",
+              borderRadius: tokens.radius.md,
+              cursor: "pointer",
+              ...tokens.typography.labelLarge,
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = tokens.colors.primaryContainer;
+              e.currentTarget.style.color = tokens.colors.onPrimaryContainer;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = tokens.colors.primary;
+              e.currentTarget.style.color = tokens.colors.onPrimary;
+            }}
+          >
+            Create Project
+          </button>
         </div>
       ) : (
         <>

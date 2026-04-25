@@ -129,7 +129,7 @@ function DashboardLayoutShell({
               menu
             </span>
           </button>
-          <Brand size="md" />
+          <Brand size="lg" />
           <ThemeToggle />
         </div>
 
@@ -325,7 +325,7 @@ function DashboardLayoutShell({
               borderBottom: `1px solid ${tokens.colors.outlineVariant}`,
             }}
           >
-            <Brand size="md" />
+            <Brand size="lg" />
             <button
               onClick={() => setShowMobileNav(false)}
               className="flex items-center justify-center rounded-full transition-colors"

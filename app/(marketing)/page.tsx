@@ -79,7 +79,7 @@ export default function MarketingPage() {
         width: "100%",
         zIndex: 10,
       }}>
-<style>{`
+        <style>{`
               .nav-link:hover { color: ${tokens.colors.primary} !important; opacity: 0.8; }
               .nav-link { text-decoration: none; transition: color 0.3s ease; color: #ffffff !important; font-weight: 500; }
               .btn-primary:hover { background-color: ${tokens.colors.primaryContainer} !important; color: ${tokens.colors.onPrimaryContainer} !important; }
@@ -112,37 +112,37 @@ export default function MarketingPage() {
                 gap: ${tokens.spacing.lg};
               }
             `}</style>
-          <div className="header-brand">
-            <Brand size="md" />
-          </div>
-          <div className="header-nav">
-            <Link href="#features" className="nav-link" style={{ ...tokens.typography.labelLarge }}>
-              Features
-            </Link>
-            <Link href="#how-it-works" className="nav-link" style={{ ...tokens.typography.labelLarge }}>
-              How It Works
-            </Link>
-            <Link href="#use-cases" className="nav-link" style={{ ...tokens.typography.labelLarge }}>
-              Use Cases
-            </Link>
-          </div>
-          <div className="header-actions">
-<Link href="/login" className="btn-text" style={{ ...tokens.typography.labelLarge, color: tokens.colors.onPrimary }}>
-              Log In
-            </Link>
-            <Link href="/signup" className="btn-primary" style={{
-                padding: "16px 20px",
-                backgroundColor: tokens.colors.primary,
-                color: tokens.colors.onPrimary,
-                textDecoration: "none",
-                borderRadius: "16px",
-                ...tokens.typography.labelLarge,
-                fontWeight: "600",
-              }}>
-              Get Started
-            </Link>
-<ThemeToggle />
-          </div>
+        <div className="header-brand">
+          <Brand size="lg" />
+        </div>
+        <div className="header-nav">
+          <Link href="#features" className="nav-link" style={{ ...tokens.typography.labelLarge }}>
+            Features
+          </Link>
+          <Link href="#how-it-works" className="nav-link" style={{ ...tokens.typography.labelLarge }}>
+            How It Works
+          </Link>
+          <Link href="#use-cases" className="nav-link" style={{ ...tokens.typography.labelLarge }}>
+            Use Cases
+          </Link>
+        </div>
+        <div className="header-actions">
+          <Link href="/login" className="btn-text" style={{ ...tokens.typography.labelLarge, color: tokens.colors.onPrimary }}>
+            Log In
+          </Link>
+          <Link href="/signup" className="btn-primary" style={{
+            padding: "16px 20px",
+            backgroundColor: tokens.colors.primary,
+            color: tokens.colors.onPrimary,
+            textDecoration: "none",
+            borderRadius: "16px",
+            ...tokens.typography.labelLarge,
+            fontWeight: "600",
+          }}>
+            Get Started
+          </Link>
+          <ThemeToggle />
+        </div>
       </nav>
 
       {/* Hero Section */}
@@ -455,9 +455,9 @@ export default function MarketingPage() {
                 left: `${tokens.spacing.lg}`,
                 width: "12px",
                 height: "12px",
-                 backgroundColor: tokens.colors.primary,
-                 borderRadius: "50%",
-                 boxShadow: `0 0 0 4px rgba(96, 165, 250, 0.2)`,
+                backgroundColor: tokens.colors.primary,
+                borderRadius: "50%",
+                boxShadow: `0 0 0 4px rgba(96, 165, 250, 0.2)`,
               }} />
               <h3 className="problem-solution-title" style={{
                 ...tokens.typography.headlineMedium,
@@ -527,9 +527,9 @@ export default function MarketingPage() {
                 left: `${tokens.spacing.lg}`,
                 width: "12px",
                 height: "12px",
-                 backgroundColor: tokens.colors.secondary,
-                 borderRadius: "50%",
-                 boxShadow: `0 0 0 4px rgba(52, 211, 153, 0.2)`,
+                backgroundColor: tokens.colors.secondary,
+                borderRadius: "50%",
+                boxShadow: `0 0 0 4px rgba(52, 211, 153, 0.2)`,
               }} />
               <h3 className="problem-solution-title" style={{
                 ...tokens.typography.headlineMedium,
@@ -543,25 +543,25 @@ export default function MarketingPage() {
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
                   <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                     <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                       <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                         <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
-                       </div>
+                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
+                      </div>
                     </div>
                     <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>AI analyzes every image and generates consistent findings in minutes, not hours</span>
                   </li>
                   <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                     <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                       <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                         <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
-                       </div>
+                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
+                      </div>
                     </div>
                     <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>All images and data are automatically organized, searchable, and comparable across projects</span>
                   </li>
                   <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                     <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                       <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                         <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
-                       </div>
+                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
+                      </div>
                     </div>
                     <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Professional PDF reports are generated automatically — consistent, accurate, and client-ready</span>
                   </li>
@@ -571,10 +571,10 @@ export default function MarketingPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                   <div style={{ display: "flex", gap: "4px" }}>
                     {[1, 2, 3].map((i) => (
-                       <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: i === 1 ? tokens.colors.secondary : tokens.colors.outlineVariant }} />
+                      <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: i === 1 ? tokens.colors.secondary : tokens.colors.outlineVariant }} />
                     ))}
                   </div>
-                   <span style={{ fontFamily: "var(--sys-typescale-body-large-fontfamily)", fontSize: "var(--sys-typescale-body-medium-fontsize)", color: tokens.colors.onSurfaceVariant }}>3 ways FieldSpec delivers</span>
+                  <span style={{ fontFamily: "var(--sys-typescale-body-large-fontfamily)", fontSize: "var(--sys-typescale-body-medium-fontsize)", color: tokens.colors.onSurfaceVariant }}>3 ways FieldSpec delivers</span>
                 </div>
               </div>
             </div>
@@ -583,9 +583,9 @@ export default function MarketingPage() {
         </div>
       </section>
 
-{/* How It Works */}
+      {/* How It Works */}
       <section id="how-it-works" style={{
-        padding: `${tokens.spacing.xxl} ${tokens.spacing.lg} ${tokens.spacing.xxl}`, 
+        padding: `${tokens.spacing.xxl} ${tokens.spacing.lg} ${tokens.spacing.xxl}`,
         backgroundColor: "var(--color-section-bg)",
       }}>
         <style dangerouslySetInnerHTML={{
@@ -677,23 +677,23 @@ export default function MarketingPage() {
               }
             }
           `}} />
-<div style={{ margin: `${tokens.spacing.xl} auto`, padding: tokens.spacing.md, display: "flex", flexDirection: "column", gap: tokens.spacing.lg }}>
-            <div style={{ width: "fit-content", margin: "0 auto", textAlign: "center" }}>
-              <h2 style={{
-                ...tokens.typography.headlineLarge,
-                color: tokens.colors.onSurface,
-                marginBottom: tokens.spacing.xs,
-              }}>
-                How It Works
-              </h2>
-              <p style={{
-                ...tokens.typography.bodyLarge,
-                color: tokens.colors.onSurfaceVariant,
-              }}>
-                Get from drone flight to delivered report in 4 steps
-              </p>
-            </div>
-            <div className="hiw-grid">
+        <div style={{ margin: `${tokens.spacing.xl} auto`, padding: tokens.spacing.md, display: "flex", flexDirection: "column", gap: tokens.spacing.lg }}>
+          <div style={{ width: "fit-content", margin: "0 auto", textAlign: "center" }}>
+            <h2 style={{
+              ...tokens.typography.headlineLarge,
+              color: tokens.colors.onSurface,
+              marginBottom: tokens.spacing.xs,
+            }}>
+              How It Works
+            </h2>
+            <p style={{
+              ...tokens.typography.bodyLarge,
+              color: tokens.colors.onSurfaceVariant,
+            }}>
+              Get from drone flight to delivered report in 4 steps
+            </p>
+          </div>
+          <div className="hiw-grid">
             {steps.map((step, index) => (
               <div key={index} className="hiw-card">
                 <div className="hiw-card-decoration" />
@@ -712,7 +712,7 @@ export default function MarketingPage() {
       </section>
 
       {/* Features Section */}
-<section id="features" style={{
+      <section id="features" style={{
         padding: `${tokens.spacing.xxl} ${tokens.spacing.lg}`,
         backgroundColor: "var(--color-section-bg)",
       }} />
@@ -763,7 +763,7 @@ export default function MarketingPage() {
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ marginBottom: "60px", textAlign: "center" }}>
             <span style={{
-               color: tokens.colors.primary,
+              color: tokens.colors.primary,
               fontSize: "14px",
               fontWeight: 600,
               fontFamily: "var(--sys-typescale-body-large-fontfamily)",
@@ -946,7 +946,7 @@ export default function MarketingPage() {
         </div>
       </section>
 
-<footer style={{
+      <footer style={{
         backgroundColor: "var(--footer-bg)",
         borderTop: `1px solid ${tokens.colors.outlineVariant}`,
         padding: `${tokens.spacing.xxl} ${tokens.spacing.lg}`,
@@ -958,7 +958,7 @@ export default function MarketingPage() {
             .social-footer-icon { color: var(--footer-color); opacity: 0.6; transition: color 0.3s ease, opacity 0.3s ease; font-size: 20px; display: flex; align-items: center; justify-content: center; }
             .social-footer-icon:hover { opacity: 1; color: var(--footer-color) !important; }
           `}</style>
-        
+
         <div style={{
           maxWidth: "1200px",
           margin: "0 auto",
@@ -967,15 +967,15 @@ export default function MarketingPage() {
           gap: tokens.spacing.xl,
         }}>
           <div>
-            <Brand size="md" />
-             <p style={{ ...tokens.typography.bodySmall, color: "var(--footer-color)", opacity: 0.8, marginTop: tokens.spacing.md }}>
+            <Brand size="lg" />
+            <p style={{ ...tokens.typography.bodySmall, color: "var(--footer-color)", opacity: 0.8, marginTop: tokens.spacing.md }}>
               From drone images to professional reports. In minutes.
             </p>
           </div>
 
-           <div>
-             <h4 style={{ ...tokens.typography.labelLarge, color: "var(--footer-color)", marginBottom: tokens.spacing.md }}>
-               Product
+          <div>
+            <h4 style={{ ...tokens.typography.labelLarge, color: "var(--footer-color)", marginBottom: tokens.spacing.md }}>
+              Product
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: tokens.spacing.sm }}>
               <a href="#features" className="footer-link" style={tokens.typography.bodySmall}>Features</a>
@@ -985,9 +985,9 @@ export default function MarketingPage() {
             </div>
           </div>
 
-           <div>
-             <h4 style={{ ...tokens.typography.labelLarge, color: "var(--footer-color)", marginBottom: tokens.spacing.md }}>
-               Company
+          <div>
+            <h4 style={{ ...tokens.typography.labelLarge, color: "var(--footer-color)", marginBottom: tokens.spacing.md }}>
+              Company
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: tokens.spacing.sm }}>
               <a href="#" className="footer-link" style={tokens.typography.bodySmall}>About</a>
@@ -997,9 +997,9 @@ export default function MarketingPage() {
             </div>
           </div>
 
-           <div>
-             <h4 style={{ ...tokens.typography.labelLarge, color: "var(--footer-color)", marginBottom: tokens.spacing.md }}>
-               Legal
+          <div>
+            <h4 style={{ ...tokens.typography.labelLarge, color: "var(--footer-color)", marginBottom: tokens.spacing.md }}>
+              Legal
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: tokens.spacing.sm }}>
               <a href="#" className="footer-link" style={tokens.typography.bodySmall}>Privacy Policy</a>
@@ -1020,18 +1020,18 @@ export default function MarketingPage() {
           alignItems: "center",
           gap: tokens.spacing.md,
         }}>
-           <p style={{ ...tokens.typography.bodySmall, color: "var(--footer-color)", opacity: 0.8 }}>
+          <p style={{ ...tokens.typography.bodySmall, color: "var(--footer-color)", opacity: 0.8 }}>
             &copy; {new Date().getFullYear()} FieldSpec. All rights reserved.
           </p>
           <div style={{ display: "flex", gap: tokens.spacing.md }}>
             <a href="https://x.com/fieldspec" target="_blank" rel="noopener noreferrer" className="social-footer-icon" aria-label="Twitter" style={{ padding: "6px" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.5H2.66l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.5H2.66l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
             </a>
             <a href="https://linkedin.com/company/fieldspec" target="_blank" rel="noopener noreferrer" className="social-footer-icon" aria-label="LinkedIn" style={{ padding: "6px" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
             </a>
             <a href="https://github.com/fieldspec" target="_blank" rel="noopener noreferrer" className="social-footer-icon" aria-label="GitHub" style={{ padding: "6px" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" /></svg>
             </a>
           </div>
         </div>
