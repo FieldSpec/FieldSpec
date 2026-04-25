@@ -59,10 +59,10 @@ export default function MarketingPage() {
   ];
 
   const steps = [
-    { num: "1", title: "Upload Your Images", description: "Drag and drop your drone images. GPS data is extracted automatically.", icon: "upload" },
-    { num: "2", title: "Tag & Organize", description: "Categorize images by project, location, or condition in seconds.", icon: "label" },
-    { num: "3", title: "Analyze with AI", description: "AI detects patterns, flags issues, and generates findings for every image.", icon: "auto_awesome" },
-    { num: "4", title: "Export Your Report", description: "Generate a polished PDF report and share with stakeholders immediately.", icon: "description" },
+    { title: "Upload Images", description: "Drag and drop your drone images. GPS data is extracted automatically." },
+    { title: "AI Analyzes & Generates Findings", description: "AI detects patterns, flags issues, and generates findings for every image." },
+    { title: "Review & Edit", description: "Review findings, make edits, and add your notes." },
+    { title: "Export Report", description: "Generate a polished PDF and share with stakeholders." },
   ];
 
   return (
@@ -438,107 +438,128 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      {/* How It Works */}
+{/* How It Works */}
       <section id="how-it-works" style={{
-        padding: `${tokens.spacing.md} ${tokens.spacing.xl}`,
+        padding: `${tokens.spacing.xxl} ${tokens.spacing.lg} ${tokens.spacing.xxl}`, 
         backgroundColor: "var(--color-section-bg)",
       }}>
         <style dangerouslySetInnerHTML={{
           __html: `
-            .step-card:hover {
-              transform: translateY(-4px);
-              box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-              border-color: rgba(255,255,255,0.2) !important;
+            .hiw-grid {
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 24px;
+              margin-top: 48px;
             }
-           @media (min-width: 768px) {
-             .step-connector {
-               display: block !important;
-             }
-           }
-         `}} />
-        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-          <h2 style={{
-            ...tokens.typography.headlineLarge,
-            color: tokens.colors.onSurface,
-            textAlign: "center",
-            marginBottom: tokens.spacing.xs,
-          }}>
-            How It Works
-          </h2>
-          <p style={{
-            ...tokens.typography.bodyLarge,
-            color: tokens.colors.onSurfaceVariant,
-            textAlign: "center",
-            marginBottom: tokens.spacing.xxl,
-          }}>
-            Get from drone flight to delivered report in 4 steps
-          </p>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: tokens.spacing.lg,
-          }}>
+.hiw-card {
+              background: var(--sys-surface-roles-surface-container-low);
+              border: 1px solid var(--sys-outline-roles-outline);
+              border-radius: 8px;
+              padding: 40px 36px;
+              display: flex;
+              flex-direction: column;
+              transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+              overflow: hidden;
+              position: relative;
+            }
+            .hiw-card:hover {
+              transform: translateY(-4px);
+              border-color: var(--sys-outline-roles-outline);
+              box-shadow: var(--sys-elevation-3d-pnumbra);
+            }
+            .hiw-card-icon {
+              width: 56px;
+              height: 56px;
+              border-radius: 12px;
+              background: linear-gradient(135deg, var(--sys-primary) 0%, var(--sys-secondary) 100%);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: 24px;
+            }
+            .hiw-card-decoration {
+              position: absolute;
+              bottom: -20px;
+              right: -20px;
+              width: 120px;
+              height: 120px;
+              border-radius: 50%;
+              background: var(--sys-on-secondary-container);
+              opacity: 0.06;
+            }
+            .hiw-card-icon {
+              width: 56px;
+              height: 56px;
+              border-radius: 8px;
+              background: linear-gradient(135deg, var(--sys-primary) 0%, var(--sys-secondary) 100%);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: 20px;
+            }
+            .hiw-card-icon span {
+              font-size: 24px;
+              color: var(--sys-on-primary);
+            }
+            .hiw-card-number {
+              font-family: var(--sys-typescale-title-small-fontfamily);
+              font-size: 13px;
+              font-weight: 600;
+              color: var(--sys-on-surface-variant);
+              margin-bottom: 8px;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+            }
+            .hiw-card-title {
+              font-family: var(--sys-typescale-title-large-fontfamily);
+              font-size: 20px;
+              font-weight: 600;
+              color: var(--sys-on-surface);
+              margin-bottom: 8px;
+            }
+            .hiw-card-description {
+              font-family: var(--sys-typescale-body-medium-fontfamily);
+              font-size: 15px;
+              color: var(--sys-on-surface-variant);
+              line-height: 1.5;
+            }
+@media (max-width: 640px) {
+              .hiw-grid {
+                grid-template-columns: 1fr;
+              }
+              .hiw-card {
+                padding: 24px;
+              }
+            }
+          `}} />
+<div style={{ margin: `${tokens.spacing.xl} auto`, padding: tokens.spacing.md, display: "flex", flexDirection: "column", gap: tokens.spacing.lg }}>
+            <div style={{ width: "fit-content", margin: "0 auto", textAlign: "center" }}>
+              <h2 style={{
+                ...tokens.typography.headlineLarge,
+                color: tokens.colors.onSurface,
+                marginBottom: tokens.spacing.xs,
+              }}>
+                How It Works
+              </h2>
+              <p style={{
+                ...tokens.typography.bodyLarge,
+                color: tokens.colors.onSurfaceVariant,
+              }}>
+                Get from drone flight to delivered report in 4 steps
+              </p>
+            </div>
+            <div className="hiw-grid">
             {steps.map((step, index) => (
-              <div
-                key={step.num}
-                className="step-card"
-                style={{
-                  padding: tokens.spacing.xl,
-                  backgroundColor: tokens.colors.surfaceContainer,
-                  borderRadius: tokens.radius.lg,
-                  border: `1px solid ${tokens.colors.outlineVariant}`,
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  textAlign: "center",
-                  position: "relative",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                }}
-              >
-                <div style={{
-                  width: "64px",
-                  height: "64px",
-                  borderRadius: tokens.radius.lg,
-                  background: `linear-gradient(135deg, ${tokens.colors.primary} 0%, ${tokens.colors.secondary} 100%)`,
-                  color: tokens.colors.onPrimary,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: tokens.spacing.md,
-                  boxShadow: `0 6px 20px ${tokens.colors.primary}40`,
-                }}>
-                  <span className="material-icons" style={{ fontSize: "28px" }}>{step.icon}</span>
+              <div key={index} className="hiw-card">
+                <div className="hiw-card-decoration" />
+                <div className="hiw-card-icon">
+                  <span className="material-symbols-outlined">
+                    {index === 0 ? "cloud_upload" : index === 1 ? "psychology" : index === 2 ? "edit_note" : "picture_as_pdf"}
+                  </span>
                 </div>
-                <h3 style={{
-                  ...tokens.typography.titleMedium,
-                  color: tokens.colors.onSurface,
-                  marginBottom: tokens.spacing.xs,
-                }}>
-                  {step.title}
-                </h3>
-                <p style={{
-                  ...tokens.typography.bodySmall,
-                  color: tokens.colors.onSurfaceVariant,
-                  lineHeight: 1.5,
-                }}>
-                  {step.description}
-                </p>
-                {index < steps.length - 1 && (
-                  <div className="step-connector" style={{
-                    position: "absolute",
-                    right: "-12px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: "24px",
-                    height: "24px",
-                    color: tokens.colors.outlineVariant,
-                    opacity: 0.3,
-                    display: "none",
-                  }}>
-                    <span className="material-icons" style={{ fontSize: "24px" }}>arrow_forward</span>
-                  </div>
-                )}
+                <div className="hiw-card-number">Step {index + 1}</div>
+                <h3 className="hiw-card-title">{step.title}</h3>
+                <p className="hiw-card-description">{step.description}</p>
               </div>
             ))}
           </div>
@@ -547,116 +568,9 @@ export default function MarketingPage() {
 
       {/* Features Section */}
       <section id="features" style={{
-        padding: `${tokens.spacing.md} ${tokens.spacing.xl}`,
+        padding: `${tokens.spacing.xxl} ${tokens.spacing.lg}`,
         backgroundColor: "var(--color-section-bg)",
-      }}>
-        <style dangerouslySetInnerHTML={{
-          __html: `
-           .feature-card:hover {
-             transform: translateY(-4px);
-             box-shadow: 0 12px 32px rgba(49,87,155,0.12);
-              border-color: var(--sys-primary);
-           }
-           .use-case-card:hover {
-             transform: translateY(-4px);
-             box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-             border-color: var(--sys-primary);
-           }
-           :root.light .feature-card {
-             background-color: #D8E4F3 !important;
-             border-color: #c3d5ed !important;
-           }
-         `}} />
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <h2 style={{
-            ...tokens.typography.headlineLarge,
-             color: tokens.colors.onSurface,
-            textAlign: "center",
-            marginBottom: tokens.spacing.xs,
-          }}>
-            Everything You Need to Deliver Professional Reports
-          </h2>
-          <p style={{
-            ...tokens.typography.bodyLarge,
-             color: tokens.colors.onSurfaceVariant,
-            textAlign: "center",
-            marginBottom: tokens.spacing.xxl,
-          }}>
-            Speed, accuracy, and consistency — built for field inspectors
-          </p>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: tokens.spacing.lg,
-          }}>
-            {features.map((feature, i) => (
-              <div
-                key={i}
-                className="feature-card"
-                style={{
-                  backgroundColor: tokens.colors.surfaceContainer,
-                  borderRadius: "20px",
-                  border: `1px solid ${tokens.colors.outlineVariant}`,
-                  padding: tokens.spacing.md,
-                  display: "flex",
-                  flexDirection: "column",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                }}
-              >
-                {feature.imageUrl ? (
-                  <div style={{
-                    borderRadius: "14px",
-                    overflow: "hidden",
-                    marginBottom: tokens.spacing.lg,
-                    backgroundColor: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                  }}>
-                    <img
-                      src={feature.imageUrl}
-                      alt={feature.title}
-                      style={{
-                        width: "100%",
-                        height: "220px",
-                        objectFit: "cover",
-                        display: "block",
-                      }}
-                    />
-                  </div>
-                ) : (
-                  <div style={{ height: "16px" }} />
-                )}
-                <div style={{
-                  padding: `0 ${tokens.spacing.sm}`,
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                }}>
-                  <h4 style={{
-                    fontFamily: "var(--sys-typescale-body-large-fontfamily)",
-                    fontSize: "20px",
-                    fontStyle: "italic",
-                    fontWeight: 500,
-                    color: tokens.colors.onSurface,
-                    marginBottom: "12px",
-                  }}>
-                    {feature.title}
-                  </h4>
-                  <p style={{
-                    fontFamily: "var(--sys-typescale-body-large-fontfamily)",
-                    fontSize: "15px",
-                    fontStyle: "italic",
-                    color: tokens.colors.onSurfaceVariant,
-                    lineHeight: 1.6,
-                    paddingBottom: tokens.spacing.sm,
-                  }}>
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      }} />
 
       {/* Use Cases */}
       <section id="use-cases" style={{
@@ -675,7 +589,7 @@ export default function MarketingPage() {
           .use-case-card-bento {
              background: var(--sys-surface-roles-surface-container);
             border: 1px solid var(--sys-outline-variant);
-            border-radius: 20px;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -811,7 +725,7 @@ export default function MarketingPage() {
               background-color: var(--sys-surface-roles-surface-container);
              background-image: radial-gradient(ellipse at bottom, var(--sys-primary) 0%, transparent 60%);
              border: 1px solid var(--sys-outline-variant);
-             border-radius: 20px;
+             border-radius: 8px;
              padding: 50px 24px; // Removed another 50px of total height
              text-align: center;
              position: relative;
