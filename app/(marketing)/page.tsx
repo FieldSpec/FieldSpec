@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { tokens } from "@/lib/design-tokens";
 import Brand from "@/components/Brand";
@@ -71,152 +72,150 @@ export default function MarketingPage() {
       <Navbar />
 
 {/* Hero Section */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", paddingTop: "calc(var(--sys-header-offset) + 40px)", paddingBottom: "60px", paddingInline: tokens.spacing.lg}}>
+      <section className="hero-section" style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", paddingTop: "32px", paddingBottom: "24px", paddingInline: tokens.spacing.lg}}>
         
         {/* Section Heading (Outside Box) */}
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
-          <h2 style={{ ...tokens.typography.displaySmall, color: tokens.colors.onSurface, fontWeight: 500, marginBottom: "12px", letterSpacing: "-0.02em" }}>
-            Automate your field reporting
-          </h2>
+          <h1 style={{ ...tokens.typography.displaySmall, fontSize: "clamp(24px, 5vw, 36px)", color: tokens.colors.onSurface, fontWeight: 500, marginBottom: "12px", letterSpacing: "-0.02em" }}>
+            Turn Drone Images into<br/>Structured Reports Instantly
+          </h1>
           <p style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant }}>
-            From drone flight to stakeholder delivery, instantly.
+        Upload inspection images. FieldSpec analyzes them and generates stakeholder-ready reports in minutes.
           </p>
         </div>
 
         {/* The Main Box */}
-        <div style={{ width: "100%", height: "600px", borderRadius: "32px", backgroundColor: tokens.colors.surfaceContainer, display: "grid", gridTemplateColumns: "1fr 1fr", overflow: "hidden" }}>
+        <div style={{ width: "100%", height: "600px", borderRadius: tokens.radius.xl, backgroundColor: tokens.colors.surfaceContainer, display: "grid", gridTemplateColumns: "1.2fr 1fr", overflow: "hidden" }}>
           
           {/* Left: Content */}
-          {/* Left: Content */}
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "64px", textAlign: "left", height: "100%" }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "24px" }}>
+          <div className="hero-left-content" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: tokens.spacing.xxl, padding: `${tokens.spacing.xxl} ${tokens.spacing.xl}`, textAlign: "center", height: "100%" }}>
+            
+            {/* Text group: heading + description */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: tokens.spacing.lg }}>
               <h2 style={{
-                ...tokens.typography.displayMedium,
+                ...tokens.typography.headlineLarge,
+                fontSize: "clamp(18px, 5vw, 32px)",
                 color: tokens.colors.onSurface,
                 fontWeight: 500,
                 lineHeight: 1.1,
                 letterSpacing: "-0.02em",
                 maxWidth: "480px"
               }}>
-                Turn Field images into <br/> structured reports instantly
+                we eliminate your biggest pain
               </h2>
               <p style={{
                 ...tokens.typography.bodyLarge,
                 color: tokens.colors.onSurfaceVariant,
                 maxWidth: "440px",
                 lineHeight: 1.5,
+                textAlign: "center",
               }}>
-                Upload inspection images. FieldSpec analyzes them and generates stakeholder-ready reports in minutes.
+                from field images to stakeholder-ready reports, instantly.
               </p>
+            </div>
 
-              {/* Buttons at bottom */}
-              <div style={{ display: "flex", flexDirection: "row", gap: tokens.spacing.md, marginTop: "16px" }}>
-                <Link
-                  href="/signup"
-                  style={{
-                    padding: "12px 24px",
-                    backgroundColor: tokens.colors.primary,
-                    color: tokens.colors.onPrimary,
-                    borderRadius: "12px",
-                    fontFamily: tokens.typography.labelLarge.fontFamily,
-                    fontWeight: 600,
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    transition: "all 0.2s",
-                  }}
-                >
-                  Get Started
-                </Link>
-                <Link
-                  href="/sample-report"
-                  style={{
-                    padding: "12px 24px",
-                    backgroundColor: "transparent",
-                    color: tokens.colors.primary,
-                    borderRadius: "12px",
-                    border: `1px solid ${tokens.colors.primary}`,
-                    fontFamily: tokens.typography.labelLarge.fontFamily,
-                    fontWeight: 600,
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    transition: "all 0.2s",
-                  }}
-                >
-                  View Sample Report
-                </Link>
-              </div>
+            {/* Buttons */}
+            <div style={{ display: "flex", flexDirection: "row", gap: tokens.spacing.md, justifyContent: "center" }}>
+              <Link
+                href="/signup"
+                className="hero-primary-btn hero-btn-primary"
+                style={{
+                  padding: `${tokens.spacing.md} ${tokens.spacing.lg}`,
+                  backgroundColor: tokens.colors.primary,
+                  color: tokens.colors.onPrimary,
+                  borderRadius: tokens.radius.lg,
+                  ...tokens.typography.labelLarge,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  transition: "all 0.2s",
+                }}
+              >
+                Get Started
+              </Link>
+              <Link
+                href="/sample-report"
+                className="hero-btn-secondary"
+                style={{
+                  padding: `${tokens.spacing.md} ${tokens.spacing.md}`,
+                  backgroundColor: "transparent",
+                  color: tokens.colors.onSurface,
+                  borderRadius: tokens.radius.lg,
+                  border: `1.5px solid ${tokens.colors.onSurface}`,
+                  ...tokens.typography.labelLarge,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  transition: "all 0.2s",
+                }}
+              >
+                View Sample Report
+              </Link>
             </div>
           </div>
 
-          {/* Right: Stacked UI Cards Bleeding */}
-          <div style={{
-            position: "relative",
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end", // Align cards to the right
-            gap: "24px",
-            paddingTop: "24px",
-            transform: "translateY(-120px)", // shift up to bleed top and bottom
-          }}>
-            {/* Top Card (White Bleeding) */}
-            <div style={{
-              width: "480px",
-              height: "200px",
-              backgroundColor: tokens.colors.surface,
-              borderRadius: "24px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-              flexShrink: 0,
-            }}></div>
-
-            {/* Middle Card (Dark) */}
-            <div style={{
-              width: "480px",
-              height: "400px",
-              backgroundColor: "#1c1c1c",
-              borderRadius: "24px",
-              boxShadow: "0 12px 32px rgba(0,0,0,0.15)",
-              flexShrink: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center"
-            }}>
-              <span style={{ color: "#ffffff", fontSize: "24px", fontWeight: 500, fontFamily: tokens.typography.bodyLarge.fontFamily }}>Report pdf placeholder</span>
+{/* Right: Content */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: tokens.spacing.md }}>
+            <div style={{ width: "100%", backgroundColor: tokens.colors.surfaceContainerLow, borderRadius: tokens.radius.lg, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <img src="/images/IMG_9160.PNG" alt="Product preview" style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: tokens.radius.md }} />
             </div>
-
-            {/* Bottom Card (White Bleeding) */}
-            <div style={{
-              width: "480px",
-              height: "200px",
-              backgroundColor: tokens.colors.surface,
-              borderRadius: "24px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
-              flexShrink: 0,
-            }}></div>
-            
           </div>
+
+          <style>{`
+            .hero-primary-btn:hover {
+              background-color: color-mix(in srgb, ${tokens.colors.primary} 85%, white) !important;
+            }
+            @media (max-width: 768px) {
+              .hero-btn-primary {
+                padding: ${tokens.spacing.sm} ${tokens.spacing.md} !important;
+              }
+              .hero-btn-secondary {
+                padding: ${tokens.spacing.sm} ${tokens.spacing.sm} !important;
+              }
+              .hero-section {
+                padding-left: ${tokens.spacing.md} !important;
+                padding-right: ${tokens.spacing.md} !important;
+              }
+              .hero-left-content {
+                padding: ${tokens.spacing.md} ${tokens.spacing.sm} !important;
+              }
+}
+          `}</style>
         </div>
 
-        {/* Trust strip */}
-        <div style={{
-          position: "absolute",
-          bottom: tokens.spacing.xl,
-          left: 0,
-          right: 0,
-        }}>
-          <div style={{ maxWidth: "80rem", marginLeft: "auto", marginRight: "auto", paddingLeft: tokens.spacing.xl, paddingRight: tokens.spacing.xl, display: "flex", justifyContent: "center" }}>
-            <p style={{
-              ...tokens.typography.bodySmall,
-              color: tokens.colors.onSurfaceVariant,
-            }}>
-              Generate reports 5x faster
-            </p>
-          </div>
-        </div>
       </section>
+
+      {/* Trust Strip */}
+      <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", paddingInline: tokens.spacing.lg, paddingTop: tokens.spacing.xl, paddingBottom: tokens.spacing.xl, display: "flex", justifyContent: "center", alignItems: "center", gap: tokens.spacing.lg, borderTop: `0.5px solid ${tokens.colors.outlineVariant}`, borderBottom: `0.5px solid ${tokens.colors.outlineVariant}` }}>
+        <p style={{
+          fontFamily: tokens.typography.labelLarge.fontFamily,
+          fontSize: tokens.typography.labelLarge.fontSize,
+          fontWeight: "600",
+          color: tokens.colors.onSurfaceVariant,
+        }}>
+          Generate reports 5× faster
+        </p>
+        <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: tokens.colors.onSurfaceVariant, opacity: 0.4 }} />
+        <p style={{
+          fontFamily: tokens.typography.labelLarge.fontFamily,
+          fontSize: tokens.typography.labelLarge.fontSize,
+          fontWeight: "600",
+          color: tokens.colors.onSurfaceVariant,
+        }}>
+          AI turns images into insights
+        </p>
+        <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: tokens.colors.onSurfaceVariant, opacity: 0.4 }} />
+        <p style={{
+          fontFamily: tokens.typography.labelLarge.fontFamily,
+          fontSize: tokens.typography.labelLarge.fontSize,
+          fontWeight: "600",
+          color: tokens.colors.onSurfaceVariant,
+        }}>
+          Structured, export-ready reports
+        </p>
+      </div>
 
       {/* Problem → Solution Section */}
       <section style={{
@@ -440,11 +439,12 @@ export default function MarketingPage() {
 
 {/* How It Works */}
       <section id="how-it-works" style={{
-        padding: `${tokens.spacing.xxl} ${tokens.spacing.lg} ${tokens.spacing.xxl}`, 
+        padding: `${tokens.spacing.xxl} ${tokens.spacing.lg}`,
         backgroundColor: "var(--color-section-bg)",
       }}>
-        <style dangerouslySetInnerHTML={{
-          __html: `
+        <div style={{ maxWidth: "80rem", marginLeft: "auto", marginRight: "auto", paddingInline: tokens.spacing.xl }}>
+          <style dangerouslySetInnerHTML={{
+            __html: `
             .hiw-grid {
               display: grid;
               grid-template-columns: repeat(4, 1fr);
@@ -532,8 +532,8 @@ export default function MarketingPage() {
               }
             }
           `}} />
-<div style={{ margin: `${tokens.spacing.xl} auto`, padding: tokens.spacing.md, display: "flex", flexDirection: "column", gap: tokens.spacing.lg }}>
-            <div style={{ width: "fit-content", margin: "0 auto", textAlign: "center" }}>
+          <div style={{ margin: `${tokens.spacing.xl} 0`, display: "flex", flexDirection: "column", gap: tokens.spacing.lg }}>
+            <div style={{ textAlign: "left" }}>
               <h2 style={{
                 ...tokens.typography.headlineLarge,
                 color: tokens.colors.onSurface,
@@ -562,6 +562,7 @@ export default function MarketingPage() {
                 <p className="hiw-card-description">{step.description}</p>
               </div>
             ))}
+          </div>
           </div>
         </div>
       </section>

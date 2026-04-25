@@ -25,10 +25,10 @@ export default function Navbar({ onPrefetch }: NavbarProps) {
         justifyContent: "space-between",
         alignItems: "center",
         width: "100%",
-      }}>
+      }} className="nav-container">
       <style>{`
         .nav-link:hover { color: ${tokens.colors.onSurface} !important; border-color: ${tokens.colors.onSurface}; }
-        .nav-link { text-decoration: none; transition: all 0.3s ease; padding: 0 16px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: ${tokens.radius.xl}; border: 1px solid transparent; }
+        .nav-link { text-decoration: none; transition: all 0.3s ease; padding: 0 16px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: calc(3 * ${tokens.spacing.xs}); border: 1.5px solid transparent; font-weight: 600; }
         .signup-btn:hover { background-color: color-mix(in srgb, ${tokens.colors.primary} 85%, white) !important; color: ${tokens.colors.onPrimary} !important; }
         .signup-btn { text-decoration: none; transition: background-color 0.3s ease, color 0.3s ease; color: ${tokens.colors.onPrimary}; background-color: ${tokens.colors.primary}; }
         .btn-outline:hover { background-color: rgba(0, 0, 0, 0.05) !important; }
@@ -60,13 +60,16 @@ export default function Navbar({ onPrefetch }: NavbarProps) {
         
         @media (max-width: 768px) { .nav-center-container, .nav-actions { display: none !important; } }
         @media (min-width: 769px) { .hamburger-menu, .dropdown-menu { display: none !important; } }
+        @media (max-width: 768px) {
+          .nav-container { padding-left: ${tokens.spacing.md} !important; padding-right: ${tokens.spacing.md} !important; }
+        }
       `}</style>
 
       <input type="checkbox" id="menu-toggle" style={{ display: "none" }} />
 
       <div className="nav-brand-container">
         <Link href="/" className="no-underline">
-          <Brand size="md" />
+          <Brand size="lg" />
         </Link>
       </div>
       
@@ -98,8 +101,9 @@ export default function Navbar({ onPrefetch }: NavbarProps) {
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              borderRadius: tokens.radius.xl,
-              border: `1px solid ${tokens.colors.onSurface}`,
+              borderRadius: `calc(3 * ${tokens.spacing.xs})`,
+              border: `1.5px solid ${tokens.colors.onSurface}`,
+              fontWeight: 600,
             }}
           >
             Log In
@@ -110,14 +114,14 @@ export default function Navbar({ onPrefetch }: NavbarProps) {
             onMouseEnter={() => onPrefetch && onPrefetch("/signup")}
             onTouchStart={() => onPrefetch && onPrefetch("/signup")}
             style={{
-              padding: "0 16px",
+              padding: "0 28px",
               height: "40px",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
               backgroundColor: tokens.colors.primary,
               textDecoration: "none",
-              borderRadius: tokens.radius.xl,
+              borderRadius:`calc(3 * ${tokens.spacing.xs})`, 
               ...tokens.typography.labelLarge,
               fontWeight: "600",
             }}
@@ -160,7 +164,8 @@ export default function Navbar({ onPrefetch }: NavbarProps) {
               alignItems: "center",
               justifyContent: "center",
               borderRadius: tokens.radius.xl,
-              border: `1px solid ${tokens.colors.onSurface}`,
+              border: `1.5px solid ${tokens.colors.onSurface}`,
+              fontWeight: 600,
             }}
           >
             Log In
