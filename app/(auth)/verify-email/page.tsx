@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ProgressBar, LoadingCard } from "@/lib/components/loading";
 
-export default function VerifyEmailPage() {
+function VerifyEmailForm() {
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [message, setMessage] = useState("");
   const searchParams = useSearchParams();
@@ -93,5 +93,21 @@ export default function VerifyEmailPage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+function LoadingState() {
+  return (
+    <div className="w-full max-w-[400px] p-lg bg-surface rounded-md">
+      <LoadingCard message="Verifying your email..." />
+    </div>
+  );
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <VerifyEmailForm />
+    </Suspense>
   );
 }
