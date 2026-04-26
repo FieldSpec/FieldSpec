@@ -2,16 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { tokens } from "@/lib/design-tokens";
+import { useSearchParams } from "next/navigation";
+import { ProgressBar, LoadingCard } from "@/lib/components/loading";
 
 export default function VerifyEmailPage() {
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [message, setMessage] = useState("");
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
-
     if (!token) {
       setStatus("error");
       setMessage("Missing verification token");
@@ -33,140 +33,64 @@ export default function VerifyEmailPage() {
         setStatus("error");
         setMessage("Something went wrong");
       });
-  }, []);
+  }, [token]);
+
+  if (status === "loading") {
+    return (
+      <div className="w-full max-w-[400px] p-lg bg-surface rounded-md">
+        <LoadingCard message="Verifying your email..." />
+      </div>
+    );
+  }
+
+  if (status === "success") {
+    return (
+      <div className="w-full max-w-[400px] p-lg bg-surface rounded-md">
+        <div className="text-center">
+          <div 
+            className="mb-md rounded-full inline-flex items-center justify-center"
+            style={{ 
+              width: "64px", 
+              height: "64px", 
+              backgroundColor: "var(--sys-primary)",
+              color: "var(--sys-on-primary)",
+            }}
+          >
+            <span className="material-icons" style={{ fontSize: "32px" }}>check</span>
+          </div>
+          <h1 className="text-center mb-xs text-on-surface tracking-normal" style={{ fontSize: "28px", fontWeight: "600", lineHeight: "36px" }}>
+            Email Verified
+          </h1>
+          <p className="text-center mb-lg text-on-surface-variant text-body-medium">
+            {message}
+          </p>
+          <Link
+            href="/login"
+            className="text-primary text-body-medium"
+          >
+            Go to Login
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: tokens.spacing.lg,
-        backgroundColor: tokens.colors.surface,
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "400px",
-          width: "100%",
-          padding: tokens.spacing.xl,
-          backgroundColor: tokens.colors.surface,
-          borderRadius: tokens.radius.lg,
-          boxShadow: tokens.elevation.level1,
-          textAlign: "center",
-        }}
-      >
-        {status === "loading" && (
-          <>
-            <div
-              style={{
-                fontSize: "48px",
-                marginBottom: tokens.spacing.md,
-              }}
-            >
-              ⏳
-            </div>
-            <p
-              style={{
-                ...tokens.typography.bodyLarge,
-                color: tokens.colors.onSurface,
-              }}
-            >
-              Verifying your email...
-            </p>
-          </>
-        )}
-
-        {status === "success" && (
-          <>
-            <div
-              style={{
-                fontSize: "48px",
-                marginBottom: tokens.spacing.md,
-              }}
-            >
-              ✓
-            </div>
-            <h1
-              style={{
-                ...tokens.typography.headlineSmall,
-                color: tokens.colors.onSurface,
-                marginBottom: tokens.spacing.md,
-              }}
-            >
-              Email Verified
-            </h1>
-            <p
-              style={{
-                ...tokens.typography.bodyMedium,
-                color: tokens.colors.onSurfaceVariant,
-                marginBottom: tokens.spacing.lg,
-              }}
-            >
-              {message}
-            </p>
-            <Link
-              href="/login"
-              style={{
-                display: "inline-block",
-                padding: `${tokens.spacing.sm} ${tokens.spacing.lg}`,
-                backgroundColor: tokens.colors.primary,
-                color: tokens.colors.onPrimary,
-                textDecoration: "none",
-                borderRadius: tokens.radius.md,
-                ...tokens.typography.labelLarge,
-              }}
-            >
-              Go to Login
-            </Link>
-          </>
-        )}
-
-        {status === "error" && (
-          <>
-            <div
-              style={{
-                fontSize: "48px",
-                marginBottom: tokens.spacing.md,
-              }}
-            >
-              ✕
-            </div>
-            <h1
-              style={{
-                ...tokens.typography.headlineSmall,
-                color: tokens.colors.onSurface,
-                marginBottom: tokens.spacing.md,
-              }}
-            >
-              Verification Failed
-            </h1>
-            <p
-              style={{
-                ...tokens.typography.bodyMedium,
-                color: tokens.colors.onSurfaceVariant,
-                marginBottom: tokens.spacing.lg,
-              }}
-            >
-              {message}
-            </p>
-            <Link
-              href="/signup"
-              style={{
-                display: "inline-block",
-                padding: `${tokens.spacing.sm} ${tokens.spacing.lg}`,
-                backgroundColor: tokens.colors.primary,
-                color: tokens.colors.onPrimary,
-                textDecoration: "none",
-                borderRadius: tokens.radius.md,
-                ...tokens.typography.labelLarge,
-              }}
-            >
-              Sign Up Again
-            </Link>
-          </>
-        )}
+    <div className="w-full max-w-[400px] p-lg bg-surface rounded-md">
+      <div className="text-center">
+        <div className="mb-md text-4xl">✕</div>
+        <h1 className="text-center mb-xs text-on-surface tracking-normal" style={{ fontSize: "28px", fontWeight: "600", lineHeight: "36px" }}>
+          Verification Failed
+        </h1>
+        <p className="text-center mb-lg text-on-surface-variant text-body-medium">
+          {message}
+        </p>
+        <Link
+          href="/signup"
+          className="text-primary text-body-medium"
+        >
+          Sign Up Again
+        </Link>
       </div>
     </div>
   );

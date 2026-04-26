@@ -11,7 +11,7 @@ export default function AuthLayout({
 }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-md" style={{ backgroundColor: "var(--color-section-bg)" }}>
-      <div className="mb-lg">
+      <div className="mb-md">
         <Link href="/" className="no-underline text-primary">
           <Brand size="lg" />
         </Link>

@@ -29,12 +29,19 @@ export async function POST(request: NextRequest) {
     }
 
     const { email } = result.data;
-    await forgotPassword(email);
+    const forgotPasswordResult = await forgotPassword(email);
 
-    return NextResponse.json(
-      { data: { message: "If an account exists with this email, a password reset link has been sent." } },
-      { status: 200 }
-    );
+    if (forgotPasswordResult.emailExists) {
+      return NextResponse.json(
+        { data: { message: "We have sent a reset link to your inbox." } },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json(
+        { error: { message: "This email is not associated with any account.", code: "EMAIL_NOT_FOUND" } },
+        { status: 404 }
+      );
+    }
   } catch (error) {
     console.error("Forgot password route error:", error);
     return NextResponse.json(

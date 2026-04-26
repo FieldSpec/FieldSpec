@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useDashboardUser } from "@/components/dashboard/DashboardUserProvider";
 import { tokens } from "@/lib/design-tokens";
+import { LoadingScreen } from "@/lib/components/loading";
 
 export default function SettingsPage() {
   const { user, loading, setUser } = useDashboardUser();
@@ -61,20 +62,7 @@ export default function SettingsPage() {
   }
 
   if (loading) {
-    return (
-      <div style={{ maxWidth: "600px", padding: `0 ${tokens.spacing.md}` }}>
-        <div
-          style={{
-            padding: tokens.spacing.xl,
-            textAlign: "center",
-            ...tokens.typography.bodyLarge,
-            color: tokens.colors.onSurfaceVariant,
-          }}
-        >
-          Loading...
-        </div>
-      </div>
-    );
+    return <LoadingScreen message="Loading settings..." />;
   }
 
   return (

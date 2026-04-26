@@ -10,9 +10,9 @@ export default function Brand({
   size = "md",
 }: BrandProps) {
   const sizes = {
-    sm: 64,
-    md: 80,
-    lg: 120,
+    sm: 80,
+    md: 100,
+    lg: 150,
   };
 
   const currentSize = sizes[size];

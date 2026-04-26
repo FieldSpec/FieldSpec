@@ -22,6 +22,7 @@ export interface LoginResult {
 
 export interface ForgotPasswordResult {
   success: boolean;
+  emailExists?: boolean;
 }
 
 export interface ResetPasswordResult {
@@ -186,7 +187,7 @@ export async function forgotPassword(email: string): Promise<ForgotPasswordResul
     });
 
     if (!user || user.authProvider !== "email" || !user.passwordHash) {
-      return { success: true };
+      return { success: true, emailExists: false };
     }
 
     const tokenData = generateToken();
@@ -204,10 +205,10 @@ export async function forgotPassword(email: string): Promise<ForgotPasswordResul
       console.error(`Failed to send password reset email to ${email}`);
     }
 
-    return { success: true };
+    return { success: true, emailExists: true };
   } catch (error) {
     console.error("Forgot password error:", error);
-    return { success: true };
+    return { success: true, emailExists: false };
   }
 }
 

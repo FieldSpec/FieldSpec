@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { tokens } from "@/lib/design-tokens";
+import { LoadingScreen } from "@/lib/components/loading";
 
 interface Project {
   id: string;
@@ -49,20 +50,7 @@ export default function ProjectDetailPage() {
   }
 
   if (loading) {
-    return (
-      <div style={{ padding: tokens.spacing.lg, maxWidth: "800px" }}>
-        <div
-          style={{
-            padding: tokens.spacing.xl,
-            textAlign: "center",
-            color: tokens.colors.onSurfaceVariant,
-            ...tokens.typography.bodyLarge,
-          }}
-        >
-          Loading...
-        </div>
-      </div>
-    );
+    return <LoadingScreen message="Loading project..." />;
   }
 
   if (error || !project) {

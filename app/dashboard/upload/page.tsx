@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { tokens } from "@/lib/design-tokens";
 
 import { useProjectsStore } from "@/store/useProjectsStore";
@@ -14,6 +15,7 @@ import { BulkActionBar } from "@/components/dashboard/upload/BulkActionBar";
 import { ImageCard } from "@/components/dashboard/upload/ImageCard";
 import { EmptyState } from "@/components/dashboard/upload/EmptyState";
 import { StatusType } from "@/components/dashboard/upload/StatusBadge";
+import { LoadingScreen } from "@/lib/components/loading";
 
 interface ImageType {
   id: string;
@@ -26,6 +28,7 @@ interface ImageType {
 }
 
 export default function UploadPage() {
+  const router = useRouter();
   const {
     projects,
     loading: projectsLoading,
@@ -341,17 +344,7 @@ export default function UploadPage() {
   }, [images, categoryFilter, statusFilter, sortOrder, searchQuery]);
 
   if (loading || projectsLoading) {
-    return (
-      <div
-        style={{
-          padding: tokens.spacing.xl,
-          textAlign: "center",
-          color: tokens.colors.onSurfaceVariant,
-        }}
-      >
-        Loading workspace...
-      </div>
-    );
+    return <LoadingScreen message="Loading images..." />;
   }
 
   return (
