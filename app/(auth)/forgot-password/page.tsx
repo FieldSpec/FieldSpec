@@ -104,18 +104,13 @@ export default function ForgotPasswordPage() {
           <label className="block mb-xs text-on-surface text-label-medium">
             Email <span className="text-primary">*</span>
           </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (error) setError("");
-            }}
-            className="w-full box-border px-md py-sm border rounded-sm text-on-surface focus:outline-primary text-body-medium bg-transparent"
+          <div 
+            className="flex items-center border rounded-sm"
             style={{ 
               borderColor: error ? "var(--sys-error)" : "var(--sys-outline)",
               transition: "border-color 0.2s ease",
-              backgroundColor: "transparent",
+              width: "352px",
+              height: "37.6px",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = error ? "var(--sys-error)" : "var(--sys-primary)";
@@ -123,32 +118,38 @@ export default function ForgotPasswordPage() {
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = error ? "var(--sys-error)" : "var(--sys-outline)";
             }}
-          />
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (error) setError("");
+              }}
+              className="flex-1 box-border px-md py-sm border-none text-on-surface focus:outline-none text-body-medium bg-transparent"
+              style={{ 
+                backgroundColor: "transparent",
+                outline: "none",
+              }}
+            />
+          </div>
           {error && (
             <p className="mt-xs text-error text-label-small">{error}</p>
           )}
         </div>
 
-        <button
+<button
           type="submit"
           disabled={loading || !isValidEmail}
-          className="w-full p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
-          style={{ transition: "background-color 0.2s ease, transform 0.2s ease", border: "none", textDecoration: "none" }}
+          className="p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
+          style={{ width: "352px", transition: "all 0.2s ease", border: "none", textDecoration: "none" }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--sys-add-on-primary-fixed)";
-            e.currentTarget.style.color = "var(--sys-primary)";
-            e.currentTarget.style.transform = "translateY(-1px)";
+            e.currentTarget.style.backgroundColor = "var(--sys-primary-container)";
+            e.currentTarget.style.color = "var(--sys-on-primary-container)";
           }}
-onMouseLeave={(e) => {
+          onMouseLeave={(e) => {
             e.currentTarget.style.backgroundColor = "var(--sys-primary)";
             e.currentTarget.style.color = "var(--sys-on-primary)";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-          onMouseDown={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.outline = "none";
           }}
         >
           {loading ? "Sending..." : "Send Reset Link"}

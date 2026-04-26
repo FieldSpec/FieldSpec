@@ -53,13 +53,29 @@ export default function LoginPage() {
           <label className="block mb-xs text-on-surface text-label-medium">
             Email <span className="text-primary">*</span>
           </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full box-border px-md py-sm border border-outline rounded-sm bg-surface text-on-surface focus:outline-primary text-body-medium"
-          />
+          <div 
+            className="flex items-center border border-outline rounded-sm"
+            style={{ 
+              borderColor: "var(--sys-outline)",
+              transition: "border-color 0.2s ease",
+              width: "352px",
+              height: "37.6px",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--sys-primary)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--sys-outline)";
+            }}
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="flex-1 box-border px-md py-sm border-none text-on-surface focus:outline-none text-body-medium bg-transparent"
+            />
+          </div>
         </div>
 
         <div className="mb-lg">
@@ -76,6 +92,8 @@ export default function LoginPage() {
             style={{ 
               borderColor: "var(--sys-outline)",
               transition: "border-color 0.2s ease",
+              width: "352px",
+              height: "37.6px",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = "var(--sys-primary)";
@@ -111,7 +129,7 @@ export default function LoginPage() {
         </div>
 
         {error && (
-          <div className="p-md bg-error-container text-on-error-container rounded-sm mb-md text-body-small">
+          <div className="p-md bg-error-container text-on-error-container rounded-sm mb-md text-body-small" style={{ width: "352px" }}>
             {error}
           </div>
         )}
@@ -119,23 +137,15 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
-          style={{ transition: "background-color 0.2s ease, transform 0.2s ease", border: "none", textDecoration: "none" }}
+          className="p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
+          style={{ width: "352px", transition: "all 0.2s ease", border: "none", textDecoration: "none" }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--sys-add-on-primary-fixed)";
-            e.currentTarget.style.color = "var(--sys-primary)";
-            e.currentTarget.style.transform = "translateY(-1px)";
+            e.currentTarget.style.backgroundColor = "var(--sys-primary-container)";
+            e.currentTarget.style.color = "var(--sys-on-primary-container)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.backgroundColor = "var(--sys-primary)";
             e.currentTarget.style.color = "var(--sys-on-primary)";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-          onMouseDown={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.outline = "none";
           }}
         >
           {loading ? "Logging in..." : "Login"}
@@ -148,11 +158,18 @@ export default function LoginPage() {
         <div className="flex-1 h-px bg-outline" style={{ height: "0.5px" }}></div>
       </div>
 
-      <button
-        type="button"
-        onClick={() => window.location.href = "/api/auth/oauth/google"}
-        className="w-full flex items-center justify-center gap-sm py-sm px-md border border-outline rounded-sm bg-surface hover:bg-surface-variant transition-colors"
-      >
+<button
+          type="button"
+          onClick={() => window.location.href = "/api/auth/oauth/google"}
+          className="flex items-center justify-center gap-sm py-sm px-md border border-outline rounded-sm bg-surface"
+          style={{ width: "352px", transition: "all 0.2s ease" }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "var(--sys-surface-container)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "var(--sys-surface)";
+          }}
+        >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
           <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
