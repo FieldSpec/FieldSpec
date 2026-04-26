@@ -71,7 +71,7 @@ export default function MarketingPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="hero-section" style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", paddingTop: "32px", paddingBottom: "24px", paddingInline: tokens.spacing.lg}}>
+      <section className="hero-section" style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", paddingTop: "32px", paddingBottom: "24px", paddingInline: tokens.spacing.xl}}>
          
         {/* Section Heading (Outside Box) */}
         <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -191,47 +191,49 @@ export default function MarketingPage() {
       </section>
 
       {/* Trust Strip */}
-      <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", paddingInline: tokens.spacing.md, paddingTop: tokens.spacing.lg, paddingBottom: tokens.spacing.lg, display: "flex", justifyContent: "center", alignItems: "center", gap: tokens.spacing.lg, borderTop: `0.5px solid ${tokens.colors.outlineVariant}`, borderBottom: `0.5px solid ${tokens.colors.outlineVariant}` }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%", paddingInline: tokens.spacing.xl, paddingTop: tokens.spacing.lg, paddingBottom: tokens.spacing.lg, display: "flex", justifyContent: "center", alignItems: "center", gap: tokens.spacing.xxl }}>
         <p style={{
-          fontFamily: tokens.typography.labelLarge.fontFamily,
-          fontSize: tokens.typography.labelLarge.fontSize,
+          ...tokens.typography.bodyLarge,
           fontWeight: "600",
           color: tokens.colors.onSurfaceVariant,
         }}>
-          Generate reports 5× faster
+          Construction
         </p>
-        <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: tokens.colors.onSurfaceVariant, opacity: 0.4 }} />
         <p style={{
-          fontFamily: tokens.typography.labelLarge.fontFamily,
-          fontSize: tokens.typography.labelLarge.fontSize,
+          ...tokens.typography.bodyLarge,
           fontWeight: "600",
           color: tokens.colors.onSurfaceVariant,
         }}>
-          AI turns images into insights
+          Infrastructure
         </p>
-        <div style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: tokens.colors.onSurfaceVariant, opacity: 0.4 }} />
         <p style={{
-          fontFamily: tokens.typography.labelLarge.fontFamily,
-          fontSize: tokens.typography.labelLarge.fontSize,
+          ...tokens.typography.bodyLarge,
           fontWeight: "600",
           color: tokens.colors.onSurfaceVariant,
         }}>
-          Structured, export-ready reports
+          Agriculture
+        </p>
+        <p style={{
+          ...tokens.typography.bodyLarge,
+          fontWeight: "600",
+          color: tokens.colors.onSurfaceVariant,
+        }}>
+          Land Surveys
         </p>
       </div>
 
       {/* Problem → Solution Section */}
       <section style={{
-        padding: `${tokens.spacing.md} ${tokens.spacing.xl}`,
+        maxWidth: "1200px",
+        margin: "0 auto",
+        width: "100%",
+        paddingTop: "32px",
+        paddingBottom: "24px",
+        paddingInline: tokens.spacing.xl,
         backgroundColor: "var(--color-section-bg)",
       }}>
         <style dangerouslySetInnerHTML={{
           __html: `
-           .problem-solution-card:hover {
-             transform: translateY(-4px);
-             box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-             border-color: rgba(255,255,255,0.2) !important;
-           }
            @media (max-width: 900px) {
              .problem-solution-grid {
                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
@@ -266,177 +268,81 @@ export default function MarketingPage() {
              }
            }
          `}} />
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <h2 style={{
-            ...tokens.typography.displaySmall,
-            color: tokens.colors.onSurface,
-            textAlign: "center",
-            marginBottom: tokens.spacing.xl,
-          }}>
-            From Hours of Manual Work to Automated Reports
-          </h2>
-          <p style={{
-            ...tokens.typography.bodyLarge,
-            color: tokens.colors.onSurfaceVariant,
-            textAlign: "center",
-            maxWidth: "800px",
-            margin: "0 auto",
-            marginBottom: tokens.spacing.xxl,
-          }}>
-            Turning drone data into professional reports takes too long, introduces inconsistencies, and wastes valuable time. FieldSpec does it automatically.
-          </p>
-
+        <div style={{ width: "100%" }}>
           <div className="problem-solution-grid" style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
-            gap: tokens.spacing.xl,
+            gap: 0,
             alignItems: "stretch",
+            height: "600px",
           }}>
             {/* Problem Card */}
             <div className="problem-solution-card" style={{
-              padding: `${tokens.spacing.xxl} ${tokens.spacing.xl}`,
+              padding: tokens.spacing.md,
               backgroundColor: tokens.colors.surfaceContainer,
-              borderRadius: tokens.radius.lg,
-              border: `1px solid ${tokens.colors.outlineVariant}`,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+              borderRadius: 0,
+              border: "none",
               height: "100%",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-end",
               position: "relative",
               overflow: "hidden",
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
             }}>
-              <div style={{
-                position: "absolute",
-                top: `${tokens.spacing.lg}`,
-                left: `${tokens.spacing.lg}`,
-                width: "12px",
-                height: "12px",
-                backgroundColor: tokens.colors.primary,
-                borderRadius: "50%",
-                boxShadow: `0 0 0 4px rgba(96, 165, 250, 0.2)`,
-              }} />
-              <h3 className="problem-solution-title" style={{
-                ...tokens.typography.headlineMedium,
+              <h3 style={{
+                ...tokens.typography.headlineSmall,
                 color: tokens.colors.onSurface,
-                marginBottom: tokens.spacing.lg,
-                marginTop: tokens.spacing.xs,
+                marginBottom: tokens.spacing.md,
+                fontWeight: 500,
               }}>
-                The Problem
+                Your workflow is being slowed down
               </h3>
-              <div style={{ flex: 1 }}>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
-                  <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                    <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.primaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ color: tokens.colors.primary, fontSize: tokens.typography.bodyMedium.fontSize, fontWeight: "bold" }}>✕</span>
-                      </div>
-                    </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Writing reports manually takes hours, and every report looks different from the last</span>
-                  </li>
-                  <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                    <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.primaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ color: tokens.colors.primary, fontSize: tokens.typography.bodyMedium.fontSize, fontWeight: "bold" }}>✕</span>
-                      </div>
-                    </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Drone images sit unstructured, making it nearly impossible to track findings across projects</span>
-                  </li>
-                  <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                    <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.primaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ color: tokens.colors.primary, fontSize: tokens.typography.bodyMedium.fontSize, fontWeight: "bold" }}>✕</span>
-                      </div>
-                    </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Team members interpret the same data differently, eroding trust with clients</span>
-                  </li>
-                </ul>
-              </div>
-              <div style={{ marginTop: "32px", paddingTop: "24px", borderTop: `1px solid ${tokens.colors.outlineVariant}` }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <div style={{ display: "flex", gap: "4px" }}>
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: i === 1 ? "var(--ref-key-accent-key-color)" : "var(--ref-neutral-neutral87)" }} />
-                    ))}
-                  </div>
-                  <span style={{ fontFamily: "var(--sys-typescale-body-large-fontfamily)", fontSize: "var(--sys-typescale-body-medium-fontsize)", color: tokens.colors.onSurfaceVariant }}>3 costly bottlenecks</span>
-                </div>
-              </div>
+              <p style={{
+                ...tokens.typography.bodyLarge,
+                color: tokens.colors.onSurfaceVariant,
+                lineHeight: 1.6,
+              }}>
+                Reporting is slow, manual, and inconsistent.
+Images are unstructured, making cross-project tracking difficult.
+Different interpretations across teams lead to inconsistent results and reduced client trust.
+              </p>
             </div>
 
             {/* Solution Card */}
             <div className="problem-solution-card" style={{
-              padding: `${tokens.spacing.xxl} ${tokens.spacing.xl}`,
+              padding: tokens.spacing.lg,
               backgroundColor: tokens.colors.surfaceContainer,
-              borderRadius: tokens.radius.lg,
-              border: `1px solid ${tokens.colors.outlineVariant}`,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
+              borderRadius: 0,
+              border: "none",
               height: "100%",
               display: "flex",
               flexDirection: "column",
+              justifyContent: "flex-start",
               position: "relative",
               overflow: "hidden",
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
             }}>
-              <div style={{
-                position: "absolute",
-                top: `${tokens.spacing.lg}`,
-                left: `${tokens.spacing.lg}`,
-                width: "12px",
-                height: "12px",
-                backgroundColor: tokens.colors.secondary,
-                borderRadius: "50%",
-                boxShadow: `0 0 0 4px rgba(52, 211, 153, 0.2)`,
-              }} />
-              <h3 className="problem-solution-title" style={{
-                ...tokens.typography.headlineMedium,
-                color: tokens.colors.onSurface,
-                marginBottom: tokens.spacing.lg,
-                marginTop: tokens.spacing.xs,
+              <h3 style={{
+                ...tokens.typography.headlineSmall,
+                color: tokens.colors.secondary,
+                marginBottom: tokens.spacing.md,
+                fontWeight: 500,
               }}>
-                The Solution
+                With Fieldspec, <br/> reporting is no longer manual or slow.
               </h3>
-              <div style={{ flex: 1 }}>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
-                  <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                    <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
-                      </div>
-                    </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>AI analyzes every image and generates consistent findings in minutes, not hours</span>
-                  </li>
-                  <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                    <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
-                      </div>
-                    </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>All images and data are automatically organized, searchable, and comparable across projects</span>
-                  </li>
-                  <li className="problem-solution-item" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
-                    <div style={{ flexShrink: 0, marginTop: "4px" }}>
-                      <div className="problem-solution-dot" style={{ width: "20px", height: "20px", borderRadius: tokens.radius.sm, backgroundColor: tokens.colors.secondaryContainer, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span style={{ color: tokens.colors.secondary, fontSize: "var(--sys-typescale-body-large-fontsize)", fontWeight: "bold" }}>✓</span>
-                      </div>
-                    </div>
-                    <span style={{ ...tokens.typography.bodyLarge, color: tokens.colors.onSurfaceVariant, lineHeight: 1.6 }}>Professional PDF reports are generated automatically — consistent, accurate, and client-ready</span>
-                  </li>
-                </ul>
-              </div>
-              <div style={{ marginTop: "32px", paddingTop: "24px", borderTop: `1px solid ${tokens.colors.outlineVariant}` }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                  <div style={{ display: "flex", gap: "4px" }}>
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: i === 1 ? tokens.colors.secondary : tokens.colors.outlineVariant }} />
-                    ))}
-                  </div>
-                  <span style={{ fontFamily: "var(--sys-typescale-body-large-fontfamily)", fontSize: "var(--sys-typescale-body-medium-fontsize)", color: tokens.colors.onSurfaceVariant }}>3 ways FieldSpec delivers</span>
-                </div>
+              <div style={{
+                ...tokens.typography.bodyLarge,
+                color: tokens.colors.onSurface,
+                display: "flex",
+                flexDirection: "column",
+                gap: tokens.spacing.md,
+                lineHeight: 1.6,
+              }}>
+                AI turns every image into consistent findings in minutes.
+                Your images and data are structured automatically.
+                Reports are generated automatically. They are accurate, consistent, and client-ready.
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
@@ -461,14 +367,8 @@ export default function MarketingPage() {
               padding: 40px 36px;
               display: flex;
               flex-direction: column;
-              transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
               overflow: hidden;
               position: relative;
-            }
-            .hiw-card:hover {
-              transform: translateY(-4px);
-              border-color: var(--sys-outline-roles-outline);
-              box-shadow: var(--sys-elevation-3d-pnumbra);
             }
             .hiw-card-icon {
               width: 56px;
@@ -598,7 +498,6 @@ export default function MarketingPage() {
                 display: "flex",
                 flexDirection: "column",
                 gap: tokens.spacing.md,
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
               }} className="feature-card">
                 <div style={{
                   width: "48px",
@@ -631,13 +530,6 @@ export default function MarketingPage() {
             ))}
           </div>
         </div>
-        <style>{`
-          .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-            border-color: ${tokens.colors.primary};
-          }
-        `}</style>
       </section>
 
       {/* Use Cases */}
@@ -661,12 +553,6 @@ export default function MarketingPage() {
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-          }
-          .use-case-card-bento:hover {
-            transform: translateY(-4px);
-             border-color: var(--sys-outline-variant);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
           }
           .bento-span-2 {
             grid-column: span 2;
@@ -796,6 +682,8 @@ export default function MarketingPage() {
              border-radius: 8px;
              padding: 50px 24px;
              text-align: center;
+
+
              position: relative;
              overflow: hidden;
              box-shadow: 0 20px 40px rgba(0,0,0,0.3);
