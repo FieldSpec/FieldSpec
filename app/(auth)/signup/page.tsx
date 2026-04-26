@@ -145,31 +145,40 @@ export default function SignupPage() {
           <label className="block mb-xs text-on-surface text-label-medium">
             Name <span className="text-primary">*</span>
           </label>
-          <input
-            type="text"
-            autoComplete="new-password"
-            data-form-type="other"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              if (e.target.value.trim()) {
-                setFieldErrors((prev) => ({ ...prev, name: undefined }));
-              }
-            }}
-            onBlur={() => handleBlur("name")}
-            className="w-full box-border px-md py-sm border rounded-sm text-on-surface focus:outline-primary text-body-medium bg-transparent"
+          <div 
+            className="flex items-center border rounded-sm"
             style={{ 
               borderColor: fieldErrors.name ? "var(--sys-error)" : "var(--sys-outline)",
               transition: "border-color 0.2s ease",
-              backgroundColor: "transparent",
+              width: "352px",
+              height: "37.6px",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--sys-primary)";
+              e.currentTarget.style.borderColor = fieldErrors.name ? "var(--sys-error)" : "var(--sys-primary)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = fieldErrors.name ? "var(--sys-error)" : "var(--sys-outline)";
             }}
-          />
+          >
+            <input
+              type="text"
+              autoComplete="new-password"
+              data-form-type="other"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                if (e.target.value.trim()) {
+                  setFieldErrors((prev) => ({ ...prev, name: undefined }));
+                }
+              }}
+              onBlur={() => handleBlur("name")}
+              className="flex-1 box-border px-md py-sm border-none text-on-surface focus:outline-none text-body-medium bg-transparent"
+              style={{ 
+                backgroundColor: "transparent",
+                outline: "none",
+              }}
+            />
+          </div>
           {fieldErrors.name && (
             <p className="mt-xs text-error text-label-small">{fieldErrors.name}</p>
           )}
@@ -179,31 +188,40 @@ export default function SignupPage() {
           <label className="block mb-xs text-on-surface text-label-medium">
             Email <span className="text-primary">*</span>
           </label>
-          <input
-            type="email"
-            autoComplete="new-email"
-            data-form-type="other"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (e.target.value.trim() && validateEmail(e.target.value)) {
-                setFieldErrors((prev) => ({ ...prev, email: undefined }));
-              }
-            }}
-            onBlur={() => handleBlur("email")}
-            className="w-full box-border px-md py-sm border rounded-sm text-on-surface focus:outline-primary text-body-medium bg-transparent"
+          <div 
+            className="flex items-center border rounded-sm"
             style={{ 
               borderColor: fieldErrors.email ? "var(--sys-error)" : "var(--sys-outline)",
               transition: "border-color 0.2s ease",
-              backgroundColor: "transparent",
+              width: "352px",
+              height: "37.6px",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--sys-primary)";
+              e.currentTarget.style.borderColor = fieldErrors.email ? "var(--sys-error)" : "var(--sys-primary)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = fieldErrors.email ? "var(--sys-error)" : "var(--sys-outline)";
             }}
-          />
+          >
+            <input
+              type="email"
+              autoComplete="new-email"
+              data-form-type="other"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (e.target.value.trim() && validateEmail(e.target.value)) {
+                  setFieldErrors((prev) => ({ ...prev, email: undefined }));
+                }
+              }}
+              onBlur={() => handleBlur("email")}
+              className="flex-1 box-border px-md py-sm border-none text-on-surface focus:outline-none text-body-medium bg-transparent"
+              style={{ 
+                backgroundColor: "transparent",
+                outline: "none",
+              }}
+            />
+          </div>
           {fieldErrors.email && (
             <p className="mt-xs text-error text-label-small">{fieldErrors.email}</p>
           )}
@@ -218,6 +236,8 @@ export default function SignupPage() {
             style={{ 
               borderColor: fieldErrors.password ? "var(--sys-error)" : "var(--sys-outline)",
               transition: "border-color 0.2s ease",
+              width: "352px",
+              height: "37.6px",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = "var(--sys-primary)";
@@ -281,7 +301,7 @@ export default function SignupPage() {
         </div>
 
         {error && (
-          <div className="p-md bg-error-container text-on-error-container rounded-sm mb-md text-body-small">
+          <div className="p-md bg-error-container text-on-error-container rounded-sm mb-md text-body-small" style={{ width: "352px" }}>
             {error}
           </div>
         )}
@@ -289,23 +309,15 @@ export default function SignupPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
-          style={{ transition: "background-color 0.2s ease, transform 0.2s ease", border: "none", textDecoration: "none" }}
+          className="p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
+          style={{ width: "352px", transition: "all 0.2s ease", border: "none", textDecoration: "none" }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--sys-add-on-primary-fixed)";
-            e.currentTarget.style.color = "var(--sys-primary)";
-            e.currentTarget.style.transform = "translateY(-1px)";
+            e.currentTarget.style.backgroundColor = "var(--sys-primary-container)";
+            e.currentTarget.style.color = "var(--sys-on-primary-container)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.backgroundColor = "var(--sys-primary)";
             e.currentTarget.style.color = "var(--sys-on-primary)";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-          onMouseDown={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.outline = "none";
           }}
         >
           {loading ? "Creating account..." : "Create Account"}
@@ -321,10 +333,14 @@ export default function SignupPage() {
 <button
           type="button"
           onClick={() => window.location.href = "/api/auth/oauth/google"}
-          className="w-full flex items-center justify-center gap-sm py-sm px-md border border-outline rounded-sm bg-surface hover:bg-surface-variant transition-colors"
-          style={{ transition: "background-color 0.2s ease, transform 0.2s ease", outline: "none", boxShadow: "none" }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-1px)"}
-          onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
+          className="flex items-center justify-center gap-sm py-sm px-md border border-outline rounded-sm bg-surface"
+          style={{ width: "352px", transition: "all 0.2s ease", outline: "none", boxShadow: "none" }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "var(--sys-surface-container)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "var(--sys-surface)";
+          }}
         >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>

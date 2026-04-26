@@ -150,6 +150,8 @@ function ResetPasswordForm() {
             style={{ 
               borderColor: error ? "var(--sys-error)" : "var(--sys-outline)",
               transition: "border-color 0.2s ease",
+              width: "352px",
+              height: "37.6px",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = error ? "var(--sys-error)" : "var(--sys-primary)";
@@ -201,6 +203,8 @@ function ResetPasswordForm() {
             style={{ 
               borderColor: error ? "var(--sys-error)" : "var(--sys-outline)",
               transition: "border-color 0.2s ease",
+              width: "352px",
+              height: "37.6px",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = error ? "var(--sys-error)" : "var(--sys-primary)";
@@ -257,23 +261,15 @@ function ResetPasswordForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
-          style={{ transition: "background-color 0.2s ease, transform 0.2s ease", border: "none", textDecoration: "none" }}
+          className="p-md bg-primary text-on-primary rounded-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 text-label-large"
+          style={{ width: "352px", transition: "all 0.2s ease", border: "none", textDecoration: "none" }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--sys-add-on-primary-fixed)";
-            e.currentTarget.style.color = "var(--sys-primary)";
-            e.currentTarget.style.transform = "translateY(-1px)";
+            e.currentTarget.style.backgroundColor = "var(--sys-primary-container)";
+            e.currentTarget.style.color = "var(--sys-on-primary-container)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.backgroundColor = "var(--sys-primary)";
             e.currentTarget.style.color = "var(--sys-on-primary)";
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-          onMouseDown={(e) => {
-            e.currentTarget.style.transform = "translateY(0)";
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.outline = "none";
           }}
         >
           {loading ? "Resetting..." : "Reset Password"}
