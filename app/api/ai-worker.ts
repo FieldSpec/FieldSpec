@@ -153,7 +153,7 @@ async function processAIJob(job: Job<AIJobData, void, string>) {
       const batch = project.images.slice(i, i + BATCH_SIZE);
       console.log(`[AI Worker] Processing batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(totalImages / BATCH_SIZE)} (${batch.length} images)`);
 
-      await Promise.all(batch.map(async (image) => {
+      await Promise.all(batch.map(async (image: { id: string; category: string | null; notes: string | null }) => {
         const existingAI = await prisma.aIOutput.findUnique({
           where: { imageId: image.id },
         });

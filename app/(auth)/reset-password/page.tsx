@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { LoadingCard } from "@/lib/components/loading";
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const [status, setStatus] = useState<"loading" | "form" | "success" | "error">("loading");
   const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
@@ -280,5 +280,21 @@ export default function ResetPasswordPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+function LoadingState() {
+  return (
+    <div className="w-full max-w-[400px] p-lg bg-surface rounded-md">
+      <LoadingCard />
+    </div>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }

@@ -547,6 +547,147 @@ export default function MarketingPage() {
         </div>
       </section>
 
+      {/* Transformation Engine Visual */}
+      <section
+        style={{
+          maxWidth: "1200px",
+          margin: "0 auto",
+          width: "100%",
+          paddingTop: "32px",
+          paddingBottom: "48px",
+          paddingInline: tokens.spacing.xl,
+        }}
+      >
+        <div style={{
+          width: "100%",
+          backgroundColor: tokens.colors.surfaceContainerLow,
+          border: `1px solid ${tokens.colors.outlineVariant}`,
+          borderRadius: "24px",
+          boxShadow: `0 32px 64px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.05) inset`,
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+        }}>
+          {/* Mock App Header */}
+          <div style={{ height: "56px", borderBottom: `1px solid ${tokens.colors.outlineVariant}`, display: "flex", alignItems: "center", padding: "0 20px", backgroundColor: tokens.colors.surfaceContainer, zIndex: 2 }}>
+            <div style={{ display: "flex", gap: "8px" }}>
+              <div style={{ width: "12px", height: "12px", borderRadius: "50%", backgroundColor: tokens.colors.error }} />
+              <div style={{ width: "12px", height: "12px", borderRadius: "50%", backgroundColor: "#facc15" }} />
+              <div style={{ width: "12px", height: "12px", borderRadius: "50%", backgroundColor: tokens.colors.primary }} />
+            </div>
+            <div style={{ marginLeft: "24px", ...tokens.typography.labelMedium, color: tokens.colors.onSurfaceVariant, fontWeight: 600, letterSpacing: "0.5px" }}>FieldSpec Transformation Engine</div>
+          </div>
+          
+          {/* Split Interface Container */}
+          <div className="transformation-grid" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", minHeight: "400px", backgroundColor: tokens.colors.surface, position: "relative" }}>
+            
+            {/* Image Input side */}
+            <div style={{ padding: "32px", display: "flex", flexDirection: "column", position: "relative", zIndex: 1 }}>
+              <div style={{ ...tokens.typography.labelMedium, color: tokens.colors.onSurfaceVariant, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "1.5px", fontWeight: 700 }}>Raw Drone Data</div>
+              <div style={{ flex: 1, borderRadius: "12px", border: `1px solid ${tokens.colors.outlineVariant}`, position: "relative", overflow: "hidden", backgroundImage: 'url("/images/map-visualisation.jpg")', backgroundSize: "cover", backgroundPosition: "center", boxShadow: "0 12px 24px rgba(0,0,0,0.15)", minHeight: "250px" }}>
+                {/* Scanning animation overlay */}
+                <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "3px", backgroundColor: tokens.colors.primary, boxShadow: `0 4px 16px ${tokens.colors.primary}`, animation: "scanLine 3s infinite linear", zIndex: 10 }} />
+                
+                {/* AI Bounding Boxes */}
+                <div style={{ position: "absolute", top: "30%", left: "40%", width: "60px", height: "60px", border: `2px solid ${tokens.colors.primary}`, borderRadius: "4px", backgroundColor: `color-mix(in srgb, ${tokens.colors.primary} 20%, transparent)`, animation: "pulseBox 2s infinite ease-in-out" }}>
+                  <div style={{ position: "absolute", top: "-20px", left: "-2px", backgroundColor: tokens.colors.primary, color: tokens.colors.onPrimary, fontSize: "10px", padding: "2px 6px", borderRadius: "2px", fontWeight: "bold" }}>Defect 98%</div>
+                </div>
+                <div style={{ position: "absolute", top: "60%", left: "20%", width: "80px", height: "50px", border: `2px solid ${tokens.colors.error}`, borderRadius: "4px", backgroundColor: `color-mix(in srgb, ${tokens.colors.error} 20%, transparent)`, animation: "pulseBox 2s infinite ease-in-out 1s" }}>
+                  <div style={{ position: "absolute", top: "-20px", left: "-2px", backgroundColor: tokens.colors.error, color: tokens.colors.onError, fontSize: "10px", padding: "2px 6px", borderRadius: "2px", fontWeight: "bold" }}>Rust 94%</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Center Arrow Connector */}
+            <div className="transformation-connector" style={{ display: "flex", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 2 }}>
+              <div className="transformation-arrow" style={{ width: "48px", height: "48px", borderRadius: "50%", backgroundColor: tokens.colors.primaryContainer, display: "flex", alignItems: "center", justifyContent: "center", border: `4px solid ${tokens.colors.surface}`, boxShadow: "0 4px 12px rgba(0,0,0,0.1)", zIndex: 2 }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={tokens.colors.primary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </div>
+              <div className="transformation-dashed-line" style={{ position: "absolute", top: 0, bottom: 0, left: "50%", width: "1px", borderLeft: `1px dashed ${tokens.colors.outlineVariant}`, zIndex: 1, transform: "translateX(-50%)" }} />
+            </div>
+
+            {/* Report Output side */}
+            <div style={{ padding: "32px", display: "flex", flexDirection: "column", position: "relative", zIndex: 1 }}>
+              <div style={{ ...tokens.typography.labelMedium, color: tokens.colors.primary, marginBottom: "20px", textTransform: "uppercase", letterSpacing: "1.5px", fontWeight: 700 }}>Structured Report</div>
+              <div style={{ flex: 1, backgroundColor: tokens.colors.surfaceContainerLow, borderRadius: "12px", border: `1px solid ${tokens.colors.outlineVariant}`, padding: "24px", display: "flex", flexDirection: "column", gap: "16px", boxShadow: "0 12px 32px rgba(0,0,0,0.1)", overflow: "hidden", position: "relative", minHeight: "250px" }}>
+                
+                {/* Report Header Actual Data */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: `1px solid ${tokens.colors.outlineVariant}`, paddingBottom: "16px" }}>
+                  <div>
+                    <div style={{ ...tokens.typography.titleMedium, color: tokens.colors.onSurface, fontWeight: 700 }}>Inspection Report #492</div>
+                    <div style={{ ...tokens.typography.labelSmall, color: tokens.colors.onSurfaceVariant, marginTop: "4px" }}>Site: North Ridge Solar Array</div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", backgroundColor: tokens.colors.primaryContainer, borderRadius: "8px", color: tokens.colors.onPrimaryContainer }}>
+                    <span className="material-icons" style={{ fontSize: "20px" }}>picture_as_pdf</span>
+                  </div>
+                </div>
+
+                {/* Report Map/Image */}
+                <div style={{ width: "100%", height: "100px", borderRadius: "8px", overflow: "hidden", position: "relative" }}>
+                  <div style={{ position: "absolute", inset: 0, backgroundImage: 'url("/images/map-visualisation.jpg")', backgroundSize: "cover", backgroundPosition: "center" }} />
+                </div>
+
+                {/* Report List Items */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {[
+                    { color: tokens.colors.error, title: "Critical: Severe Rust", desc: "Found on support structure B4", confidence: "98% Match" },
+                    { color: "#facc15", title: "Warning: Micro-cracking", desc: "Detected on panel array 12", confidence: "87% Match" },
+                    { color: tokens.colors.primary, title: "Routine: Maintenance", desc: "Scheduled cleaning needed", confidence: "Auto-tagged" }
+                  ].map((item, idx) => (
+                    <div key={idx} style={{ display: "flex", gap: "16px", alignItems: "flex-start", backgroundColor: tokens.colors.surface, padding: "12px", borderRadius: "8px", border: `1px solid ${tokens.colors.outlineVariant}` }}>
+                      <div style={{ marginTop: "4px", width: "12px", height: "12px", borderRadius: "50%", backgroundColor: item.color, flexShrink: 0 }} />
+                      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "4px" }}>
+                          <div style={{ ...tokens.typography.labelMedium, color: tokens.colors.onSurface, fontWeight: 600 }}>{item.title}</div>
+                          <div style={{ ...tokens.typography.labelSmall, color: item.color, fontWeight: 600 }}>{item.confidence}</div>
+                        </div>
+                        <div style={{ ...tokens.typography.bodySmall, color: tokens.colors.onSurfaceVariant }}>{item.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes scanLine {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+          }
+          @keyframes pulseBox {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 12px var(--sys-primary); }
+            100% { transform: scale(1); opacity: 0.8; }
+          }
+          @media (max-width: 768px) {
+            .transformation-grid {
+              display: flex !important;
+              flex-direction: column !important;
+            }
+            .transformation-connector {
+              padding: 24px 0;
+            }
+            .transformation-arrow {
+              transform: rotate(90deg);
+            }
+            .transformation-dashed-line {
+              width: 100% !important;
+              height: 1px !important;
+              border-left: none !important;
+              border-top: 1px dashed var(--sys-outline-roles-outline-variant) !important;
+              top: 50% !important;
+              left: 0 !important;
+              bottom: auto !important;
+              transform: translateY(-50%) !important;
+            }
+          }
+        `}} />
+      </section>
+
       {/* How It Works */}
       <section
         id="how-it-works"
