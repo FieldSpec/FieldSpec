@@ -29,6 +29,8 @@ interface DashboardUserContextValue {
   setUser: (user: DashboardUser | null) => void;
   refreshUser: () => Promise<void>;
   logout: () => Promise<void>;
+  showLogoutModal: boolean;
+  setShowLogoutModal: (show: boolean) => void;
 }
 
 const DashboardUserContext = createContext<DashboardUserContextValue | null>(
@@ -43,6 +45,7 @@ export function DashboardUserProvider({
   const router = useRouter();
   const [user, setUser] = useState<DashboardUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const logout = useCallback(async () => {
     try {
@@ -86,8 +89,10 @@ export function DashboardUserProvider({
       setUser,
       refreshUser,
       logout,
+      showLogoutModal,
+      setShowLogoutModal,
     }),
-    [loading, refreshUser, user, logout]
+    [loading, refreshUser, user, logout, showLogoutModal]
   );
 
   return (

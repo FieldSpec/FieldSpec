@@ -13,6 +13,7 @@ export default function Brand({
     sm: 80,
     md: 100,
     lg: 150,
+    dash: 112,
   };
 
   const currentSize = sizes[size];

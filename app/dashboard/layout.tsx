@@ -41,9 +41,8 @@ function DashboardLayoutShell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { user } = useDashboardUser();
+  const { user, showLogoutModal, setShowLogoutModal } = useDashboardUser();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showMobileNav, setShowMobileNav] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -129,8 +128,8 @@ function DashboardLayoutShell({
               menu
             </span>
           </button>
-          <Brand size="lg" />
-          <ThemeToggle />
+          <Brand size="dash" />
+          <ThemeToggle size="sm" />
         </div>
 
         <div className="relative inline-flex" ref={dropdownRef}>
@@ -325,7 +324,7 @@ function DashboardLayoutShell({
               borderBottom: `1px solid ${tokens.colors.outlineVariant}`,
             }}
           >
-            <Brand size="lg" />
+            <Brand size="dash" />
             <button
               onClick={() => setShowMobileNav(false)}
               className="flex items-center justify-center rounded-full transition-colors"

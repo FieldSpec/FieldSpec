@@ -155,16 +155,6 @@ export default function ClientsPage() {
         .delete-icon-btn:active {
           transform: scale(0.95);
         }
-        @keyframes slideUpFade {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
         .animate-content {
           animation: slideUpFade 0.4s ease-out forwards;
         }
@@ -174,13 +164,23 @@ export default function ClientsPage() {
         .client-card:hover {
           box-shadow: ${tokens.elevation.level2} !important;
         }
+        .custom-input {
+          transition: all 0.2s ease;
+        }
+        .custom-input:hover {
+          border-color: ${tokens.colors.primary} !important;
+        }
+        .custom-input:focus {
+          outline: none;
+          border-color: ${tokens.colors.primary} !important;
+        }
       `}</style>
       <div style={{ marginBottom: tokens.spacing.xl }}>
-        <div className="animate-content">
-          <h2 style={{ ...tokens.typography.headlineMedium, color: tokens.colors.onSurface }}>
+        <div className="animate-content" style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          <h2 style={{ ...tokens.typography.headlineSmall, color: tokens.colors.onSurface, margin: 0 }}>
             Clients
           </h2>
-          <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onSurfaceVariant, marginTop: tokens.spacing.xs }}>
+          <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onSurfaceVariant, margin: 0 }}>
             Manage your clients and their projects
           </p>
         </div>
@@ -245,7 +245,7 @@ export default function ClientsPage() {
                   width: "100%",
                   boxSizing: "border-box",
                   padding: tokens.spacing.md,
-                  border: `1px solid ${tokens.colors.outline}`,
+                  border: `1px solid ${tokens.colors.outlineVariant}`,
                   borderRadius: tokens.radius.md,
                   backgroundColor: tokens.colors.surface,
                   color: tokens.colors.onSurface,
@@ -280,7 +280,7 @@ export default function ClientsPage() {
                   width: "100%",
                   boxSizing: "border-box",
                   padding: tokens.spacing.md,
-                  border: `1px solid ${tokens.colors.outline}`,
+                  border: `1px solid ${tokens.colors.outlineVariant}`,
                   borderRadius: tokens.radius.md,
                   backgroundColor: tokens.colors.surface,
                   color: tokens.colors.onSurface,
@@ -315,7 +315,7 @@ export default function ClientsPage() {
                   width: "100%",
                   boxSizing: "border-box",
                   padding: tokens.spacing.md,
-                  border: `1px solid ${tokens.colors.outline}`,
+                  border: `1px solid ${tokens.colors.outlineVariant}`,
                   borderRadius: tokens.radius.md,
                   backgroundColor: tokens.colors.surface,
                   color: tokens.colors.onSurface,

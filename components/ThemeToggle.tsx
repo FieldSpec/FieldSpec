@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from "react";
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+  size?: "default" | "sm";
+}
+
+export default function ThemeToggle({ size = "default" }: ThemeToggleProps) {
   const [isLight, setIsLight] = useState(true); // default: light (white navbar)
 
   useEffect(() => {
@@ -46,6 +50,11 @@ export default function ThemeToggle() {
           font-family: inherit;
           transition: all 0.2s ease;
         }
+        .theme-toggle-btn.reduced {
+          padding: 9.75px;
+          border-radius: 12px;
+          font-size: 12px;
+        }
         .theme-toggle-btn:hover {
           border-color: #31579b;
           background: #EEF4FB;
@@ -54,11 +63,11 @@ export default function ThemeToggle() {
       `}</style>
       <button
         onClick={toggleTheme}
-        className="theme-toggle-btn"
+        className={`theme-toggle-btn ${size === "sm" ? "reduced" : ""}`}
         aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
         title={isLight ? "Switch to dark mode" : "Switch to light mode"}
       >
-        <span className="material-symbols-outlined">
+        <span className="material-symbols-outlined" style={size === "sm" ? { fontSize: "18px" } : {}}>
           {isLight ? "dark_mode" : "light_mode"}
         </span>
       </button>

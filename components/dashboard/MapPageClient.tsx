@@ -430,7 +430,7 @@ export default function MapPageClient() {
         <div style={{ marginBottom: tokens.spacing.xl }}>
           <h2
             style={{
-              ...tokens.typography.headlineMedium,
+              ...tokens.typography.headlineSmall,
               color: tokens.colors.onSurface,
             }}
           >
@@ -440,7 +440,7 @@ export default function MapPageClient() {
             style={{
               ...tokens.typography.bodyMedium,
               color: tokens.colors.onSurfaceVariant,
-              marginTop: tokens.spacing.xs,
+              marginTop: "0.75rem",
             }}
           >
             View field locations on map
@@ -494,11 +494,12 @@ export default function MapPageClient() {
         flexDirection: "column",
       }}
     >
-      <div style={{ marginBottom: tokens.spacing.lg, flexShrink: 0 }}>
+      <div className="animate-content" style={{ marginBottom: tokens.spacing.lg, flexShrink: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
         <h2
           style={{
-            ...tokens.typography.headlineMedium,
+            ...tokens.typography.headlineSmall,
             color: tokens.colors.onSurface,
+            margin: 0,
           }}
         >
           Map
@@ -507,7 +508,7 @@ export default function MapPageClient() {
           style={{
             ...tokens.typography.bodyMedium,
             color: tokens.colors.onSurfaceVariant,
-            marginTop: tokens.spacing.xs,
+            margin: 0,
           }}
         >
           View and manage field locations
