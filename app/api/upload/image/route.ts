@@ -116,9 +116,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!file.type.startsWith("image/")) {
+    const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
+    const ALLOWED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".heic", ".heif"];
+    
+    const fileName = file.name.toLowerCase();
+    const hasAllowedMime = ALLOWED_MIME_TYPES.includes(file.type);
+    const hasAllowedExtension = ALLOWED_EXTENSIONS.some(ext => fileName.endsWith(ext));
+    
+    if (!hasAllowedMime && !hasAllowedExtension) {
       return NextResponse.json(
-        { error: { message: "Only image uploads are supported", code: "VALIDATION_ERROR" } },
+        { error: { message: "Only JPG, PNG, WEBP, HEIC, and HEIF images are supported", code: "VALIDATION_ERROR" } },
         { status: 400 },
       );
     }
@@ -146,11 +153,36 @@ export async function POST(request: NextRequest) {
     const baseName = sanitizeBaseName(file.name);
     const assetIdBase = `${Date.now()}-${baseName}`;
     const folder = `fieldspec/${userId}/projects/${projectId}`;
+    const isHeic = fileName.endsWith(".heic") || fileName.endsWith(".heif");
 
     // Extract GPS coordinates BEFORE Sharp processing (strips EXIF)
-    const gpsCoords = await extractGPSCoordinates(inputBuffer);
+    // Note: May fail for HEIC/HEIF if Sharp doesn't have libvips support
+    let gpsCoords: { gpsLat: number; gpsLng: number } | null = null;
+    try {
+      gpsCoords = await extractGPSCoordinates(inputBuffer);
+    } catch (gpsError) {
+      console.log("GPS extraction failed, continuing without GPS:", gpsError);
+    }
 
-    const optimizedBuffer = await sharp(inputBuffer)
+    // Convert HEIC/HEIF to JPEG if needed (Sharp may not support HEIC natively)
+    let processingBuffer: Buffer = inputBuffer;
+    if (isHeic) {
+      try {
+        const converted = await sharp(inputBuffer)
+          .jpeg({ quality: 90 })
+          .toBuffer();
+        processingBuffer = Buffer.from(converted);
+        console.log("Converted HEIC/HEIF to JPEG for processing");
+      } catch (heicError) {
+        console.error("HEIC conversion error:", heicError);
+        return NextResponse.json(
+          { error: { message: "Failed to process HEIC/HEIF image. Please convert to JPEG first.", code: "PROCESSING_ERROR" } },
+          { status: 400 }
+        );
+      }
+    }
+
+    const optimizedBuffer = await sharp(processingBuffer)
       .rotate()
       .resize({
         width: MAX_IMAGE_DIMENSION,
@@ -161,7 +193,7 @@ export async function POST(request: NextRequest) {
       .jpeg({ quality: 82, mozjpeg: true })
       .toBuffer();
 
-    const thumbnailBuffer = await sharp(inputBuffer)
+    const thumbnailBuffer = await sharp(processingBuffer)
       .rotate()
       .resize(THUMBNAIL_SIZE, THUMBNAIL_SIZE, {
         fit: "cover",
