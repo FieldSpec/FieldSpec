@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDashboardUser } from "@/components/dashboard/DashboardUserProvider";
 import { tokens } from "@/lib/design-tokens";
 import { LoadingScreen } from "@/lib/components/loading";
@@ -24,6 +24,9 @@ export default function SettingsPage() {
     includeConfidence: true,
     includeImages: true,
   });
+  const [avatarUploading, setAvatarUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [initialValues, setInitialValues] = useState({
     name: "",
     companyName: "",
@@ -113,6 +116,58 @@ export default function SettingsPage() {
     } catch (err) {
       setError("An error occurred. Please try again.");
       setSaving(false);
+    }
+  }
+
+  async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setAvatarUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      
+      const res = await fetch("/api/auth/avatar", {
+        method: "POST",
+        body: formData,
+      });
+      
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error?.message || "Failed to upload avatar");
+      }
+      
+      const data = await res.json();
+      if (data.data?.url && user) {
+        setUser({ ...user, avatarUrl: data.data.url });
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to upload avatar");
+    } finally {
+      setAvatarUploading(false);
+    }
+  }
+
+  async function handleAvatarRemove() {
+    if (!user?.avatarUrl) return;
+    
+    setAvatarUploading(true);
+    try {
+      const res = await fetch("/api/auth/avatar/remove", { method: "POST" });
+      
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error?.message || "Failed to remove avatar");
+      }
+      
+      if (user) {
+        setUser({ ...user, avatarUrl: null });
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to remove avatar");
+    } finally {
+      setAvatarUploading(false);
     }
   }
 
@@ -220,6 +275,69 @@ export default function SettingsPage() {
             <h3 className="section-title" style={{ ...tokens.typography.titleMedium, color: tokens.colors.onSurface }}>
               Profile
             </h3>
+            <div style={{ marginBottom: tokens.spacing.md }}>
+              <div style={{ display: "flex", alignItems: "center", gap: tokens.spacing.md }}>
+                <div
+                  style={{
+                    width: "56px",
+                    height: "56px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    backgroundColor: tokens.colors.primaryContainer,
+                    color: tokens.colors.onPrimaryContainer,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "20px",
+                    fontWeight: "600",
+                    flexShrink: 0,
+                  }}
+                >
+                  {user && user.avatarUrl ? (
+                    <img src={user.avatarUrl} alt="Avatar" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  ) : (
+                    user?.name?.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2) || "?"
+                  )}
+                </div>
+                <div style={{ display: "flex", gap: tokens.spacing.sm }}>
+                  <input type="file" accept="image/*" ref={fileInputRef} onChange={handleAvatarChange} style={{ display: "none" }} />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={avatarUploading}
+                    style={{
+                      padding: `${tokens.spacing.xs} ${tokens.spacing.md}`,
+                      backgroundColor: tokens.colors.primary,
+                      color: tokens.colors.onPrimary,
+                      border: "none",
+                      borderRadius: tokens.radius.md,
+                      cursor: avatarUploading ? "not-allowed" : "pointer",
+                      ...tokens.typography.labelMedium,
+                    }}
+                  >
+                    {avatarUploading ? "Uploading..." : "Change"}
+                  </button>
+                  {user && user.avatarUrl && (
+                    <button
+                      type="button"
+                      onClick={handleAvatarRemove}
+                      disabled={avatarUploading}
+                      style={{
+                        padding: `${tokens.spacing.xs} ${tokens.spacing.md}`,
+                        backgroundColor: "transparent",
+                        color: tokens.colors.error,
+                        border: `1px solid ${tokens.colors.error}`,
+                        borderRadius: tokens.radius.md,
+                        cursor: avatarUploading ? "not-allowed" : "pointer",
+                        ...tokens.typography.labelMedium,
+                      }}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
             <div style={{ display: "grid", gap: tokens.spacing.md }}>
               <div>
                 <label
