@@ -16,13 +16,8 @@ model User {
   isVerified   Boolean     @default(false)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
-  avatarUrl               String?
-  reportAuthor            String?
-  reportCompany           String?
-  reportSubtitle          String?
-  includeConfidenceScores Boolean     @default(true)
-  includeImagesInExport   Boolean     @default(true)
-  authTokens              AuthToken[]
+  avatarUrl    String?
+  authTokens   AuthToken[]
   clients      Client[]
   projects     Project[]
 }
