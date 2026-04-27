@@ -117,16 +117,6 @@ export default function ProjectsPage() {
         .animate-content {
           animation: slideUpFade 0.4s ease-out forwards;
         }
-        @keyframes slideUpFade {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
         .custom-select {
           transition: all 0.2s ease;
           appearance: none;
@@ -139,6 +129,23 @@ export default function ProjectsPage() {
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
+        }
+        .custom-input {
+          transition: all 0.2s ease;
+        }
+        .custom-input:hover {
+          border-color: ${tokens.colors.primary} !important;
+        }
+        .custom-input:focus {
+          outline: none;
+          border-color: ${tokens.colors.primary} !important;
+        }
+        .custom-select:hover {
+          border-color: ${tokens.colors.primary} !important;
+        }
+        .custom-select:focus {
+          outline: none;
+          border-color: ${tokens.colors.primary} !important;
         }
         @media (max-width: 600px) {
           .custom-select {
@@ -159,11 +166,12 @@ export default function ProjectsPage() {
           marginBottom: tokens.spacing.xl,
         }}
       >
-        <div>
+        <div className="animate-content" style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           <h2
             style={{
-              ...tokens.typography.headlineMedium,
+              ...tokens.typography.headlineSmall,
               color: tokens.colors.onSurface,
+              margin: 0,
             }}
           >
             Projects
@@ -172,7 +180,7 @@ export default function ProjectsPage() {
             style={{
               ...tokens.typography.bodyMedium,
               color: tokens.colors.onSurfaceVariant,
-              marginTop: tokens.spacing.xs,
+              margin: 0,
             }}
           >
             Manage your field inspection projects
@@ -209,6 +217,7 @@ export default function ProjectsPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                className="custom-input"
                 style={{
                   width: "100%",
                   boxSizing: "border-box",
@@ -218,14 +227,7 @@ export default function ProjectsPage() {
                   backgroundColor: tokens.colors.surface,
                   color: tokens.colors.onSurface,
                   ...tokens.typography.bodyLarge,
-                  transition: "border-color 0.2s ease",
                 }}
-                onFocus={(e) =>
-                  (e.currentTarget.style.borderColor = tokens.colors.primary)
-                }
-                onBlur={(e) =>
-                  (e.currentTarget.style.borderColor = tokens.colors.outlineVariant)
-                }
               />
             </div>
 
@@ -256,15 +258,8 @@ export default function ProjectsPage() {
                   backgroundColor: tokens.colors.surface,
                   color: tokens.colors.onSurface,
                   ...tokens.typography.bodyLarge,
-                  transition: "border-color 0.2s ease",
                   cursor: "pointer",
                 }}
-                onFocus={(e) =>
-                  (e.currentTarget.style.borderColor = tokens.colors.primary)
-                }
-                onBlur={(e) =>
-                  (e.currentTarget.style.borderColor = tokens.colors.outlineVariant)
-                }
               >
                 <option value="">No client linked</option>
                 {clients.map((client) => (

@@ -350,7 +350,8 @@ export default function UploadPage() {
   return (
     <div
       style={{
-        width: "100%",
+        maxWidth: "1200px",
+        padding: `0 ${tokens.spacing.md}`,
         paddingBottom: tokens.spacing.xxl,
       }}
     >
@@ -359,7 +360,6 @@ export default function UploadPage() {
           display: "flex",
           flexDirection: "column",
           gap: tokens.spacing.lg,
-          padding: tokens.spacing.md,
           backgroundColor: tokens.colors.surface,
         }}
       >
@@ -380,20 +380,18 @@ export default function UploadPage() {
             }}
           >
             <div
+              className="animate-content"
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: tokens.spacing.xs,
+                gap: "0.75rem",
               }}
             >
               <h1
                 style={{
+                  ...tokens.typography.headlineSmall,
                   color: tokens.colors.onSurface,
-                  fontFamily: tokens.typography.headlineSmall.fontFamily,
-                  fontSize: tokens.typography.headlineSmall.fontSize,
-                  fontWeight: tokens.typography.headlineSmall.fontWeight,
-                  lineHeight: tokens.typography.headlineSmall.lineHeight,
-                  letterSpacing: tokens.typography.headlineSmall.letterSpacing,
+                  margin: 0,
                 }}
               >
                 Upload & Manage
@@ -401,12 +399,9 @@ export default function UploadPage() {
 
               <p
                 style={{
+                  ...tokens.typography.bodyMedium,
                   color: tokens.colors.onSurfaceVariant,
-                  fontFamily: tokens.typography.bodyLarge.fontFamily,
-                  fontSize: tokens.typography.bodyLarge.fontSize,
-                  fontWeight: tokens.typography.bodyLarge.fontWeight,
-                  lineHeight: tokens.typography.bodyLarge.lineHeight,
-                  letterSpacing: tokens.typography.bodyLarge.letterSpacing,
+                  margin: 0,
                 }}
               >
                 Upload and organize field inspection images
@@ -519,7 +514,7 @@ export default function UploadPage() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 24rem), 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
                   gap: tokens.spacing.md,
                 }}
               >
@@ -578,7 +573,7 @@ export default function UploadPage() {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 20rem), 1fr))",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
                     gap: tokens.spacing.md,
                   }}
                 >

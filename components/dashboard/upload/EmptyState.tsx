@@ -84,22 +84,29 @@ export function EmptyState({ type, onAction }: EmptyStateProps) {
         {onAction && (
           <button
             onClick={onAction}
+            className="empty-state-btn"
             style={{
               marginTop: tokens.spacing.sm,
               paddingInline: tokens.spacing.lg,
               paddingBlock: tokens.spacing.sm,
               borderRadius: tokens.radius.md,
-              border: `1px solid ${tokens.colors.outline}`,
-              backgroundColor: tokens.colors.surface,
-              color: tokens.colors.onSurface,
+              border: "none",
+              backgroundColor: tokens.colors.primary,
+              color: tokens.colors.onPrimary,
               cursor: "pointer",
               fontFamily: tokens.typography.labelLarge.fontFamily,
               fontSize: tokens.typography.labelLarge.fontSize,
               fontWeight: tokens.typography.labelLarge.fontWeight,
               lineHeight: tokens.typography.labelLarge.lineHeight,
               letterSpacing: tokens.typography.labelLarge.letterSpacing,
+              transition: "background-color 0.3s ease",
             }}
           >
+            <style>{`
+              .empty-state-btn:hover {
+                background-color: color-mix(in srgb, ${tokens.colors.primary} 85%, white) !important;
+              }
+            `}</style>
             {actionLabel}
           </button>
         )}

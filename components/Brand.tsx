@@ -2,7 +2,7 @@ import Image from "next/image";
 
 interface BrandProps {
   className?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "dash";
 }
 
 export default function Brand({
@@ -13,6 +13,7 @@ export default function Brand({
     sm: 80,
     md: 100,
     lg: 150,
+    dash: 112,
   };
 
   const currentSize = sizes[size];

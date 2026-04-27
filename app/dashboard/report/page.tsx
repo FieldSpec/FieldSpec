@@ -17,11 +17,11 @@ export default function ReportPage() {
 
   return (
     <div style={{ maxWidth: "1200px", padding: `0 ${tokens.spacing.md}` }}>
-      <div className="animate-content" style={{ marginBottom: tokens.spacing.xl }}>
-        <h1 style={{ ...tokens.typography.headlineMedium, color: tokens.colors.onSurface }}>
+      <div className="animate-content" style={{ marginBottom: tokens.spacing.xl, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <h1 style={{ ...tokens.typography.headlineSmall, color: tokens.colors.onSurface, margin: 0 }}>
           Analysis Reports
         </h1>
-        <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onSurfaceVariant, marginTop: tokens.spacing.xs }}>
+        <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onSurfaceVariant, margin: 0 }}>
           Generate and manage professional survey reports
         </p>
       </div>
@@ -57,6 +57,7 @@ export default function ReportPage() {
         onCancel={actions.handleCancelJob}
         cancelling={state.cancelling}
         projectStats={state.projectStats}
+        showButton={false}
       />
 
       {state.reportLoading ? (
@@ -170,26 +171,33 @@ export default function ReportPage() {
             </div>
           )}
 
-          {!state.editedReport && !state.reportLoading && !state.generating && state.selectedProjectId && (
+          {!state.editedReport && state.selectedProjectId && (
             <div
               className="animate-content"
               style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: tokens.spacing.lg,
                 padding: tokens.spacing.xl,
                 backgroundColor: tokens.colors.surface,
                 borderRadius: tokens.radius.lg,
                 boxShadow: tokens.elevation.level1,
                 border: `1px solid ${tokens.colors.outlineVariant}`,
-                textAlign: "center",
               }}
             >
               <div
                 style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
                   padding: `${tokens.spacing.xxl} ${tokens.spacing.xl}`,
                   backgroundColor: "var(--ref-primary-primary95)",
                   borderRadius: tokens.radius.lg,
                   textAlign: "center",
                   border: `2px dashed var(--ref-neutral-variant-neutral-variant90)`,
-                  marginBottom: tokens.spacing.lg,
                 }}
               >
                 <svg
@@ -225,34 +233,43 @@ export default function ReportPage() {
                   Generate a report for this project to get started
                 </p>
               </div>
+
               <button
                 onClick={actions.handleGenerateReport}
-                disabled={!state.projectStats || state.projectStats.total === 0}
+                disabled={state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0}
                 style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                   padding: `${tokens.spacing.md} ${tokens.spacing.xl}`,
-                  backgroundColor: !state.projectStats || state.projectStats.total === 0 ? tokens.colors.surfaceVariant : tokens.colors.primary,
-                  color: !state.projectStats || state.projectStats.total === 0 ? tokens.colors.onSurfaceVariant : tokens.colors.onPrimary,
+                  backgroundColor: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0) 
+                    ? tokens.colors.surfaceVariant 
+                    : tokens.colors.primary,
+                  color: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0)
+                    ? tokens.colors.onSurfaceVariant 
+                    : tokens.colors.onPrimary,
                   border: "none",
                   borderRadius: tokens.radius.md,
-                  cursor: !state.projectStats || state.projectStats.total === 0 ? "not-allowed" : "pointer",
+                  cursor: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0) ? "not-allowed" : "pointer",
                   ...tokens.typography.labelLarge,
                   transition: "all 0.2s ease",
-                  marginTop: tokens.spacing.lg,
+                  margin: 0,
+                  minWidth: "200px",
                 }}
                 onMouseEnter={(e) => {
-                  if (state.projectStats && state.projectStats.total > 0) {
+                  if (!state.generating && !state.reportLoading && state.projectStats && state.projectStats.total > 0) {
                     e.currentTarget.style.backgroundColor = tokens.colors.primaryContainer;
                     e.currentTarget.style.color = tokens.colors.onPrimaryContainer;
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (state.projectStats && state.projectStats.total > 0) {
+                  if (!state.generating && !state.reportLoading && state.projectStats && state.projectStats.total > 0) {
                     e.currentTarget.style.backgroundColor = tokens.colors.primary;
                     e.currentTarget.style.color = tokens.colors.onPrimary;
                   }
                 }}
               >
-                Generate Report
+                {state.generating ? "Generating..." : state.reportLoading ? "Loading..." : "Generate Report"}
               </button>
             </div>
           )}

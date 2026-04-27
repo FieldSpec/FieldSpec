@@ -16,6 +16,7 @@ interface ReportJobStatusProps {
   onCancel: () => void;
   cancelling: boolean;
   projectStats: ProjectStats | null;
+  showButton?: boolean;
 }
 
 export function ReportJobStatus({
@@ -26,6 +27,7 @@ export function ReportJobStatus({
   onCancel,
   cancelling,
   projectStats,
+  showButton = true,
 }: ReportJobStatusProps) {
   const getStatusColor = () => {
     if (!jobStatus) return tokens.colors.primary;
@@ -124,6 +126,8 @@ export function ReportJobStatus({
       </div>
     );
   }
+
+  if (!showButton) return null;
 
   return (
     <div style={{ marginBottom: tokens.spacing.lg }}>

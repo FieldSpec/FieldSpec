@@ -118,19 +118,22 @@ export default function DashboardPage() {
 
   return (
     <div style={{ maxWidth: "1200px", paddingLeft: tokens.spacing.md, paddingRight: tokens.spacing.md }}>
-      <div style={{ marginBottom: tokens.spacing.xl }}>
+      <div className="animate-content" style={{ marginBottom: tokens.spacing.xl, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
         <h2
           style={{ 
-            color: tokens.colors.onSurface, 
-            fontSize: tokens.typography.headlineSmall.fontSize,
-            fontWeight: tokens.typography.headlineSmall.fontWeight,
-            marginBottom: tokens.spacing.xs,
+            ...tokens.typography.headlineSmall,
+            color: tokens.colors.onSurface,
+            margin: 0,
           }}
         >
           Dashboard
         </h2>
         <p
-          style={{ color: tokens.colors.onSurfaceVariant, fontSize: tokens.typography.bodyMedium.fontSize }}
+          style={{ 
+            ...tokens.typography.bodyMedium,
+            color: tokens.colors.onSurfaceVariant,
+            margin: 0,
+          }}
         >
           Overview of your projects and recent activity
         </p>
