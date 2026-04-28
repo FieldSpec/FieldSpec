@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useReportState } from "@/hooks/useReportState";
 import { tokens } from "@/lib/design-tokens";
 import { ReportProjectSelector } from "@/components/dashboard/report/ReportProjectSelector";
@@ -9,6 +10,7 @@ import { ReportExporter } from "@/components/dashboard/report/ReportExporter";
 import { LoadingScreen } from "@/lib/components/loading";
 
 export default function ReportPage() {
+  const router = useRouter();
   const { state, actions } = useReportState();
 
   if (state.loading) {
@@ -27,8 +29,33 @@ export default function ReportPage() {
               Generate and manage professional survey reports
             </p>
           </div>
-        </div>
-      </div>
+           <button
+             onClick={actions.handleGenerateReport}
+             disabled={state.generating || state.reportLoading || !state.selectedProjectId || !state.projectStats || state.projectStats.total === 0}
+             style={{
+               display: "flex",
+               alignItems: "center",
+               gap: tokens.spacing.xs,
+               padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
+               backgroundColor: (state.generating || state.reportLoading || !state.selectedProjectId || !state.projectStats || state.projectStats.total === 0)
+                 ? tokens.colors.surfaceVariant
+                 : tokens.colors.primary,
+               color: (state.generating || state.reportLoading || !state.selectedProjectId || !state.projectStats || state.projectStats.total === 0)
+                 ? tokens.colors.onSurfaceVariant
+                 : tokens.colors.onPrimary,
+               border: "none",
+               borderRadius: tokens.radius.md,
+               cursor: (state.generating || state.reportLoading || !state.selectedProjectId || !state.projectStats || state.projectStats.total === 0) ? "not-allowed" : "pointer",
+               opacity: (state.generating || state.reportLoading || !state.selectedProjectId || !state.projectStats || state.projectStats.total === 0) ? 0.6 : 1,
+               ...tokens.typography.labelMedium,
+               transition: "all 0.2s ease",
+             }}
+           >
+              <span className="material-icons" style={{ fontSize: "18px" }}>description</span>
+              {state.generating ? "Generating..." : state.reportLoading ? "Loading..." : state.editedReport ? "Regenerate Report" : "Generate Report"}
+           </button>
+         </div>
+       </div>
 
       <ReportProjectSelector
         projects={state.projects}
@@ -118,41 +145,8 @@ export default function ReportPage() {
                   >
                     {state.saveState === "saving" ? "Saving..." : state.saveState === "saved" ? "Saved!" : "Save Changes"}
                   </button>
-                  <button
-                    onClick={actions.handleGenerateReport}
-                    disabled={state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0}
-                    style={{
-                      padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
-                      backgroundColor: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0)
-                        ? tokens.colors.surfaceVariant
-                        : tokens.colors.secondaryContainer,
-                      color: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0)
-                        ? tokens.colors.onSurfaceVariant
-                        : tokens.colors.onSecondaryContainer,
-                      border: "none",
-                      borderRadius: tokens.radius.md,
-                      cursor: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0) ? "not-allowed" : "pointer",
-                      opacity: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0) ? 0.6 : 1,
-                      ...tokens.typography.labelMedium,
-                      transition: "all 0.2s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!state.generating && !state.reportLoading && state.projectStats && state.projectStats.total > 0) {
-                        e.currentTarget.style.backgroundColor = tokens.colors.secondaryContainer;
-                        e.currentTarget.style.color = tokens.colors.onSecondaryContainer;
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!state.generating && !state.reportLoading && state.projectStats && state.projectStats.total > 0) {
-                        e.currentTarget.style.backgroundColor = tokens.colors.secondaryContainer;
-                        e.currentTarget.style.color = tokens.colors.onSecondaryContainer;
-                      }
-                    }}
-                  >
-                    {state.generating ? "Regenerating..." : state.reportLoading ? "Loading..." : "Regenerate Report"}
-                  </button>
-                  <button
-                    onClick={actions.handleDeleteReport}
+                   <button
+                     onClick={actions.handleDeleteReport}
                     style={{
                       padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
                       backgroundColor: tokens.colors.errorContainer,
@@ -277,44 +271,6 @@ export default function ReportPage() {
                   Generate a report for this project to get started
                 </p>
               </div>
-
-              <button
-                onClick={actions.handleGenerateReport}
-                disabled={state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: `${tokens.spacing.md} ${tokens.spacing.xl}`,
-                  backgroundColor: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0) 
-                    ? tokens.colors.surfaceVariant 
-                    : tokens.colors.primary,
-                  color: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0)
-                    ? tokens.colors.onSurfaceVariant 
-                    : tokens.colors.onPrimary,
-                  border: "none",
-                  borderRadius: tokens.radius.md,
-                  cursor: (state.generating || state.reportLoading || !state.projectStats || state.projectStats.total === 0) ? "not-allowed" : "pointer",
-                  ...tokens.typography.labelLarge,
-                  transition: "all 0.2s ease",
-                  margin: 0,
-                  minWidth: "200px",
-                }}
-                onMouseEnter={(e) => {
-                  if (!state.generating && !state.reportLoading && state.projectStats && state.projectStats.total > 0) {
-                    e.currentTarget.style.backgroundColor = tokens.colors.primaryContainer;
-                    e.currentTarget.style.color = tokens.colors.onPrimaryContainer;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!state.generating && !state.reportLoading && state.projectStats && state.projectStats.total > 0) {
-                    e.currentTarget.style.backgroundColor = tokens.colors.primary;
-                    e.currentTarget.style.color = tokens.colors.onPrimary;
-                  }
-                }}
-              >
-                {state.generating ? "Generating..." : state.reportLoading ? "Loading..." : "Generate Report"}
-              </button>
             </div>
           )}
         </>

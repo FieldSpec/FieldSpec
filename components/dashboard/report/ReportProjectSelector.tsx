@@ -26,8 +26,6 @@ export function ReportProjectSelector({
         icon="description"
         title="No projects available"
         description="Create a project first to generate reports"
-        actionLabel="Create Project"
-        onAction={() => router.push("/dashboard/projects")}
       />
     );
   }

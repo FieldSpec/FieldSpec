@@ -105,15 +105,15 @@ export function ReportEditor({
                 boxSizing: "border-box",
               }}
             />
-            <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onPrimaryContainer, opacity: 0.8, marginTop: tokens.spacing.xs }}>
-              Project: {content.projectName}
-              {content.projectLocation && ` • ${content.projectLocation}`}
-            </p>
-            {userProfile && (userProfile.name || userProfile.companyName) && (
-              <p style={{ ...tokens.typography.bodySmall, color: tokens.colors.onPrimaryContainer, opacity: 0.7, marginTop: tokens.spacing.xs }}>
-                Prepared by: {userProfile.name}{userProfile.companyName ? ` - ${userProfile.companyName}` : ""}
-              </p>
-            )}
+             <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onPrimaryContainer, opacity: 0.8, marginTop: tokens.spacing.sm }}>
+               Project: {content.projectName}
+               {content.projectLocation && ` • ${content.projectLocation}`}
+             </p>
+             {userProfile && (userProfile.name || userProfile.companyName) && (
+               <p style={{ ...tokens.typography.bodyMedium, color: tokens.colors.onPrimaryContainer, opacity: 0.7, marginTop: tokens.spacing.xs }}>
+                 Prepared by: {userProfile.name}{userProfile.companyName ? ` - ${userProfile.companyName}` : ""}
+               </p>
+             )}
           </div>
           <div style={{ textAlign: "right" }}>
             <p style={{ ...tokens.typography.labelSmall, color: tokens.colors.onPrimaryContainer, opacity: 0.7 }}>
@@ -519,14 +519,16 @@ export function ReportEditor({
         )}
       </div>
 
-      <div
-        style={{
-          padding: tokens.spacing.md,
-          borderTop: `1px solid ${tokens.colors.outlineVariant}`,
-          backgroundColor: tokens.colors.surfaceVariant,
-          textAlign: "center",
-        }}
-      >
+       <div
+         style={{
+           padding: tokens.spacing.md,
+           borderTop: `1px solid ${tokens.colors.outlineVariant}`,
+           backgroundColor: tokens.colors.surfaceVariant,
+           textAlign: "center",
+           borderBottomLeftRadius: tokens.radius.lg,
+           borderBottomRightRadius: tokens.radius.lg,
+         }}
+       >
         <p style={{ ...tokens.typography.labelSmall, color: tokens.colors.onSurfaceVariant, opacity: 0.7 }}>
           AI-generated report • May require human review • Changes are highlighted in tertiary color
         </p>

@@ -202,7 +202,7 @@ export default function ProjectsPage() {
             }}
           >
             <span className="material-icons" style={{ fontSize: "18px" }}>add</span>
-            Add Project
+             Create Project
           </button>
         </div>
       </div>
@@ -447,24 +447,7 @@ export default function ProjectsPage() {
               Create your first project to get started
             </p>
           </div>
-          <button
-            onClick={() => setShowForm(true)}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: tokens.spacing.xs,
-              padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
-              backgroundColor: tokens.colors.primary,
-              color: tokens.colors.onPrimary,
-              border: "none",
-              borderRadius: tokens.radius.md,
-              cursor: "pointer",
-              ...tokens.typography.labelMedium,
-            }}
-          >
-            <span className="material-icons" style={{ fontSize: "18px" }}>add</span>
-            Create Project
-          </button>
+         
         </div>
       ) : (
         <div

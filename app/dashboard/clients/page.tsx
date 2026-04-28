@@ -178,7 +178,7 @@ export default function ClientsPage() {
       <div style={{ marginBottom: tokens.spacing.xl }}>
         <div className="animate-content" style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-            <div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               <h2 style={{ ...tokens.typography.headlineSmall, color: tokens.colors.onSurface, margin: 0 }}>
                 Clients
               </h2>
@@ -202,7 +202,7 @@ export default function ClientsPage() {
               }}
             >
               <span className="material-icons" style={{ fontSize: "18px" }}>add</span>
-              Add Client
+               Create Client
             </button>
           </div>
         </div>
@@ -396,8 +396,6 @@ export default function ClientsPage() {
           icon="group"
           title="No clients yet"
           description="Create your first client to start organizing projects"
-          actionLabel="Create Client"
-          onAction={() => setShowCreateForm(true)}
         />
       ) : (
         <div

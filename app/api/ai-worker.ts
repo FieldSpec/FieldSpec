@@ -161,6 +161,10 @@ async function processAIJob(job: Job<AIJobData, void, string>) {
         });
 
         if (existingAI) {
+          if (existingAI.relevance === "irrelevant_image") {
+            console.log(`[AI Worker] Skipping cached irrelevant image: ${image.id}`);
+            return;
+          }
           return;
         }
 

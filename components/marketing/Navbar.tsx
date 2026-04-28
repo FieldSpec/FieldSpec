@@ -83,6 +83,9 @@ export default function Navbar({ onPrefetch }: NavbarProps) {
         <Link href="#use-cases" className="nav-link" style={{ ...tokens.typography.labelLarge, color: tokens.colors.onSurface }}>
           Use Cases
         </Link>
+        <Link href="#pricing" className="nav-link" style={{ ...tokens.typography.labelLarge, color: tokens.colors.onSurface }}>
+          Pricing
+        </Link>
       </div>
 
       <div className="nav-right-container">
@@ -147,6 +150,9 @@ export default function Navbar({ onPrefetch }: NavbarProps) {
         </Link>
         <Link href="#use-cases" className="dropdown-link" style={{ ...tokens.typography.labelLarge }}>
           Use Cases
+        </Link>
+        <Link href="#pricing" className="dropdown-link" style={{ ...tokens.typography.labelLarge }}>
+          Pricing
         </Link>
 <div className="dropdown-actions">
           <Link 

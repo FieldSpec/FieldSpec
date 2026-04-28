@@ -58,16 +58,24 @@ async function processProjectInline(projectId: string, onProgress: (progress: nu
     });
 
     if (existingAI) {
-    groupedByCategory.get(category)!.push({
-      imageId: image.id,
-      imageUrl: image.url,
-      caption: existingAI.caption,
-      finding: existingAI.finding,
-      recommendation: existingAI.recommendation,
-      confidenceScore: existingAI.confidenceScore,
-      gpsLat: image.gpsLat,
-      gpsLng: image.gpsLng,
-    });
+      if (existingAI.relevance === "irrelevant_image") {
+        console.log(`[AI] Skipping cached irrelevant image: ${image.id}`);
+        processedCount++;
+        const progress = 10 + Math.floor((processedCount / totalImages) * 70);
+        onProgress(progress, `Skipped irrelevant image ${processedCount}/${totalImages}`);
+        continue;
+      }
+
+      groupedByCategory.get(category)!.push({
+        imageId: image.id,
+        imageUrl: image.url,
+        caption: existingAI.caption,
+        finding: existingAI.finding,
+        recommendation: existingAI.recommendation,
+        confidenceScore: existingAI.confidenceScore,
+        gpsLat: image.gpsLat,
+        gpsLng: image.gpsLng,
+      });
       processedCount++;
       const progress = 10 + Math.floor((processedCount / totalImages) * 70);
       onProgress(progress, `Using cached result for image ${processedCount}/${totalImages}`);

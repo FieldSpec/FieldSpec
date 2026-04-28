@@ -567,22 +567,29 @@ export default function MapPageClient() {
               >
                 Project:
               </label>
-              <select
-                value={selectedProjectId}
-                onChange={(e) => {
-                  setSelectedProjectId(e.target.value);
-                  setSelectedImage(null);
-                }}
-                style={{
-                  padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
-                  border: `1px solid ${tokens.colors.outline}`,
-                  borderRadius: tokens.radius.md,
-                  backgroundColor: tokens.colors.surface,
-                  color: tokens.colors.onSurface,
-                  ...tokens.typography.bodyLarge,
-                  minWidth: "200px",
-                }}
-              >
+               <select
+                 value={selectedProjectId}
+                 onChange={(e) => {
+                   setSelectedProjectId(e.target.value);
+                   setSelectedImage(null);
+                 }}
+                 style={{
+                   padding: `${tokens.spacing.sm} ${tokens.spacing.xl} ${tokens.spacing.sm} ${tokens.spacing.sm}`,
+                   border: `1px solid ${tokens.colors.outlineVariant}`,
+                   borderRadius: tokens.radius.md,
+                   backgroundColor: tokens.colors.surface,
+                   color: tokens.colors.onSurface,
+                   ...tokens.typography.bodyLarge,
+                   minWidth: "200px",
+                   boxSizing: "border-box",
+                   appearance: "none",
+                   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                   backgroundRepeat: "no-repeat",
+                   backgroundPosition: `right ${tokens.spacing.sm} center`,
+                   backgroundSize: "16px",
+                   cursor: "pointer",
+                 }}
+               >
                 {projects.map((project) => (
                   <option key={project.id} value={project.id}>
                     {project.name}

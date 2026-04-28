@@ -445,44 +445,7 @@ export default function UploadPage() {
                 gap: tokens.spacing.md,
               }}
             >
-              <div
-                style={{
-                  padding: tokens.spacing.xl,
-                  textAlign: "center",
-                  borderRadius: tokens.radius.lg,
-                  border: `1px solid ${tokens.colors.outlineVariant}`,
-                  backgroundColor: tokens.colors.surface,
-                }}
-              >
-                <p
-                  style={{
-                    ...tokens.typography.bodyLarge,
-                    color: tokens.colors.onSurfaceVariant,
-                    marginBottom: tokens.spacing.md,
-                  }}
-                >
-                  You need to create a project first before uploading images.
-                </p>
-                <button
-                  onClick={() => (window.location.href = "/dashboard/projects")}
-                  style={{
-                    paddingInline: tokens.spacing.lg,
-                    paddingBlock: tokens.spacing.sm,
-                    borderRadius: tokens.radius.md,
-                    border: "none",
-                    backgroundColor: tokens.colors.primary,
-                    color: tokens.colors.onPrimary,
-                    cursor: "pointer",
-                    fontFamily: tokens.typography.labelLarge.fontFamily,
-                    fontSize: tokens.typography.labelLarge.fontSize,
-                    fontWeight: tokens.typography.labelLarge.fontWeight,
-                    lineHeight: tokens.typography.labelLarge.lineHeight,
-                    letterSpacing: tokens.typography.labelLarge.letterSpacing,
-                  }}
-                >
-                  Create Project
-                </button>
-              </div>
+              <UploadZone onUpload={handleUpload} isUploading={isUploading} />
             </div>
           ) : (
             <div
@@ -513,55 +476,32 @@ export default function UploadPage() {
                   Project:
                 </span>
 
-                <label
-                  style={{
-                    position: "relative",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    minWidth: "min(100%, 20rem)",
-                  }}
-                >
-                  <select
-                    value={selectedProjectId}
-                    onChange={(e) => setSelectedProjectId(e.target.value)}
-                    style={{
-                      width: "100%",
-                      appearance: "none",
-                      paddingInline: tokens.spacing.md,
-                      paddingBlock: tokens.spacing.sm,
-                      paddingRight: tokens.spacing.xl,
-                      borderRadius: tokens.radius.md,
-                      border: `1px solid ${tokens.colors.outline}`,
-                      backgroundColor: tokens.colors.surface,
-                      color: tokens.colors.onSurface,
-                      cursor: "pointer",
-                      outline: "none",
-                      fontFamily: tokens.typography.bodyLarge.fontFamily,
-                      fontSize: tokens.typography.bodyLarge.fontSize,
-                      fontWeight: tokens.typography.bodyLarge.fontWeight,
-                      lineHeight: tokens.typography.bodyLarge.lineHeight,
-                      letterSpacing: tokens.typography.bodyLarge.letterSpacing,
-                    }}
-                  >
-                    {projects.map((project) => (
-                      <option key={project.id} value={project.id}>
-                        {project.name}
-                      </option>
-                    ))}
-                  </select>
-
-                  <span className="material-icons"
-                    style={{
-                      position: "absolute",
-                      right: tokens.spacing.sm,
-                      pointerEvents: "none",
-                      color: tokens.colors.onSurfaceVariant,
-                      fontSize: tokens.typography.labelLarge.lineHeight,
-                    }}
-                  >
-                    keyboard_arrow_down
-                  </span>
-                </label>
+                 <select
+                   value={selectedProjectId}
+                   onChange={(e) => setSelectedProjectId(e.target.value)}
+                   style={{
+                     padding: `${tokens.spacing.sm} ${tokens.spacing.xl} ${tokens.spacing.sm} ${tokens.spacing.sm}`,
+                     border: `1px solid ${tokens.colors.outlineVariant}`,
+                     borderRadius: tokens.radius.md,
+                     backgroundColor: tokens.colors.surface,
+                     color: tokens.colors.onSurface,
+                     ...tokens.typography.bodyLarge,
+                     minWidth: "200px",
+                     boxSizing: "border-box",
+                     appearance: "none",
+                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                     backgroundRepeat: "no-repeat",
+                     backgroundPosition: `right ${tokens.spacing.sm} center`,
+                     backgroundSize: "16px",
+                     cursor: "pointer",
+                   }}
+                 >
+                   {projects.map((project) => (
+                     <option key={project.id} value={project.id}>
+                       {project.name}
+                     </option>
+                   ))}
+                 </select>
               </div>
 
 
