@@ -86,8 +86,18 @@ export async function signup(
     }
 
     return { success: true };
-  } catch (error) {
-    console.error("Signup error:", error);
+  } catch (error: unknown) {
+    const err = error as Record<string, unknown> & { code?: string; message?: string };
+    console.error("[Auth] Signup error:", err);
+
+    if (err.code === "P2002") {
+      return { success: false, error: "Email already registered" };
+    }
+
+    if (err.message?.includes("prisma") || err.message?.includes("database")) {
+      return { success: false, error: "Registration failed due to a database error" };
+    }
+
     return { success: false, error: "Registration failed" };
   }
 }
