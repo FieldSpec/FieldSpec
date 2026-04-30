@@ -21,21 +21,27 @@ export async function getValidatedUserId(request: NextRequest): Promise<string |
 
   if (!userId) return null;
 
-  const userExists = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { id: true, tokenVersion: true },
-  });
+  try {
+    const userExists = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, tokenVersion: true },
+    });
 
-  if (!userExists) {
-    console.log("[getValidatedUserId] Stale userId in token:", userId);
+    if (!userExists) {
+      console.log("[getValidatedUserId] Stale userId in token:", userId);
+      return null;
+    }
+
+    const payload = getUserFromRequest(request);
+    if (payload?.tokenVersion !== undefined && userExists.tokenVersion !== payload.tokenVersion) {
+      console.log("[getValidatedUserId] Token version mismatch for user:", userId);
+      return null;
+    }
+
+    return userId;
+  } catch (error) {
+    console.error("[getValidatedUserId] Prisma error:", error);
+    // Return null instead of crashing the request
     return null;
   }
-
-  const payload = getUserFromRequest(request);
-  if (payload?.tokenVersion !== undefined && userExists.tokenVersion !== payload.tokenVersion) {
-    console.log("[getValidatedUserId] Token version mismatch for user:", userId);
-    return null;
-  }
-
-  return userId;
 }

@@ -105,7 +105,10 @@ export default function DashboardPage() {
             }}
           />
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: tokens.spacing.md, marginBottom: tokens.spacing.lg }}>
+        <div 
+          className="grid grid-cols-2 md:grid-cols-4" 
+          style={{ gap: tokens.spacing.md, marginBottom: tokens.spacing.lg }}
+        >
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
