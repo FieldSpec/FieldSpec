@@ -58,14 +58,6 @@ async function processProjectInline(projectId: string, onProgress: (progress: nu
     });
 
     if (existingAI) {
-      if (existingAI.relevance === "irrelevant_image") {
-        console.log(`[AI] Skipping cached irrelevant image: ${image.id}`);
-        processedCount++;
-        const progress = 10 + Math.floor((processedCount / totalImages) * 70);
-        onProgress(progress, `Skipped irrelevant image ${processedCount}/${totalImages}`);
-        continue;
-      }
-
       groupedByCategory.get(category)!.push({
         imageId: image.id,
         imageUrl: image.url,
@@ -88,16 +80,8 @@ async function processProjectInline(projectId: string, onProgress: (progress: nu
       category,
       userNote: image.notes || null,
       context: `Project: ${project.name}`,
+      imageUrl: image.url,
     });
-
-    // Skip irrelevant images in the report
-    if (aiResult.relevance === "irrelevant_image") {
-      console.log(`[AI] Skipping irrelevant image: ${image.id}`);
-      processedCount++;
-      const progress = 10 + Math.floor((processedCount / totalImages) * 70);
-      onProgress(progress, `Skipped irrelevant image ${processedCount}/${totalImages}`);
-      continue;
-    }
 
     const confidenceScore = calculateConfidenceScore(category, !!image.notes, !!project.name);
 
@@ -105,6 +89,7 @@ async function processProjectInline(projectId: string, onProgress: (progress: nu
       where: { imageId: image.id },
       create: {
         imageId: image.id,
+        relevance: aiResult.relevance,
         caption: aiResult.caption,
         finding: aiResult.finding,
         recommendation: aiResult.recommendation,
@@ -112,6 +97,7 @@ async function processProjectInline(projectId: string, onProgress: (progress: nu
         isEdited: false,
       },
       update: {
+        relevance: aiResult.relevance,
         caption: aiResult.caption,
         finding: aiResult.finding,
         recommendation: aiResult.recommendation,
@@ -222,7 +208,7 @@ export async function POST(request: NextRequest) {
 
     const project = await prisma.project.findFirst({
       where: { id: projectId, userId },
-      include: { images: { select: { id: true, category: true, notes: true } } },
+      include: { images: { select: { id: true, url: true, category: true, notes: true } } },
     });
 
     if (!project) {
