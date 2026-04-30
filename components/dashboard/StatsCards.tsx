@@ -51,7 +51,10 @@ export function StatsCards({ stats }: StatsCardsProps) {
         </span>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: tokens.spacing.md }}>
+      <div 
+        className="grid grid-cols-2 md:grid-cols-4" 
+        style={{ gap: tokens.spacing.md }}
+      >
         {statItems.map((item, index) => (
           <div
             key={item.label}

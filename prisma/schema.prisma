@@ -7,20 +7,25 @@ datasource db {
 }
 
 model User {
-  id           String      @id @default(uuid())
-  email        String      @unique
-  passwordHash String?
-  authProvider String      @default("email")
-  name         String
-  companyName  String?
-  isVerified   Boolean     @default(false)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  avatarUrl    String?
-  tokenVersion Int         @default(0)
-  authTokens   AuthToken[]
-  clients      Client[]
-  projects     Project[]
+  id                      String      @id @default(uuid())
+  email                   String      @unique
+  passwordHash            String?
+  authProvider            String      @default("email")
+  name                    String
+  companyName             String?
+  isVerified              Boolean     @default(false)
+  reportAuthor            String?
+  reportCompany           String?
+  reportSubtitle          String?
+  includeConfidenceScores Boolean     @default(true)
+  includeImagesInExport   Boolean     @default(true)
+  createdAt               DateTime    @default(now())
+  updatedAt               DateTime    @updatedAt
+  avatarUrl               String?
+  tokenVersion            Int         @default(0)
+  authTokens              AuthToken[]
+  clients                 Client[]
+  projects                Project[]
 }
 
 model AuthToken {
@@ -91,18 +96,18 @@ model AIJob {
 }
 
 model AIOutput {
-  id              String    @id @default(uuid())
-  imageId         String    @unique
-  relevance      String    @default("relevant_inspection_image")
-  isExcluded     Boolean   @default(false)
-  caption        String
-  finding        String
-  recommendation String
+  id              String   @id @default(uuid())
+  imageId         String   @unique
+  relevance       String   @default("relevant_inspection_image")
+  isExcluded      Boolean  @default(false)
+  caption         String
+  finding         String
+  recommendation  String
   confidenceScore Float?
-  isEdited       Boolean   @default(false)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  image          Image     @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  isEdited        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  image           Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
 }
 
 model Report {

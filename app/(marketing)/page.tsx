@@ -129,7 +129,15 @@ export default function MarketingPage() {
         }}
       >
         {/* Section Heading (Outside Box) */}
-        <div style={{ textAlign: "center", marginBottom: tokens.spacing.xl, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: tokens.spacing.xl,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <h1
             style={{
               ...tokens.typography.displaySmall,
@@ -150,8 +158,10 @@ export default function MarketingPage() {
               color: tokens.colors.onSurfaceVariant,
             }}
           >
-            Upload your inspection images.<br />
-            FieldSpec analyzes them, maps findings, and generates clear, ready-to-share reports.
+            Upload your inspection images.
+            <br />
+            FieldSpec analyzes them, maps findings, and generates clear,
+            ready-to-share reports.
           </p>
 
           {/* Buttons Moved Here */}
@@ -181,25 +191,6 @@ export default function MarketingPage() {
               }}
             >
               Get Started
-            </Link>
-            <Link
-              href="/sample-report"
-              className="hero-btn-secondary"
-              style={{
-                padding: `${tokens.spacing.md} ${tokens.spacing.lg}`,
-                backgroundColor: "transparent",
-                color: tokens.colors.onSurface,
-                borderRadius: tokens.radius.lg,
-                border: `1.5px solid ${tokens.colors.onSurface}`,
-                ...tokens.typography.labelLarge,
-                fontWeight: 500,
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                transition: "all 0.2s",
-              }}
-            >
-              View Sample Report
             </Link>
           </div>
         </div>
@@ -1365,7 +1356,9 @@ export default function MarketingPage() {
                 </div>
                 <Link
                   href={plan.link}
-                  className={plan.primary ? "pricing-primary-btn" : "pricing-outline-btn"}
+                  className={
+                    plan.primary ? "pricing-primary-btn" : "pricing-outline-btn"
+                  }
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -1483,9 +1476,8 @@ export default function MarketingPage() {
               fontWeight: 600,
               color: tokens.colors.onSurface,
               letterSpacing: "-0.02em",
-              lineHeight: 0.9,
               textAlign: "center",
-              marginBottom: "24px",
+              marginBottom: tokens.spacing.lg,
             }}
           >
             Start generating inspection reports in minutes
