@@ -28,7 +28,7 @@ export function ReportExporter({
       <div
         style={{
           marginBottom: tokens.spacing.lg,
-          padding: tokens.spacing.lg,
+          padding: tokens.spacing.md,
           backgroundColor: tokens.colors.surface,
           borderRadius: tokens.radius.lg,
           border: `1px solid ${tokens.colors.outlineVariant}`,

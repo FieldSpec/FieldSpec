@@ -47,11 +47,12 @@ export default function ReportPage() {
                borderRadius: tokens.radius.md,
                cursor: (state.generating || state.reportLoading || !state.selectedProjectId || !state.projectStats || state.projectStats.total === 0) ? "not-allowed" : "pointer",
                opacity: (state.generating || state.reportLoading || !state.selectedProjectId || !state.projectStats || state.projectStats.total === 0) ? 0.6 : 1,
+               whiteSpace: "nowrap",
                ...tokens.typography.labelMedium,
                transition: "all 0.2s ease",
              }}
            >
-              <span className="material-icons" style={{ fontSize: "18px" }}>description</span>
+              <span className="material-icons" style={{ fontSize: "20px", width: "20px", height: "20px" }}>description</span>
               {state.generating ? "Generating..." : state.reportLoading ? "Loading..." : state.editedReport ? "Regenerate Report" : "Generate Report"}
            </button>
          </div>
@@ -222,7 +223,7 @@ export default function ReportPage() {
                 flexDirection: "column",
                 alignItems: "center",
                 gap: tokens.spacing.lg,
-                padding: tokens.spacing.xl,
+                padding: tokens.spacing.md,
                 backgroundColor: tokens.colors.surface,
                 borderRadius: tokens.radius.lg,
                 border: `1px solid ${tokens.colors.outlineVariant}`,

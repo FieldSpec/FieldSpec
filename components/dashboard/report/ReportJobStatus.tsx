@@ -40,7 +40,7 @@ export function ReportJobStatus({
     return (
       <div
         style={{
-          padding: tokens.spacing.xl,
+          padding: tokens.spacing.md,
           backgroundColor: tokens.colors.surface,
           borderRadius: tokens.radius.lg,
           marginBottom: tokens.spacing.lg,
