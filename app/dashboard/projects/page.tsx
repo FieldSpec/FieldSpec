@@ -226,10 +226,11 @@ export default function ProjectsPage() {
               border: "none",
               borderRadius: tokens.radius.md,
               cursor: "pointer",
+              whiteSpace: "nowrap",
               ...tokens.typography.labelMedium,
             }}
           >
-            <span className="material-icons" style={{ fontSize: "18px" }}>add</span>
+            <span className="material-icons" style={{ fontSize: "20px", width: "20px", height: "20px" }}>add</span>
              Create Project
           </button>
         </div>

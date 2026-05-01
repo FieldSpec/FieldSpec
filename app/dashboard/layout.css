@@ -18,7 +18,12 @@
 .dash-hamburger {
   display: flex !important;
 }
-.dash-header-padding, .dash-main-padding {
+.dash-header-padding {
+  padding-left: var(--sys-spacing-spacing-md);
+  padding-right: var(--sys-spacing-spacing-md);
+}
+
+.dash-main-padding {
   padding-left: 0;
   padding-right: 0;
 }
@@ -83,11 +88,34 @@
     display: none !important;
   }
   .dash-header-padding {
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-left: var(--sys-spacing-spacing-md);
+    padding-right: var(--sys-spacing-spacing-md);
   }
   .dash-main-padding {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  /* Stats cards: 4-column single row on desktop */
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+
+  /* Insight card splits: side by side on desktop */
+  .insight-splits {
+    flex-direction: row !important;
+  }
+
+  .insight-right-split {
+    min-height: 300px !important;
+  }
+
+  /* Map layout: side by side on desktop */
+  .map-layout {
+    flex-direction: row !important;
+  }
+
+  .map-image-panel {
+    width: 320px !important;
   }
 }

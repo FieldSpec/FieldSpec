@@ -562,9 +562,11 @@ export default function MapPageClient() {
         </div>
       ) : (
         <div
+          className="map-layout"
           style={{
             flex: 1,
             display: "flex",
+            flexDirection: "column",
             gap: tokens.spacing.lg,
             minHeight: 0,
           }}
@@ -746,8 +748,9 @@ export default function MapPageClient() {
 
           {selectedImage && (
             <div
+              className="map-image-panel"
               style={{
-                width: "320px",
+                width: "100%",
                 backgroundColor: tokens.colors.surface,
                 borderRadius: tokens.radius.lg,
                 boxShadow: tokens.elevation.level2,
