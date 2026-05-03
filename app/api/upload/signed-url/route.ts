@@ -22,8 +22,8 @@ export async function POST(request: NextRequest) {
     }
 
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-    const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || "fieldspec";
-    const folder = `fieldspec/${userId}`;
+    const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || "fieldscope";
+    const folder = `fieldscope/${userId}`;
 
     return NextResponse.json({
       data: {

@@ -7,7 +7,7 @@ import Navbar from "@/components/marketing/Navbar";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
-  title: "FieldSpec — AI Report Builder for Drone Inspections",
+  title: "FieldScope — AI Report Builder for Drone Inspections",
   description:
     "Upload drone images, get AI-generated analysis, and export professional PDF reports. Built for agriculture, survey, and infrastructure teams.",
   keywords: [
@@ -65,7 +65,7 @@ const pricingPlans = [
   {
     title: "Starter",
     price: "Free",
-    description: "For individuals testing FieldSpec.",
+    description: "For individuals testing FieldScope.",
     features: [
       "Limited projects",
       "Upload and organize images",
@@ -160,7 +160,7 @@ export default function MarketingPage() {
           >
             Upload your inspection images.
             <br />
-            FieldSpec analyzes them, maps findings, and generates clear,
+            FieldScope analyzes them, maps findings, and generates clear,
             ready-to-share reports.
           </p>
 
@@ -513,7 +513,7 @@ export default function MarketingPage() {
                   letterSpacing: "0.5px",
                 }}
               >
-                FieldSpec Transformation Engine
+                FieldScope Transformation Engine
               </div>
             </div>
 
@@ -1702,7 +1702,7 @@ export default function MarketingPage() {
               opacity: 0.8,
             }}
           >
-            &copy; {new Date().getFullYear()} FieldSpec. All rights reserved.
+            &copy; {new Date().getFullYear()} FieldScope. All rights reserved.
           </p>
           <div style={{ display: "flex", gap: tokens.spacing.md }}>
             <a
@@ -1723,7 +1723,7 @@ export default function MarketingPage() {
               </svg>
             </a>
             <a
-              href="https://linkedin.com/company/fieldspec"
+              href="https://linkedin.com/company/fieldscope"
               target="_blank"
               rel="noopener noreferrer"
               className="social-footer-icon"
@@ -1740,6 +1740,7 @@ export default function MarketingPage() {
               </svg>
             </a>
             <a
+              href="https://github.com/fieldscope"
               href="https://t.me/+4sJCEJXm3OViMDM0"
               target="_blank"
               rel="noopener noreferrer"

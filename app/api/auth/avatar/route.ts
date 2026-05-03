@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const folder = `fieldspec/${userId}/profile`;
+    const folder = `fieldscope/${userId}/profile`;
     const publicId = `avatar-${Date.now()}`;
 
     const uploadedAsset = await uploadBufferToCloudinary(processedBuffer, {

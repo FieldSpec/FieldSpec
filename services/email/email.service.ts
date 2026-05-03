@@ -4,7 +4,7 @@ const SMTP_HOST = process.env.SMTP_HOST || "localhost";
 const SMTP_PORT = parseInt(process.env.SMTP_PORT || "1025", 10);
 const SMTP_USER = process.env.SMTP_USER || "";
 const SMTP_PASS = process.env.SMTP_PASS || "";
-const EMAIL_FROM = process.env.EMAIL_FROM || "noreply@fieldspec.app";
+const EMAIL_FROM = process.env.EMAIL_FROM || "noreply@fieldscope.app";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
 console.log("[Email] SMTP Config:", {
@@ -66,7 +66,7 @@ export async function sendVerificationEmail(
 
   return sendEmail({
     to: email,
-    subject: "Verify your FieldSpec email",
+    subject: "Verify your FieldScope email",
     html,
   });
 }
@@ -87,7 +87,7 @@ export async function sendPasswordResetEmail(
 
   return sendEmail({
     to: email,
-    subject: "Reset your FieldSpec password",
+    subject: "Reset your FieldScope password",
     html,
   });
 }

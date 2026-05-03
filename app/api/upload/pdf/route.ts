@@ -22,13 +22,13 @@ export async function POST(request: NextRequest) {
     }
 
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-    const uploadPreset = "fieldspec_reports";
+    const uploadPreset = "fieldscope_reports";
 
     return NextResponse.json({
       data: {
         cloudName,
         uploadPreset,
-        folder: `fieldspec/${userId}/reports`,
+        folder: `fieldscope/${userId}/reports`,
       },
     }, { status: 200 });
   } catch (error) {

@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
     const inputBuffer = Buffer.from(await file.arrayBuffer());
     const baseName = sanitizeBaseName(file.name);
     const assetIdBase = `${Date.now()}-${baseName}`;
-    const folder = `fieldspec/${userId}/projects/${projectId}`;
+    const folder = `fieldscope/${userId}/projects/${projectId}`;
     const isHeic = fileName.endsWith(".heic") || fileName.endsWith(".heif");
 
     // Extract GPS coordinates BEFORE Sharp processing (strips EXIF)

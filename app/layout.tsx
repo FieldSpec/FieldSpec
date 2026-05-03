@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://fieldspec.app";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://fieldscope.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "FieldSpec | AI Drone Survey Report Builder",
-    template: "%s | FieldSpec",
+    default: "FieldScope | AI Drone Survey Report Builder",
+    template: "%s | FieldScope",
   },
   description:
     "Upload drone images, analyze with AI, and generate professional inspection reports. Streamline aerial surveys for agriculture, construction, and infrastructure.",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     "professional reports",
     "automated analysis",
   ],
-  authors: [{ name: "FieldSpec" }],
-  creator: "FieldSpec",
-  publisher: "FieldSpec",
+  authors: [{ name: "FieldScope" }],
+  creator: "FieldScope",
+  publisher: "FieldScope",
   robots: {
     index: true,
     follow: true,
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: BASE_URL,
-    siteName: "FieldSpec",
-    title: "FieldSpec | AI Drone Survey Report Builder",
+    siteName: "FieldScope",
+    title: "FieldScope | AI Drone Survey Report Builder",
     description:
       "Upload drone images, analyze with AI, and generate professional inspection reports. Streamline aerial surveys for agriculture, construction, and infrastructure.",
     images: [
@@ -50,17 +50,17 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FieldSpec - AI-Powered Drone Survey Reports",
+        alt: "FieldScope - AI-Powered Drone Survey Reports",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FieldSpec | AI Drone Survey Report Builder",
+    title: "FieldScope | AI Drone Survey Report Builder",
     description:
       "Upload drone images, analyze with AI, and generate professional inspection reports.",
     images: ["/og-image.png"],
-    creator: "@fieldspec",
+    creator: "@fieldscope",
   },
   icons: {
     icon: "/favicon.ico",
