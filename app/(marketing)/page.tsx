@@ -1740,7 +1740,6 @@ export default function MarketingPage() {
               </svg>
             </a>
             <a
-              href="https://github.com/fieldscope"
               href="https://t.me/+4sJCEJXm3OViMDM0"
               target="_blank"
               rel="noopener noreferrer"
