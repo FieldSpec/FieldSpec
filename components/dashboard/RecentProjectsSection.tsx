@@ -126,11 +126,11 @@ export function RecentProjectsSection({ projects }: RecentProjectsSectionProps) 
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        flexWrap: "wrap",
+        gap: tokens.spacing.sm,
       }}
     >
       <div
-        className="flex items-center gap-xs rounded-md border flex-1 min-w-[300px] max-w-sm"
+        className="flex items-center gap-xs rounded-md border flex-1 min-w-[200px] sm:min-w-[300px] max-w-md"
         onMouseEnter={() => setSearchHovered(true)}
         onMouseLeave={() => setSearchHovered(false)}
         style={{

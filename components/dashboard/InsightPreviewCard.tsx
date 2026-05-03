@@ -42,9 +42,20 @@ export function InsightPreviewCard({ insight }: InsightPreviewCardProps) {
           overflow: "hidden",
         }}
       >
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: tokens.spacing.lg, padding: tokens.spacing.lg, alignItems: "start" }}>
+        <div 
+          className="insight-splits"
+          style={{ 
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "stretch",
+            gap: tokens.spacing.md, 
+            padding: tokens.spacing.md,
+          }}
+        >
           {/* Left split - Findings + Confidence + Button */}
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "calc(var(--spacing-xxl) * 4 + var(--spacing-xs))" }}>
+          <div 
+            className="flex flex-col justify-between flex-1 min-h-[180px] md:min-h-[240px]"
+          >
             {/* Finding box */}
             <div
               style={{ 
@@ -63,22 +74,22 @@ export function InsightPreviewCard({ insight }: InsightPreviewCardProps) {
               >
                 Finding
               </p>
-<p
-              style={{ 
-                color: tokens.colors.onSurface, 
-                fontSize: tokens.typography.bodyMedium.fontSize,
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-
-              }}
-            >
+              <p
+                style={{ 
+                  color: tokens.colors.onSurface, 
+                  fontSize: tokens.typography.bodyMedium.fontSize,
+                  display: "-webkit-box",
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
                 {insight.finding}
               </p>
             </div>
 
             {/* Confidence + View Report - merged container */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: tokens.spacing.md }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: tokens.spacing.md, marginTop: tokens.spacing.sm }}>
               <div style={{ display: "flex", alignItems: "center", gap: tokens.spacing.sm }}>
                 <span
                   style={{ 
@@ -137,7 +148,10 @@ export function InsightPreviewCard({ insight }: InsightPreviewCardProps) {
           </div>
 
           {/* Right split - Image + Description */}
-          <div style={{ position: "relative", padding: tokens.spacing.lg, minHeight: "calc(var(--spacing-xxl) * 4 + var(--spacing-xs))",borderRadius: tokens.spacing.md }}>
+          <div 
+            className="insight-right-split"
+            style={{ position: "relative", flex: 1, minHeight: "200px", borderRadius: tokens.radius.md, overflow: "hidden" }}
+          >
             {/* Image - fill the split container */}
             <div
               style={{
@@ -151,7 +165,7 @@ export function InsightPreviewCard({ insight }: InsightPreviewCardProps) {
               <img
                 src={insight.imageUrl}
                 alt="Insight preview"
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block",borderRadius: tokens.spacing.md}}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
             </div>
 
