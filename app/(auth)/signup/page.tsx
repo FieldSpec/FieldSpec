@@ -155,7 +155,7 @@ export default function SignupPage() {
         Create Account
       </h1>
       <p className="text-center mb-lg text-on-surface-variant text-body-medium">
-        Get started with FieldSpec
+        Get started with FieldScope
       </p>
 
       <form onSubmit={handleSubmit} className="w-full">

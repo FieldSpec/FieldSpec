@@ -9,7 +9,7 @@ const globalForPrisma = globalThis as unknown as {
 function createPrismaClient(): PrismaClient {
   const connectionString = process.env.DATABASE_URL;
   if (!connectionString) {
-    throw new Error("[FieldSpec] DATABASE_URL environment variable is required. Set it in your .env file.");
+    throw new Error("[FieldScope] DATABASE_URL environment variable is required. Set it in your .env file.");
   }
   
   // Create a connection pool using the pg library

@@ -24,8 +24,8 @@ type GeoJSONFeatureCollection = {
   features: GeoJSONFeature[];
 };
 
-const MAP_SOURCE_ID = "fieldspec-images";
-const MAP_LAYER_ID = "fieldspec-image-points";
+const MAP_SOURCE_ID = "fieldscope-images";
+const MAP_LAYER_ID = "fieldscope-image-points";
 
 const CATEGORY_CONFIG = {
   crop_health: { label: "Crop Health", color: "#369596" },

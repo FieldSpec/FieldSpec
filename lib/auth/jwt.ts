@@ -3,7 +3,7 @@ import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
 const getSecret = (): string => {
   const secret = process.env.JWT_SECRET;
   if (!secret || secret.length < 32) {
-    throw new Error("[FieldSpec] JWT_SECRET must be set and at least 32 characters. Set it in your .env file.");
+    throw new Error("[FieldScope] JWT_SECRET must be set and at least 32 characters. Set it in your .env file.");
   }
   return secret;
 };

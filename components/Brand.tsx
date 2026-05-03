@@ -40,7 +40,7 @@ export default function Brand({
   return (
     <Image
       src={logoSrc}
-      alt="FieldSpec Logo"
+      alt="FieldScope Logo"
       width={currentSize}
       height={Math.round(currentSize * (149 / 734))}
       className={className ? `object-contain ${className}` : "object-contain"}

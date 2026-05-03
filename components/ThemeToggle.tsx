@@ -11,7 +11,7 @@ export default function ThemeToggle({ size = "default" }: ThemeToggleProps) {
 
   useEffect(() => {
     // Persist preference in localStorage
-    const saved = localStorage.getItem("fieldspec-theme");
+    const saved = localStorage.getItem("fieldscope-theme");
     const prefersLight = saved ? saved === "light" : true;
     setIsLight(prefersLight);
     if (prefersLight) {
@@ -26,10 +26,10 @@ export default function ThemeToggle({ size = "default" }: ThemeToggleProps) {
     setIsLight(next);
     if (next) {
       document.documentElement.classList.add("light");
-      localStorage.setItem("fieldspec-theme", "light");
+      localStorage.setItem("fieldscope-theme", "light");
     } else {
       document.documentElement.classList.remove("light");
-      localStorage.setItem("fieldspec-theme", "dark");
+      localStorage.setItem("fieldscope-theme", "dark");
     }
   };
 
