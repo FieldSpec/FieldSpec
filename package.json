@@ -1,7 +1,7 @@
 {
-  "name": "fieldspec",
+  "name": "fieldscope",
   "version": "1.0.0",
-  "description": "FieldSpec - Field Inspection & Analysis Platform",
+  "description": "FieldScope - Field Inspection & Analysis Platform",
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
@@ -15,10 +15,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mcoatt-collab/FieldSpec.git"
+    "url": "git+https://github.com/mcoatt-collab/FieldScope.git"
   },
   "keywords": [
-    "fieldspec",
+    "fieldscope",
     "field-inspection",
     "ai",
     "image-analysis",
@@ -26,9 +26,9 @@
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mcoatt-collab/FieldSpec/issues"
+    "url": "https://github.com/mcoatt-collab/FieldScope/issues"
   },
-  "homepage": "https://github.com/mcoatt-collab/FieldSpec#readme",
+  "homepage": "https://github.com/mcoatt-collab/FieldScope#readme",
   "dependencies": {
     "@prisma/adapter-pg": "^7.7.0",
     "@prisma/client": "^7.7.0",

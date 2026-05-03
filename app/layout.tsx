@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    apple: "/logo.svg",
+    apple: "/logo-icon.svg",
   },
   alternates: {
     canonical: BASE_URL,
