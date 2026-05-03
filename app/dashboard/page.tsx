@@ -189,7 +189,10 @@ export default function DashboardPage() {
             />
           </section>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(1, minmax(0, 1fr))", gap: tokens.spacing.lg }}>
+          <div 
+            className="grid grid-cols-1 md:grid-cols-2" 
+            style={{ gap: tokens.spacing.lg }}
+          >
             {insight && (
               <section>
                 <InsightPreviewCard insight={insight} />
